@@ -8,7 +8,7 @@ This document outlines the tasks needed to build the Zest chat application, orga
 
 **Description:** Set up the foundational project structure following our architecture guidelines.
 
-### Deliverables:
+#### Deliverables:
 
 - Create recommended directory structure for Next.js app
 - Configure ESLint rules for TypeScript and React
@@ -21,7 +21,7 @@ This document outlines the tasks needed to build the Zest chat application, orga
 
 **Description:** Set up PostgreSQL database and Prisma ORM.
 
-### Deliverables:
+#### Deliverables:
 
 - Create a PostgreSQL database instance (locally or on Railway/Supabase)
 - Install and configure Prisma
@@ -34,7 +34,7 @@ This document outlines the tasks needed to build the Zest chat application, orga
 
 **Description:** Create a basic Socket.io server for real-time communication.
 
-### Deliverables:
+#### Deliverables:
 
 - Create a new repository for the WebSocket server
 - Set up basic Socket.io with Express
@@ -47,7 +47,7 @@ This document outlines the tasks needed to build the Zest chat application, orga
 
 **Description:** Implement user authentication using Auth.js.
 
-### Deliverables:
+#### Deliverables:
 
 - Install and configure Auth.js
 - Implement email/password authentication
@@ -62,7 +62,7 @@ This document outlines the tasks needed to build the Zest chat application, orga
 
 **Description:** Implement the full database schema using Prisma.
 
-### Deliverables:
+#### Deliverables:
 
 - Create complete Prisma schema for all models
 - Define relationships between models
@@ -75,7 +75,7 @@ This document outlines the tasks needed to build the Zest chat application, orga
 
 **Description:** Create API routes for user account management.
 
-### Deliverables:
+#### Deliverables:
 
 - Implement user profile retrieval
 - Add routes for account settings
@@ -87,7 +87,7 @@ This document outlines the tasks needed to build the Zest chat application, orga
 
 **Description:** Create API routes for chatroom CRUD operations.
 
-### Deliverables:
+#### Deliverables:
 
 - Create route for chatroom creation
 - Implement listing user's chatrooms
@@ -100,7 +100,7 @@ This document outlines the tasks needed to build the Zest chat application, orga
 
 **Description:** Implement secure password handling for chatroom access.
 
-### Deliverables:
+#### Deliverables:
 
 - Set up bcrypt for password hashing
 - Create endpoint for validating chatroom passwords
@@ -112,7 +112,7 @@ This document outlines the tasks needed to build the Zest chat application, orga
 
 **Description:** Implement API routes for message persistence.
 
-### Deliverables:
+#### Deliverables:
 
 - Create endpoint for storing messages
 - Implement message retrieval by chatroom
@@ -126,7 +126,7 @@ This document outlines the tasks needed to build the Zest chat application, orga
 
 **Description:** Enhance the WebSocket server with chat functionality.
 
-### Deliverables:
+#### Deliverables:
 
 - Implement join/leave chatroom logic
 - Set up message broadcasting
@@ -138,7 +138,7 @@ This document outlines the tasks needed to build the Zest chat application, orga
 
 **Description:** Implement user presence tracking in chatrooms.
 
-### Deliverables:
+#### Deliverables:
 
 - Track active users per chatroom
 - Broadcast join/leave events
@@ -150,7 +150,7 @@ This document outlines the tasks needed to build the Zest chat application, orga
 
 **Description:** Add security and validation to the WebSocket server.
 
-### Deliverables:
+#### Deliverables:
 
 - Implement authentication token validation
 - Add rate limiting for message sending
@@ -164,7 +164,7 @@ This document outlines the tasks needed to build the Zest chat application, orga
 
 **Description:** Set up Shadcn UI components for the application.
 
-### Deliverables:
+#### Deliverables:
 
 - Install and configure Shadcn UI
 - Set up theme configuration
@@ -176,7 +176,7 @@ This document outlines the tasks needed to build the Zest chat application, orga
 
 **Description:** Configure form validation libraries.
 
-### Deliverables:
+#### Deliverables:
 
 - Set up React Hook Form
 - Configure Zod for schema validation
@@ -188,7 +188,7 @@ This document outlines the tasks needed to build the Zest chat application, orga
 
 **Description:** Create the main layout and navigation components.
 
-### Deliverables:
+#### Deliverables:
 
 - Implement responsive layout with Tailwind
 - Create navigation bar/sidebar
@@ -201,7 +201,7 @@ This document outlines the tasks needed to build the Zest chat application, orga
 
 **Description:** Create authentication-related UI components.
 
-### Deliverables:
+#### Deliverables:
 
 - Build sign-in form
 - Create sign-up form
@@ -214,7 +214,7 @@ This document outlines the tasks needed to build the Zest chat application, orga
 
 **Description:** Build UI for creating and managing chatrooms.
 
-### Deliverables:
+#### Deliverables:
 
 - Create chatroom creation form
 - Build dashboard for listing chatrooms
@@ -227,7 +227,7 @@ This document outlines the tasks needed to build the Zest chat application, orga
 
 **Description:** Create the core chat interface components.
 
-### Deliverables:
+#### Deliverables:
 
 - Build message list component
 - Create message input form
@@ -242,7 +242,7 @@ This document outlines the tasks needed to build the Zest chat application, orga
 
 **Description:** Create React hooks for WebSocket functionality.
 
-### Deliverables:
+#### Deliverables:
 
 - Build useWebSocket hook for connection management
 - Create useChatroom hook for room-specific logic
@@ -254,7 +254,7 @@ This document outlines the tasks needed to build the Zest chat application, orga
 
 **Description:** Implement application state management.
 
-### Deliverables:
+#### Deliverables:
 
 - Set up Zustand for client-side state
 - Create stores for UI state
@@ -266,7 +266,7 @@ This document outlines the tasks needed to build the Zest chat application, orga
 
 **Description:** Connect chatroom UI with state management and API.
 
-### Deliverables:
+#### Deliverables:
 
 - Integrate chatroom creation with API
 - Connect chatroom listing with data fetching
@@ -278,7 +278,7 @@ This document outlines the tasks needed to build the Zest chat application, orga
 
 **Description:** Integrate chat UI with WebSocket and API.
 
-### Deliverables:
+#### Deliverables:
 
 - Connect message list to WebSocket events
 - Integrate message sending with WebSocket
@@ -292,7 +292,7 @@ This document outlines the tasks needed to build the Zest chat application, orga
 
 **Description:** Implement time-based access control for chatrooms.
 
-### Deliverables:
+#### Deliverables:
 
 - Add schedule validation to chatroom access
 - Implement automatic read-only mode after end time
@@ -304,7 +304,7 @@ This document outlines the tasks needed to build the Zest chat application, orga
 
 **Description:** Create the read-only transcript view for ended chatrooms.
 
-### Deliverables:
+#### Deliverables:
 
 - Build transcript UI component
 - Implement conditional rendering based on chatroom status
@@ -316,7 +316,7 @@ This document outlines the tasks needed to build the Zest chat application, orga
 
 **Description:** Implement automatic link detection in chat messages.
 
-### Deliverables:
+#### Deliverables:
 
 - Add link detection in message text
 - Create clickable link rendering
@@ -328,7 +328,7 @@ This document outlines the tasks needed to build the Zest chat application, orga
 
 **Description:** Implement the ability to copy individual messages.
 
-### Deliverables:
+#### Deliverables:
 
 - Add copy button to messages
 - Implement clipboard functionality
@@ -340,7 +340,7 @@ This document outlines the tasks needed to build the Zest chat application, orga
 
 **Description:** Enhance application accessibility.
 
-### Deliverables:
+#### Deliverables:
 
 - Audit and fix heading hierarchy
 - Ensure proper keyboard navigation
@@ -353,7 +353,7 @@ This document outlines the tasks needed to build the Zest chat application, orga
 
 **Description:** Implement comprehensive error handling.
 
-### Deliverables:
+#### Deliverables:
 
 - Create error boundaries for React components
 - Implement form error handling
@@ -366,7 +366,7 @@ This document outlines the tasks needed to build the Zest chat application, orga
 
 **Description:** Refine the light/dark mode implementation.
 
-### Deliverables:
+#### Deliverables:
 
 - Ensure consistent styling in both modes
 - Add system preference detection
@@ -381,7 +381,7 @@ This document outlines the tasks needed to build the Zest chat application, orga
 
 **Description:** Set up unit testing infrastructure.
 
-### Deliverables:
+#### Deliverables:
 
 - Configure Vitest
 - Set up Testing Library
@@ -394,7 +394,7 @@ This document outlines the tasks needed to build the Zest chat application, orga
 
 **Description:** Create tests for authentication functionality.
 
-### Deliverables:
+#### Deliverables:
 
 - Test user registration
 - Test login flows
@@ -407,7 +407,7 @@ This document outlines the tasks needed to build the Zest chat application, orga
 
 **Description:** Implement tests for API routes.
 
-### Deliverables:
+#### Deliverables:
 
 - Test chatroom API endpoints
 - Test user management routes
@@ -420,7 +420,7 @@ This document outlines the tasks needed to build the Zest chat application, orga
 
 **Description:** Create tests for WebSocket server functionality.
 
-### Deliverables:
+#### Deliverables:
 
 - Test connection handling
 - Test message broadcasting
@@ -433,7 +433,7 @@ This document outlines the tasks needed to build the Zest chat application, orga
 
 **Description:** Implement end-to-end tests for critical user flows.
 
-### Deliverables:
+#### Deliverables:
 
 - Configure Playwright
 - Test login → create → join → chat flow
@@ -446,7 +446,7 @@ This document outlines the tasks needed to build the Zest chat application, orga
 
 **Description:** Optimize application performance.
 
-### Deliverables:
+#### Deliverables:
 
 - Implement code splitting
 - Optimize image loading
@@ -459,7 +459,7 @@ This document outlines the tasks needed to build the Zest chat application, orga
 
 **Description:** Configure frontend deployment to Vercel.
 
-### Deliverables:
+#### Deliverables:
 
 - Set up Vercel project
 - Configure environment variables
@@ -472,7 +472,7 @@ This document outlines the tasks needed to build the Zest chat application, orga
 
 **Description:** Configure WebSocket server deployment to Render.
 
-### Deliverables:
+#### Deliverables:
 
 - Set up Render project
 - Configure environment variables
@@ -485,7 +485,7 @@ This document outlines the tasks needed to build the Zest chat application, orga
 
 **Description:** Configure production database deployment.
 
-### Deliverables:
+#### Deliverables:
 
 - Set up production database (Railway/Supabase)
 - Configure connection security
@@ -498,7 +498,7 @@ This document outlines the tasks needed to build the Zest chat application, orga
 
 **Description:** Create comprehensive project documentation.
 
-### Deliverables:
+#### Deliverables:
 
 - Update README with setup instructions
 - Document API endpoints
@@ -511,7 +511,7 @@ This document outlines the tasks needed to build the Zest chat application, orga
 
 **Description:** Perform final testing and official launch.
 
-### Deliverables:
+#### Deliverables:
 
 - Execute full test suite in production environment
 - Perform manual testing of critical flows
