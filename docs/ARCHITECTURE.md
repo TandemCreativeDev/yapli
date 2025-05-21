@@ -110,3 +110,4 @@ chatroom_id -> Set of aliases (for presence tracking)
 |                                  |
 +----------------------------------+
 ```
+

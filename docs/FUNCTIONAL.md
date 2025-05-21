@@ -88,3 +88,4 @@ A minimalist web-based chatroom app for educational workshops. Facilitators can 
 
 - Concurrent participants in a live chatroom
 - Message volume limits (if later added)
+
