@@ -8,11 +8,11 @@ Zest is a minimalist web-based chatroom application for educational workshops. F
 
 ## Documentation
 
-- [Functional Requirements](FUNCTIONAL.md) - Complete functional specifications and features
-- [Architecture](ARCHITECTURE.md) - Detailed project architecture and technical design
-- [Standards & Guidelines](CLAUDE.md) - Development standards and project guidelines
-- [Research for Libraries and Packages](RESEARCH.md) - Research for libraries that solve the problems we need to tackle
-- [Critical Analysis of Research](FLAWS.md) - What it says on the tin
+- [Functional Requirements](docs/FUNCTIONAL.md) - Complete functional specifications and features
+- [Architecture](docs/ARCHITECTURE.md) - Detailed project architecture and technical design
+- [Standards & Guidelines](docs/CLAUDE.md) - Development standards and project guidelines
+- [Research for Libraries and Packages](docs/RESEARCH.md) - Research for libraries that solve the problems we need to tackle
+- [Critical Analysis of Research](docs/FLAWS.md) - What it says on the tin
 
 ## Getting Started
 
