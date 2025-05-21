@@ -430,18 +430,18 @@ This document outlines the key functionality requirements for Zest and evaluates
 
 ## Summary of Recommendations
 
-| Functionality           | Recommended Package      | Alternative             |
-| ----------------------- | ------------------------ | ----------------------- |
-| Authentication          | Auth.js (NextAuth.js)    | Clerk                   |
-| Real-time Communication | Socket.io (self-hosted)  | Pusher                  |
-| Database ORM            | Prisma                   | Drizzle ORM             |
-| UI Components           | Shadcn UI                | Headless UI             |
-| Form Validation         | React Hook Form + Zod    | Formik + Yup            |
-| Time Management         | date-fns                 | Day.js                  |
-| Security                | bcrypt.js                | Argon2                  |
-| ID Generation           | nanoid                   | uuid                    |
-| Testing                 | Vitest + Testing Library | Jest + Playwright       |
-| State Management        | Zustand                  | Context + useReducer    |
+| Functionality           | Recommended Package      | Alternative          |
+| ----------------------- | ------------------------ | -------------------- |
+| Authentication          | Auth.js (NextAuth.js)    | Clerk                |
+| Real-time Communication | Socket.io (self-hosted)  | Pusher               |
+| Database ORM            | Prisma                   | Drizzle ORM          |
+| UI Components           | Shadcn UI                | Headless UI          |
+| Form Validation         | React Hook Form + Zod    | Formik + Yup         |
+| Time Management         | date-fns                 | Day.js               |
+| Security                | bcrypt.js                | Argon2               |
+| ID Generation           | nanoid                   | uuid                 |
+| Testing                 | Vitest + Testing Library | Jest + Playwright    |
+| State Management        | Zustand                  | Context + useReducer |
 
 ## 11. Hosting
 
@@ -474,4 +474,3 @@ This document outlines the key functionality requirements for Zest and evaluates
 - **PlanetScale**: MySQL-compatible serverless database
 
 **Recommendation:** Supabase or Railway PostgreSQL for free tier database hosting.
-
