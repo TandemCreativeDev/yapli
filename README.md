@@ -1,7 +1,7 @@
 # Zest
 
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/c766a03f-8bd3-4927-a453-378cb155a097" alt="Zest App Logo May 21 2025" width="200">
+  <img src="https://github.com/user-attachments/assets/c766a03f-8bd3-4927-a453-378cb155a097" alt="Zest App Logo May 21 2025" width="400">
 </p>
 
 Zest is a minimalist web-based chatroom application for educational workshops. Facilitators can create scheduled chatrooms where participants join using temporary aliases to share links and text in real time. At the end of the session, the chat becomes a read-only transcript of the day's collaboration.
