@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
+import { Server as SocketIOServer } from 'socket.io'
 
 export async function GET() {
   try {
@@ -51,6 +52,12 @@ export async function POST(request: NextRequest) {
         message: message.trim()
       }
     })
+
+    // Broadcast the message via Socket.io if available
+    const io: SocketIOServer = (global as any).io
+    if (io) {
+      io.to('global-chat').emit('new-message', newMessage)
+    }
 
     return NextResponse.json(newMessage, { status: 201 })
   } catch (error) {
