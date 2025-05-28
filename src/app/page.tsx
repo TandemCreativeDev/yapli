@@ -1,6 +1,7 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
+import { io, Socket } from 'socket.io-client'
 import AliasInput from '@/components/AliasInput'
 import MessageList from '@/components/MessageList'
 import MessageInput from '@/components/MessageInput'
@@ -16,6 +17,9 @@ export default function Home() {
   const [alias, setAlias] = useState<string | null>(null)
   const [messages, setMessages] = useState<Message[]>([])
   const [loading, setLoading] = useState(false)
+  const [isConnected, setIsConnected] = useState(false)
+  const [activeUsers, setActiveUsers] = useState<string[]>([])
+  const socketRef = useRef<Socket | null>(null)
 
   const fetchMessages = async () => {
     try {
@@ -30,10 +34,11 @@ export default function Home() {
   }
 
   const sendMessage = async (message: string) => {
-    if (!alias) return
+    if (!alias || !socketRef.current?.connected) return
 
     setLoading(true)
     try {
+      // Send via API to persist in database
       const response = await fetch('/api/messages', {
         method: 'POST',
         headers: {
@@ -42,8 +47,8 @@ export default function Home() {
         body: JSON.stringify({ alias, message }),
       })
 
-      if (response.ok) {
-        fetchMessages()
+      if (!response.ok) {
+        throw new Error('Failed to send message')
       }
     } catch (error) {
       console.error('Error sending message:', error)
@@ -52,13 +57,53 @@ export default function Home() {
     }
   }
 
+  // Socket.io connection and event handling
   useEffect(() => {
-    if (alias) {
-      fetchMessages()
-      const interval = setInterval(fetchMessages, 3000)
-      return () => clearInterval(interval)
+    // Initialize socket connection
+    const socket = io()
+
+    socketRef.current = socket
+
+    // Connection events
+    socket.on('connect', () => {
+      console.log('Connected to server:', socket.id)
+      setIsConnected(true)
+    })
+
+    socket.on('disconnect', () => {
+      console.log('Disconnected from server')
+      setIsConnected(false)
+    })
+
+    // Chat events
+    socket.on('new-message', (message: Message) => {
+      console.log('New message received:', message)
+      setMessages(prev => [...prev, message])
+    })
+
+    socket.on('users-updated', (users: string[]) => {
+      console.log('Active users updated:', users)
+      setActiveUsers(users)
+    })
+
+    // Cleanup on unmount
+    return () => {
+      socket.disconnect()
     }
-  }, [alias])
+  }, [])
+
+  // Load initial messages and set alias when user joins
+  useEffect(() => {
+    if (alias && isConnected) {
+      // Load existing messages from database
+      fetchMessages()
+      
+      // Set alias for presence tracking
+      if (socketRef.current) {
+        socketRef.current.emit('set-alias', alias)
+      }
+    }
+  }, [alias, isConnected])
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -72,9 +117,24 @@ export default function Home() {
       <main className="max-w-4xl mx-auto px-4 py-6 sm:px-6 lg:px-8">
         <div className="bg-white rounded-lg shadow-sm border">
           <div className="p-4 border-b">
-            <h2 className="text-lg font-semibold text-gray-900">
-              {alias ? `Welcome, ${alias}!` : 'Join the conversation'}
-            </h2>
+            <div className="flex items-center justify-between">
+              <h2 className="text-lg font-semibold text-gray-900">
+                {alias ? `Welcome, ${alias}!` : 'Join the conversation'}
+              </h2>
+              {alias && (
+                <div className="flex items-center space-x-2">
+                  <div className={`w-2 h-2 rounded-full ${isConnected ? 'bg-green-500' : 'bg-red-500'}`} />
+                  <span className="text-sm text-gray-600">
+                    {isConnected ? 'Connected' : 'Disconnected'}
+                  </span>
+                  {activeUsers.length > 0 && (
+                    <span className="text-sm text-gray-500">
+                      • {activeUsers.length} online
+                    </span>
+                  )}
+                </div>
+              )}
+            </div>
           </div>
           
           <div className="p-4 space-y-4">
