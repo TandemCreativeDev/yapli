@@ -30,18 +30,20 @@ This document outlines the tasks needed to build the Zest chat application, orga
   **Dependencies:** None
   **Definition of Done:** Database connection is established and Prisma client can be generated.
 
-### 3. WebSocket Server Scaffold
+### 3. WebSocket Server Scaffold ✅ **COMPLETED**
 
 **Description:** Create a basic Socket.io server for real-time communication.
 
 #### Deliverables:
 
-- Create a new repository for the WebSocket server
-- Set up basic Socket.io with Express
-- Implement connection/disconnection handling
-- Set up CORS for local development
+- ✅ Create integrated Socket.io server with Next.js (using custom server approach)
+- ✅ Set up basic Socket.io with custom Node.js server
+- ✅ Implement connection/disconnection handling
+- ✅ Set up CORS for local development
   **Dependencies:** None
   **Definition of Done:** WebSocket server runs locally and logs connections/disconnections.
+  
+**Completed:** Socket.io integrated via custom server.js with Next.js integration
 
 ### 4. Authentication Setup
 
@@ -122,29 +124,33 @@ This document outlines the tasks needed to build the Zest chat application, orga
 
 ## WebSocket Server Development
 
-### 10. WebSocket Server - Chatroom Functionality
+### 10. WebSocket Server - Chatroom Functionality ✅ **COMPLETED**
 
 **Description:** Enhance the WebSocket server with chat functionality.
 
 #### Deliverables:
 
-- Implement join/leave chatroom logic
-- Set up message broadcasting
-- Add chatroom-specific channels
+- ✅ Implement join/leave chatroom logic (global-chat room)
+- ✅ Set up message broadcasting via Socket.io
+- ✅ Add chatroom-specific channels (global-chat implemented)
   **Dependencies:** #3
   **Definition of Done:** Users can join specific chatrooms and send/receive messages in real-time.
+  
+**Completed:** Real-time message broadcasting working with global chat room
 
-### 11. WebSocket Server - Presence Tracking
+### 11. WebSocket Server - Presence Tracking ✅ **COMPLETED**
 
 **Description:** Implement user presence tracking in chatrooms.
 
 #### Deliverables:
 
-- Track active users per chatroom
-- Broadcast join/leave events
-- Maintain alias lists
+- ✅ Track active users per chatroom
+- ✅ Broadcast join/leave events
+- ✅ Maintain alias lists with real-time updates
   **Dependencies:** #10
   **Definition of Done:** Chatrooms display the current list of active participants, updating in real-time.
+  
+**Completed:** Active user tracking and online count display implemented
 
 ### 12. WebSocket Server - Security & Validation
 
