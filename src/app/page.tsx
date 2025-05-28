@@ -1,109 +1,109 @@
-'use client'
+"use client";
 
-import { useState, useEffect, useRef } from 'react'
-import { io, Socket } from 'socket.io-client'
-import AliasInput from '@/components/AliasInput'
-import MessageList from '@/components/MessageList'
-import MessageInput from '@/components/MessageInput'
+import { useState, useEffect, useRef } from "react";
+import { io, Socket } from "socket.io-client";
+import AliasInput from "@/components/AliasInput";
+import MessageList from "@/components/MessageList";
+import MessageInput from "@/components/MessageInput";
 
 interface Message {
-  id: string
-  alias: string
-  message: string
-  timestamp: string
+  id: string;
+  alias: string;
+  message: string;
+  timestamp: string;
 }
 
 export default function Home() {
-  const [alias, setAlias] = useState<string | null>(null)
-  const [messages, setMessages] = useState<Message[]>([])
-  const [loading, setLoading] = useState(false)
-  const [isConnected, setIsConnected] = useState(false)
-  const [activeUsers, setActiveUsers] = useState<string[]>([])
-  const socketRef = useRef<Socket | null>(null)
+  const [alias, setAlias] = useState<string | null>(null);
+  const [messages, setMessages] = useState<Message[]>([]);
+  const [loading, setLoading] = useState(false);
+  const [isConnected, setIsConnected] = useState(false);
+  const [activeUsers, setActiveUsers] = useState<string[]>([]);
+  const socketRef = useRef<Socket | null>(null);
 
   const fetchMessages = async () => {
     try {
-      const response = await fetch('/api/messages')
+      const response = await fetch("/api/messages");
       if (response.ok) {
-        const data = await response.json()
-        setMessages(data)
+        const data = await response.json();
+        setMessages(data);
       }
     } catch (error) {
-      console.error('Error fetching messages:', error)
+      console.error("Error fetching messages:", error);
     }
-  }
+  };
 
   const sendMessage = async (message: string) => {
-    if (!alias || !socketRef.current?.connected) return
+    if (!alias || !socketRef.current?.connected) return;
 
-    setLoading(true)
+    setLoading(true);
     try {
       // Send via API to persist in database
-      const response = await fetch('/api/messages', {
-        method: 'POST',
+      const response = await fetch("/api/messages", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({ alias, message }),
-      })
+      });
 
       if (!response.ok) {
-        throw new Error('Failed to send message')
+        throw new Error("Failed to send message");
       }
     } catch (error) {
-      console.error('Error sending message:', error)
+      console.error("Error sending message:", error);
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
-  }
+  };
 
   // Socket.io connection and event handling
   useEffect(() => {
     // Initialize socket connection
-    const socket = io()
+    const socket = io();
 
-    socketRef.current = socket
+    socketRef.current = socket;
 
     // Connection events
-    socket.on('connect', () => {
-      console.log('Connected to server:', socket.id)
-      setIsConnected(true)
-    })
+    socket.on("connect", () => {
+      console.log("Connected to server:", socket.id);
+      setIsConnected(true);
+    });
 
-    socket.on('disconnect', () => {
-      console.log('Disconnected from server')
-      setIsConnected(false)
-    })
+    socket.on("disconnect", () => {
+      console.log("Disconnected from server");
+      setIsConnected(false);
+    });
 
     // Chat events
-    socket.on('new-message', (message: Message) => {
-      console.log('New message received:', message)
-      setMessages(prev => [...prev, message])
-    })
+    socket.on("new-message", (message: Message) => {
+      console.log("New message received:", message);
+      setMessages((prev) => [...prev, message]);
+    });
 
-    socket.on('users-updated', (users: string[]) => {
-      console.log('Active users updated:', users)
-      setActiveUsers(users)
-    })
+    socket.on("users-updated", (users: string[]) => {
+      console.log("Active users updated:", users);
+      setActiveUsers(users);
+    });
 
     // Cleanup on unmount
     return () => {
-      socket.disconnect()
-    }
-  }, [])
+      socket.disconnect();
+    };
+  }, []);
 
   // Load initial messages and set alias when user joins
   useEffect(() => {
     if (alias && isConnected) {
       // Load existing messages from database
-      fetchMessages()
-      
+      fetchMessages();
+
       // Set alias for presence tracking
       if (socketRef.current) {
-        socketRef.current.emit('set-alias', alias)
+        socketRef.current.emit("set-alias", alias);
       }
     }
-  }, [alias, isConnected])
+  }, [alias, isConnected]);
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -119,13 +119,15 @@ export default function Home() {
           <div className="p-4 border-b">
             <div className="flex items-center justify-between">
               <h2 className="text-lg font-semibold text-gray-900">
-                {alias ? `Welcome, ${alias}!` : 'Join the conversation'}
+                {alias ? `Welcome, ${alias}!` : "Join the conversation"}
               </h2>
               {alias && (
                 <div className="flex items-center space-x-2">
-                  <div className={`w-2 h-2 rounded-full ${isConnected ? 'bg-green-500' : 'bg-red-500'}`} />
+                  <div
+                    className={`w-2 h-2 rounded-full ${isConnected ? "bg-green-500" : "bg-red-500"}`}
+                  />
                   <span className="text-sm text-gray-600">
-                    {isConnected ? 'Connected' : 'Disconnected'}
+                    {isConnected ? "Connected" : "Disconnected"}
                   </span>
                   {activeUsers.length > 0 && (
                     <span className="text-sm text-gray-500">
@@ -136,7 +138,7 @@ export default function Home() {
               )}
             </div>
           </div>
-          
+
           <div className="p-4 space-y-4">
             {!alias ? (
               <AliasInput onAliasSet={setAlias} />
@@ -145,10 +147,13 @@ export default function Home() {
                 <div className="lg:col-span-3 space-y-4">
                   <MessageList messages={messages} />
                   <div className="border-t pt-4">
-                    <MessageInput onSendMessage={sendMessage} disabled={loading} />
+                    <MessageInput
+                      onSendMessageAction={sendMessage}
+                      disabled={loading}
+                    />
                   </div>
                 </div>
-                
+
                 <div className="lg:col-span-1">
                   <div className="bg-gray-50 rounded-lg p-4">
                     <h3 className="text-sm font-semibold text-gray-900 mb-3">
@@ -159,9 +164,14 @@ export default function Home() {
                         <p className="text-sm text-gray-500">No users online</p>
                       ) : (
                         activeUsers.map((user, index) => (
-                          <div key={index} className="flex items-center space-x-2">
+                          <div
+                            key={index}
+                            className="flex items-center space-x-2"
+                          >
                             <div className="w-2 h-2 bg-green-500 rounded-full" />
-                            <span className="text-sm text-gray-700">{user}</span>
+                            <span className="text-sm text-gray-700">
+                              {user}
+                            </span>
                           </div>
                         ))
                       )}

@@ -1,22 +1,25 @@
-'use client'
+"use client";
 
-import { useState } from 'react'
+import { useState } from "react";
 
 interface MessageInputProps {
-  onSendMessage: (message: string) => void
-  disabled?: boolean
+  onSendMessageAction: (message: string) => void;
+  disabled?: boolean;
 }
 
-export default function MessageInput({ onSendMessage, disabled = false }: MessageInputProps) {
-  const [message, setMessage] = useState('')
+export default function MessageInput({
+  onSendMessageAction,
+  disabled = false,
+}: MessageInputProps) {
+  const [message, setMessage] = useState("");
 
   const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
+    e.preventDefault();
     if (message.trim() && !disabled) {
-      onSendMessage(message.trim())
-      setMessage('')
+      onSendMessageAction(message.trim());
+      setMessage("");
     }
-  }
+  };
 
   return (
     <form onSubmit={handleSubmit} className="flex gap-2">
@@ -38,5 +41,6 @@ export default function MessageInput({ onSendMessage, disabled = false }: Messag
         Send
       </button>
     </form>
-  )
+  );
 }
+
