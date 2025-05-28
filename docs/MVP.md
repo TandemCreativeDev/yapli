@@ -103,16 +103,16 @@ timestamp   TIMESTAMP DEFAULT NOW()
 - [x] Create `GET /api/messages` endpoint with Prisma
 - [x] Add request validation and error handling
 - [x] Test API routes with Postman/curl locally
-- [ ] Add basic CORS configuration
+- [x] Add basic CORS configuration
 
 ## 4. Frontend Components
 
-- [ ] Create simple homepage layout
-- [ ] Build alias input form component
-- [ ] Create message list component with styling
-- [ ] Build message input form component
-- [ ] Add basic Tailwind responsive design
-- [ ] Implement local storage for alias persistence
+- [x] Create simple homepage layout
+- [x] Build alias input form component
+- [x] Create message list component with styling
+- [x] Build message input form component
+- [x] Add basic Tailwind responsive design
+- [x] Implement local storage for alias persistence
 
 ## 5. Chat Functionality Integration
 
