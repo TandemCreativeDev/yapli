@@ -90,19 +90,19 @@ timestamp   TIMESTAMP DEFAULT NOW()
 
 ## 2. Prisma Setup
 
-- [ ] Install Prisma CLI and client
-- [ ] Initialize Prisma in project
-- [ ] Create Messages schema in Prisma
-- [ ] Configure database URL for local development
-- [ ] Run first migration locally
-- [ ] Test Prisma Client connection
+- [x] Install Prisma CLI and client
+- [x] Initialize Prisma in project
+- [x] Create Messages schema in Prisma
+- [x] Configure database URL for local development
+- [x] Run first migration locally
+- [x] Test Prisma Client connection
 
 ## 3. API Routes Development
 
-- [ ] Create `POST /api/messages` endpoint with Prisma
-- [ ] Create `GET /api/messages` endpoint with Prisma
-- [ ] Add request validation and error handling
-- [ ] Test API routes with Postman/curl locally
+- [x] Create `POST /api/messages` endpoint with Prisma
+- [x] Create `GET /api/messages` endpoint with Prisma
+- [x] Add request validation and error handling
+- [x] Test API routes with Postman/curl locally
 - [ ] Add basic CORS configuration
 
 ## 4. Frontend Components
