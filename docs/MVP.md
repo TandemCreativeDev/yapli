@@ -116,29 +116,46 @@ timestamp   TIMESTAMP DEFAULT NOW()
 
 ## 5. Chat Functionality Integration
 
-- [ ] Connect message form to POST API endpoint
-- [ ] Connect message list to GET API endpoint
-- [ ] Implement polling mechanism (setInterval every 3 seconds)
-- [ ] Add message timestamps and formatting
-- [ ] Handle loading states and basic error scenarios
-- [ ] Test full chat flow locally
+- [x] Connect message form to POST API endpoint
+- [x] Connect message list to GET API endpoint
+- [x] Implement polling mechanism (setInterval every 3 seconds)
+- [x] Add message timestamps and formatting
+- [x] Handle loading states and basic error scenarios
+- [x] Test full chat flow locally
 
 ## 6. Production Database Setup
 
-- [ ] Create Hetzner VPS instance
-- [ ] Install Docker and Docker Compose on VPS
-- [ ] Create docker-compose.yml for PostgreSQL
-- [ ] Configure PostgreSQL environment variables
-- [ ] Set up Docker volumes for data persistence
-- [ ] Start PostgreSQL container and test connection
+### VPS Creation & Initial Setup
+- [ ] Create Hetzner VPS instance (Ubuntu 22.04 LTS, minimum 2GB RAM)
+- [ ] Configure SSH key access and disable password authentication
+- [ ] Update system packages (`apt update && apt upgrade`)
+
+### Docker Installation
+- [ ] Install Docker on VPS
+- [ ] Install Docker Compose on VPS
+- [ ] Add user to docker group
+- [ ] Test Docker installation
+
+### PostgreSQL Container Setup
+- [x] Create docker-compose.yml for PostgreSQL
+- [x] Configure PostgreSQL environment variables (.env file)
+- [x] Set up Docker volumes for data persistence
+- [x] Start PostgreSQL container and test connection
 
 ## 7. Production Database Configuration
 
-- [ ] Configure VPS firewall (allow PostgreSQL port from Vercel)
-- [ ] Set up SSL/TLS for database connection
-- [ ] Create production database and user
+### Security & Network Setup
+- [ ] Configure VPS firewall (UFW) - allow SSH, PostgreSQL from Vercel IPs
+- [ ] Set up SSL/TLS certificates for database connection
+- [ ] Configure PostgreSQL for remote connections
+- [ ] Create strong database passwords and users
+
+### Database Setup
+- [ ] Create production database and dedicated user
+- [ ] Configure database permissions and roles
 - [ ] Test remote connection from local machine
 - [ ] Run Prisma migrations on production database
+- [ ] Verify database schema and data integrity
 
 ## 8. Environment Configuration
 
