@@ -81,12 +81,12 @@ timestamp   TIMESTAMP DEFAULT NOW()
 
 ## 1. Local Development Setup
 
-- [ ] Create new Next.js project with TypeScript
-- [ ] Install Tailwind CSS
-- [ ] Set up basic project structure
-- [ ] Install PostgreSQL locally (brew/apt/installer)
-- [ ] Create local development database
-- [ ] Test dev server and database connection
+- [x] Create new Next.js project with TypeScript
+- [x] Install Tailwind CSS
+- [x] Set up basic project structure
+- [x] Install PostgreSQL locally (brew/apt/installer)
+- [x] Create local development database
+- [x] Test dev server and database connection
 
 ## 2. Prisma Setup
 
