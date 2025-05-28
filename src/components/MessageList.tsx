@@ -1,5 +1,7 @@
 'use client'
 
+import { useEffect, useRef } from 'react'
+
 interface Message {
   id: string
   alias: string
@@ -17,8 +19,18 @@ function formatTimestamp(timestamp: string) {
 }
 
 export default function MessageList({ messages }: MessageListProps) {
+  const messagesEndRef = useRef<HTMLDivElement>(null)
+
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
+  }
+
+  useEffect(() => {
+    scrollToBottom()
+  }, [messages])
+
   return (
-    <div className="space-y-3 max-h-96 overflow-y-auto">
+    <div className="space-y-3 h-[600px] overflow-y-auto">
       {messages.length === 0 ? (
         <div className="text-center text-gray-500 py-8">
           No messages yet. Be the first to say hello!
@@ -40,6 +52,7 @@ export default function MessageList({ messages }: MessageListProps) {
           </div>
         ))
       )}
+      <div ref={messagesEndRef} />
     </div>
   )
 }
