@@ -141,12 +141,34 @@ export default function Home() {
             {!alias ? (
               <AliasInput onAliasSet={setAlias} />
             ) : (
-              <>
-                <MessageList messages={messages} />
-                <div className="border-t pt-4">
-                  <MessageInput onSendMessage={sendMessage} disabled={loading} />
+              <div className="grid grid-cols-1 lg:grid-cols-4 gap-4">
+                <div className="lg:col-span-3 space-y-4">
+                  <MessageList messages={messages} />
+                  <div className="border-t pt-4">
+                    <MessageInput onSendMessage={sendMessage} disabled={loading} />
+                  </div>
                 </div>
-              </>
+                
+                <div className="lg:col-span-1">
+                  <div className="bg-gray-50 rounded-lg p-4">
+                    <h3 className="text-sm font-semibold text-gray-900 mb-3">
+                      Online Users ({activeUsers.length})
+                    </h3>
+                    <div className="space-y-2">
+                      {activeUsers.length === 0 ? (
+                        <p className="text-sm text-gray-500">No users online</p>
+                      ) : (
+                        activeUsers.map((user, index) => (
+                          <div key={index} className="flex items-center space-x-2">
+                            <div className="w-2 h-2 bg-green-500 rounded-full" />
+                            <span className="text-sm text-gray-700">{user}</span>
+                          </div>
+                        ))
+                      )}
+                    </div>
+                  </div>
+                </div>
+              </div>
             )}
           </div>
         </div>
