@@ -6,6 +6,7 @@ import { io, Socket } from "socket.io-client";
 import AliasInput from "@/components/AliasInput";
 import MessageList from "@/components/MessageList";
 import MessageInput from "@/components/MessageInput";
+import Logo from "@/components/Logo";
 
 interface Message {
   id: string;
@@ -108,7 +109,7 @@ export default function ChatRoomPage() {
     socket.on("connect", () => {
       console.log("Connected to server:", socket.id);
       setIsConnected(true);
-      
+
       // Join the specific room
       socket.emit("join-room", roomId);
     });
@@ -153,14 +154,12 @@ export default function ChatRoomPage() {
 
   if (error) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+      <div className="min-h-screen bg-gray-900 flex items-center justify-center">
         <div className="text-center">
-          <h1 className="text-2xl font-bold text-gray-900 mb-2">
-            {error}
-          </h1>
+          <h1 className="text-2xl font-bold text-white mb-2">{error}</h1>
           <button
             onClick={() => router.push("/")}
-            className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700"
+            className="px-4 py-2 bg-yellow-500 text-black rounded-md hover:bg-yellow-400 cursor-pointer"
           >
             Go Home
           </button>
@@ -171,38 +170,40 @@ export default function ChatRoomPage() {
 
   if (!chatroom) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <div className="text-lg text-gray-600">Loading...</div>
+      <div className="min-h-screen bg-gray-900 flex items-center justify-center">
+        <div className="text-lg text-gray-400">Loading...</div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <header className="bg-white shadow-sm border-b">
+    <div className="min-h-screen bg-gray-900">
+      <header className="bg-gray-800 shadow-sm border-b border-gray-700">
         <div className="max-w-4xl mx-auto px-4 py-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between">
             <div>
-              <h1 className="text-2xl font-bold text-gray-900">{chatroom.title}</h1>
-              <p className="text-gray-600 text-sm">
+              <h1 className="text-2xl font-bold text-white">
+                {chatroom.title}
+              </h1>
+              <p className="text-gray-300 text-sm">
                 Created {new Date(chatroom.createdAt).toLocaleDateString()}
               </p>
             </div>
             <button
               onClick={() => router.push("/")}
-              className="px-3 py-1 text-sm text-blue-600 hover:text-blue-800"
+              className="px-3 bg-yellow-500 py-3 text-sm text-black hover:bg-yellow-400 cursor-pointer rounded-lg"
             >
-              ← Back to Home
+              ← Leave Room
             </button>
           </div>
         </div>
       </header>
 
       <main className="max-w-4xl mx-auto px-4 py-6 sm:px-6 lg:px-8">
-        <div className="bg-white rounded-lg shadow-sm border">
-          <div className="p-4 border-b">
+        <div className="bg-gray-800 rounded-lg shadow-sm border border-gray-700">
+          <div className="p-4 border-b border-gray-700">
             <div className="flex items-center justify-between">
-              <h2 className="text-lg font-semibold text-gray-900">
+              <h2 className="text-lg font-semibold text-white">
                 {alias ? `Welcome, ${alias}!` : "Join the conversation"}
               </h2>
               {alias && (
@@ -210,11 +211,11 @@ export default function ChatRoomPage() {
                   <div
                     className={`w-2 h-2 rounded-full ${isConnected ? "bg-green-500" : "bg-red-500"}`}
                   />
-                  <span className="text-sm text-gray-600">
+                  <span className="text-sm text-gray-300">
                     {isConnected ? "Connected" : "Disconnected"}
                   </span>
                   {activeUsers.length > 0 && (
-                    <span className="text-sm text-gray-500">
+                    <span className="text-sm text-gray-400">
                       • {activeUsers.length} online
                     </span>
                   )}
@@ -239,13 +240,13 @@ export default function ChatRoomPage() {
                 </div>
 
                 <div className="lg:col-span-1">
-                  <div className="bg-gray-50 rounded-lg p-4">
-                    <h3 className="text-sm font-semibold text-gray-900 mb-3">
+                  <div className="bg-gray-700 rounded-lg p-4">
+                    <h3 className="text-sm font-semibold text-white mb-3">
                       Online Users ({activeUsers.length})
                     </h3>
                     <div className="space-y-2">
                       {activeUsers.length === 0 ? (
-                        <p className="text-sm text-gray-500">No users online</p>
+                        <p className="text-sm text-gray-400">No users online</p>
                       ) : (
                         activeUsers.map((user, index) => (
                           <div
@@ -253,7 +254,7 @@ export default function ChatRoomPage() {
                             className="flex items-center space-x-2"
                           >
                             <div className="w-2 h-2 bg-green-500 rounded-full" />
-                            <span className="text-sm text-gray-700">
+                            <span className="text-sm text-gray-200">
                               {user}
                             </span>
                           </div>
@@ -267,6 +268,8 @@ export default function ChatRoomPage() {
           </div>
         </div>
       </main>
+      <Logo />
     </div>
   );
 }
+

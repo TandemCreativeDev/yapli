@@ -19,7 +19,7 @@ export default function AliasInput({ onAliasSet }: AliasInputProps) {
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
       <div>
-        <label htmlFor="alias" className="block text-sm font-medium text-gray-700 mb-2">
+        <label htmlFor="alias" className="block text-sm font-medium text-gray-300 mb-2">
           Enter your name to join the chat:
         </label>
         <input
@@ -30,13 +30,13 @@ export default function AliasInput({ onAliasSet }: AliasInputProps) {
           placeholder="Your name"
           maxLength={50}
           autoComplete="off"
-          className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-gray-900 placeholder-gray-500"
+          className="w-full px-3 py-2 border border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500 text-gray-100 bg-gray-700 placeholder-gray-400"
         />
       </div>
       <button
         type="submit"
         disabled={!alias.trim()}
-        className="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed"
+        className="w-full bg-yellow-500 text-black py-2 px-4 rounded-md hover:bg-yellow-400 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
       >
         Join Chat
       </button>
