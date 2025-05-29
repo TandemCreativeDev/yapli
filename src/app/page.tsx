@@ -110,7 +110,7 @@ export default function Home() {
           <div className="flex items-center justify-between">
             <div>
               <div className="flex items-center gap-6">
-                <h1 className="text-5xl font-bold text-yellow-500">Zest</h1>
+                <h1 className="text-5xl font-bold text-yellow-400">Zest</h1>
 
                 <Image
                   src="/images/zest-logo.png"
@@ -128,7 +128,7 @@ export default function Home() {
               <ThemeToggle />
               <button
                 onClick={() => setShowRoomForm(!showRoomForm)}
-                className="px-4 py-2 bg-yellow-500 text-black rounded-md hover:bg-yellow-400 text-sm font-medium cursor-pointer"
+                className="px-4 py-2 bg-yellow-400 text-black rounded-md hover:bg-yellow-300 text-sm font-medium cursor-pointer"
               >
                 + Create New Room
               </button>
@@ -230,7 +230,7 @@ export default function Home() {
                         onClick={() =>
                           router.push(`/chat/${room.roomUrl || room.id}`)
                         }
-                        className="px-3 py-1 bg-yellow-500 text-black text-sm rounded-md hover:bg-yellow-400 cursor-pointer"
+                        className="px-3 py-1 bg-gray-500 text-white text-sm rounded-md hover:bg-gray-400 cursor-pointer"
                       >
                         Join
                       </button>

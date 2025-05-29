@@ -183,9 +183,7 @@ export default function ChatRoomPage() {
         <div className="max-w-4xl mx-auto px-4 py-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between">
             <div>
-              <h1 className="text-2xl font-bold text-text">
-                {chatroom.title}
-              </h1>
+              <h1 className="text-2xl font-bold text-text">{chatroom.title}</h1>
               <p className="text-text opacity-70 text-sm">
                 Created {new Date(chatroom.createdAt).toLocaleDateString()}
               </p>
@@ -194,7 +192,7 @@ export default function ChatRoomPage() {
               <ThemeToggle />
               <button
                 onClick={() => router.push("/")}
-                className="px-3 bg-yellow-500 py-3 text-sm text-black hover:bg-yellow-400 cursor-pointer rounded-lg"
+                className="px-3 bg-yellow-400 py-3 text-sm text-black hover:bg-yellow-300 cursor-pointer rounded-lg"
               >
                 ← Leave Room
               </button>
@@ -247,7 +245,9 @@ export default function ChatRoomPage() {
                   </h3>
                   <div className="space-y-2">
                     {activeUsers.length === 0 ? (
-                      <p className="text-sm text-text opacity-70">No users online</p>
+                      <p className="text-sm text-text opacity-70">
+                        No users online
+                      </p>
                     ) : (
                       activeUsers.map((user, index) => (
                         <div
