@@ -7,12 +7,29 @@
   - React: ^19.0.0
 - WebSockets for live messaging and alias tracking
 - Styling with Tailwind CSS v4
-- Light/Dark mode toggle
+- **Dark Theme** with #ffc100 yellow accents
 - UI Components:
   - Message list: continuous scroll, auto-scrolls to bottom on new message
+  - **Automatic link detection**: URLs converted to clickable links
   - Timestamp, alias, and message displayed for each post
-  - "Copy" button per message
+  - **Icon-based UI**: Heroicons for intuitive interactions
+  - **Logo integration**: Bottom-right branding on all pages
   - Responsive design for all device sizes
+
+### Current Dependencies
+```json
+{
+  "@heroicons/react": "^2.2.0",
+  "@prisma/client": "^6.8.2", 
+  "linkifyjs": "^4.3.1",
+  "linkify-react": "^4.3.1",
+  "next": "15.3.2",
+  "react": "^19.0.0",
+  "react-dom": "^19.0.0",
+  "socket.io": "^4.8.1",
+  "socket.io-client": "^4.8.1"
+}
+```
 
 ## Backend
 
