@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { io, Socket } from "socket.io-client";
 import AliasInput from "@/components/AliasInput";
@@ -37,7 +37,7 @@ export default function ChatRoomPage() {
   const [error, setError] = useState<string | null>(null);
   const socketRef = useRef<Socket | null>(null);
 
-  const fetchChatroom = async () => {
+  const fetchChatroom = useCallback(async () => {
     try {
       const response = await fetch(`/api/rooms/${roomId}`);
       if (response.ok) {
@@ -52,9 +52,9 @@ export default function ChatRoomPage() {
       console.error("Error fetching chatroom:", error);
       setError("Failed to load chatroom");
     }
-  };
+  }, [roomId]);
 
-  const fetchMessages = async () => {
+  const fetchMessages = useCallback(async () => {
     try {
       const response = await fetch(`/api/rooms/${roomId}/messages`);
       if (response.ok) {
@@ -64,7 +64,7 @@ export default function ChatRoomPage() {
     } catch (error) {
       console.error("Error fetching messages:", error);
     }
-  };
+  }, [roomId]);
 
   const sendMessage = async (message: string) => {
     if (!alias || !socketRef.current?.connected) return;
@@ -143,7 +143,7 @@ export default function ChatRoomPage() {
   useEffect(() => {
     fetchChatroom();
     fetchMessages();
-  }, [roomId]);
+  }, [fetchChatroom, fetchMessages]);
 
   // Set alias for presence tracking when user joins
   useEffect(() => {

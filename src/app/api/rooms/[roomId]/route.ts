@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
+import { isValidRoomUrl } from '@/lib/roomUrl';
 
 export async function GET(
   request: NextRequest,
@@ -8,14 +9,28 @@ export async function GET(
   try {
     const { roomId } = params;
 
-    const chatroom = await prisma.chatroom.findUnique({
-      where: { id: roomId },
-      include: {
-        _count: {
-          select: { messages: true },
+    // Try to find by roomUrl first, then by UUID as fallback
+    let chatroom;
+    if (isValidRoomUrl(roomId)) {
+      chatroom = await prisma.chatroom.findUnique({
+        where: { roomUrl: roomId },
+        include: {
+          _count: {
+            select: { messages: true },
+          },
         },
-      },
-    });
+      });
+    } else {
+      // Fallback to UUID lookup for backward compatibility
+      chatroom = await prisma.chatroom.findUnique({
+        where: { id: roomId },
+        include: {
+          _count: {
+            select: { messages: true },
+          },
+        },
+      });
+    }
 
     if (!chatroom) {
       return NextResponse.json({ error: 'Chatroom not found' }, { status: 404 });
@@ -23,6 +38,7 @@ export async function GET(
 
     return NextResponse.json({
       id: chatroom.id,
+      roomUrl: chatroom.roomUrl,
       title: chatroom.title,
       createdAt: chatroom.createdAt,
       messageCount: chatroom._count.messages,
@@ -43,12 +59,17 @@ export async function DELETE(
   try {
     const { roomId } = params;
 
-    // Check if chatroom exists
-    const chatroom = await prisma.chatroom.findUnique({
-      where: {
-        id: roomId,
-      },
-    });
+    // Find chatroom by roomUrl or UUID
+    let chatroom;
+    if (isValidRoomUrl(roomId)) {
+      chatroom = await prisma.chatroom.findUnique({
+        where: { roomUrl: roomId }
+      });
+    } else {
+      chatroom = await prisma.chatroom.findUnique({
+        where: { id: roomId }
+      });
+    }
 
     if (!chatroom) {
       return NextResponse.json(
@@ -60,14 +81,14 @@ export async function DELETE(
     // Delete all messages first (cascade delete)
     await prisma.message.deleteMany({
       where: {
-        chatroomId: roomId,
+        chatroomId: chatroom.id,
       },
     });
 
     // Then delete the chatroom
     await prisma.chatroom.delete({
       where: {
-        id: roomId,
+        id: chatroom.id,
       },
     });
 

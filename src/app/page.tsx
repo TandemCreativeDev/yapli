@@ -8,6 +8,7 @@ import { TrashIcon } from "@heroicons/react/24/outline";
 
 interface Chatroom {
   id: string;
+  roomUrl?: string;
   title: string;
   createdAt: string;
   _count: {
@@ -38,7 +39,7 @@ export default function Home() {
     }
   };
 
-  const deleteChatroom = async (roomId: string) => {
+  const deleteChatroom = async (room: Chatroom) => {
     if (
       !confirm(
         "Are you sure you want to delete this chatroom? This action cannot be undone.",
@@ -48,13 +49,15 @@ export default function Home() {
     }
 
     try {
-      const response = await fetch(`/api/rooms/${roomId}`, {
+      // Use roomUrl if available, otherwise fall back to id
+      const identifier = room.roomUrl || room.id;
+      const response = await fetch(`/api/rooms/${identifier}`, {
         method: "DELETE",
       });
 
       if (response.ok) {
         // Remove from local state
-        setChatrooms((prev) => prev.filter((room) => room.id !== roomId));
+        setChatrooms((prev) => prev.filter((r) => r.id !== room.id));
       } else {
         throw new Error("Failed to delete chatroom");
       }
@@ -79,10 +82,10 @@ export default function Home() {
       });
 
       if (response.ok) {
-        const { roomId } = await response.json();
+        const { roomUrl } = await response.json();
         // Refresh the chatrooms list
         await fetchChatrooms();
-        router.push(`/chat/${roomId}`);
+        router.push(`/chat/${roomUrl}`);
       } else {
         throw new Error("Failed to create room");
       }
@@ -216,13 +219,13 @@ export default function Home() {
                     </div>
                     <div className="flex items-center space-x-2">
                       <button
-                        onClick={() => router.push(`/chat/${room.id}`)}
+                        onClick={() => router.push(`/chat/${room.roomUrl || room.id}`)}
                         className="px-3 py-1 bg-yellow-500 text-black text-sm rounded-md hover:bg-yellow-400 cursor-pointer"
                       >
                         Join
                       </button>
                       <button
-                        onClick={() => deleteChatroom(room.id)}
+                        onClick={() => deleteChatroom(room)}
                         className="p-2 bg-red-500 text-white rounded-md hover:bg-red-400 cursor-pointer transition-colors"
                         title="Delete room"
                       >

@@ -15,6 +15,7 @@ datasource db {
 
 model Chatroom {
   id        String    @id @default(uuid())
+  roomUrl   String?   @unique
   title     String
   createdAt DateTime  @default(now())
   messages  Message[]

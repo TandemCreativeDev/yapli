@@ -1,5 +1,18 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
+import { isValidRoomUrl } from "@/lib/roomUrl";
+
+async function findChatroomByRoomUrlOrId(roomId: string) {
+  if (isValidRoomUrl(roomId)) {
+    return await prisma.chatroom.findUnique({
+      where: { roomUrl: roomId }
+    });
+  } else {
+    return await prisma.chatroom.findUnique({
+      where: { id: roomId }
+    });
+  }
+}
 
 export async function GET(
   request: NextRequest,
@@ -9,9 +22,7 @@ export async function GET(
     const { roomId } = params;
 
     // Check if the chatroom exists
-    const chatroom = await prisma.chatroom.findUnique({
-      where: { id: roomId },
-    });
+    const chatroom = await findChatroomByRoomUrlOrId(roomId);
 
     if (!chatroom) {
       return NextResponse.json(
@@ -22,7 +33,7 @@ export async function GET(
 
     const messages = await prisma.message.findMany({
       where: {
-        chatroomId: roomId,
+        chatroomId: chatroom.id,
       },
       orderBy: {
         timestamp: "asc",
@@ -55,9 +66,7 @@ export async function POST(
     }
 
     // Check if the chatroom exists
-    const chatroom = await prisma.chatroom.findUnique({
-      where: { id: roomId },
-    });
+    const chatroom = await findChatroomByRoomUrlOrId(roomId);
 
     if (!chatroom) {
       return NextResponse.json(
@@ -68,7 +77,7 @@ export async function POST(
 
     const newMessage = await prisma.message.create({
       data: {
-        chatroomId: roomId,
+        chatroomId: chatroom.id,
         alias,
         message,
       },
