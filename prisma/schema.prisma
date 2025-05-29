@@ -13,11 +13,23 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model Chatroom {
+  id        String    @id @default(uuid())
+  title     String
+  createdAt DateTime  @default(now())
+  messages  Message[]
+
+  @@map("chatrooms")
+}
+
 model Message {
-  id        String   @id @default(uuid())
-  alias     String
-  message   String
-  timestamp DateTime @default(now())
+  id         String   @id @default(uuid())
+  chatroomId String
+  alias      String
+  message    String
+  timestamp  DateTime @default(now())
+
+  chatroom Chatroom @relation(fields: [chatroomId], references: [id])
 
   @@map("messages")
 }
