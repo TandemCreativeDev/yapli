@@ -9,24 +9,28 @@ Zest is a modern, minimalist web-based chatroom application built with Next.js a
 ## ✨ Features
 
 ### 🏠 **Dynamic Room Management**
+
 - Create unlimited chat rooms with custom titles
 - Unique shareable URLs for each room (`/chat/[roomId]`)
 - Room isolation - messages and presence tracking scoped per room
 - Real-time room deletion with trash icon interface
 
 ### 💬 **Real-time Chat**
+
 - Instant messaging with WebSocket integration
 - Live presence tracking showing online users
 - Automatic link detection and conversion to clickable links
 - Message persistence with timestamp display
 
 ### 🎨 **Modern Dark Theme**
+
 - Beautiful dark interface with #ffc100 yellow accents
 - Responsive design for all screen sizes
 - Consistent branding with integrated logo
 - Smooth hover animations and transitions
 
 ### 🔒 **Security & Accessibility**
+
 - Secure external link handling (`noopener noreferrer`)
 - Icon-based UI with Heroicons for intuitive interactions
 - Keyboard navigation support
@@ -35,6 +39,7 @@ Zest is a modern, minimalist web-based chatroom application built with Next.js a
 ## 🚀 Current Status
 
 **✅ Fully Implemented:**
+
 - Dynamic room creation and management
 - Real-time messaging and presence tracking
 - Automatic link detection and hyperlinking
@@ -56,11 +61,12 @@ All core functionality is complete and ready for deployment.
 - **Link Detection:** Linkifyjs for automatic URL conversion
 
 ### Key Dependencies
+
 ```json
 {
   "@heroicons/react": "^2.2.0",
   "@prisma/client": "^6.8.2",
-  "linkifyjs": "^4.3.1", 
+  "linkifyjs": "^4.3.1",
   "linkify-react": "^4.3.1",
   "next": "15.3.2",
   "react": "^19.0.0",
