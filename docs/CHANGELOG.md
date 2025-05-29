@@ -7,6 +7,41 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+#### 🎭 Modal Alias Input with Blur Effect
+
+- **Enhanced UX**: Alias input now appears as a modal overlay instead of replacing chat interface
+- **Visual Preview**: Users can see chat activity blurred in the background before joining
+- **Backdrop Blur**: Applied `backdrop-blur-md` effect for modern glass-like appearance
+- **Improved Flow**: Chat interface renders immediately, modal disappears after alias entry
+
+#### 🌓 Complete Light/Dark Mode Implementation
+
+- **next-themes Integration**: Robust theme management with system preference detection
+- **Smart Theme Toggle**: Button shows action to perform (sun icon in dark mode = "click for light")
+- **System Mode Support**: Automatic detection and proper handling of system theme preferences
+- **CSS Variables Architecture**: Custom theme variables for consistent theming across components
+- **Tailwind v4 Compatibility**: Uses `@custom-variant` and `data-theme` attribute approach
+
+### Changed
+
+#### 🎨 Theme System Overhaul
+
+- **CSS Architecture**: Migrated to Tailwind CSS v4 theme system with custom variables
+- **Component Updates**: All components now use theme-aware CSS variables (`bg-card`, `text-text`, `border-border`)
+- **Color Scheme**: Consistent light/dark color palette using hex codes:
+  - Light: White backgrounds (#ffffff), dark text (#1a1a1a), light borders (#e5e5e5)
+  - Dark: Dark backgrounds (#1a1a1a), light text (#e5e5e5), dark borders (#3a3a3a)
+- **Yellow Accent**: Maintained #ffc100 accent color across both themes
+
+#### 🔧 Technical Improvements
+
+- **ThemeProvider Configuration**: Uses `data-theme` attribute with system detection enabled
+- **Smart Toggle Logic**: Detects system vs manual mode and toggles appropriately
+- **CSS Variables**: `--color-card`, `--color-text`, `--color-border` automatically switch per theme
+- **Component Architecture**: Standardized theme-aware component styling
+
 ## [2.1.1] - 2025-05-29
 
 ### Fixed

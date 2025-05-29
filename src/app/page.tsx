@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Logo from "@/components/Logo";
+import ThemeToggle from "@/components/ThemeToggle";
 import Image from "next/image";
 import { TrashIcon } from "@heroicons/react/24/outline";
 
@@ -103,13 +104,13 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-gray-900">
-      <header className="bg-gray-800 shadow-sm border-b border-gray-700">
+    <div className="min-h-screen bg-white dark:bg-gray-900">
+      <header className="bg-gray-100 dark:bg-gray-800 shadow-sm border-b border-gray-200 dark:border-gray-700">
         <div className="max-w-4xl mx-auto px-4 py-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between">
             <div>
               <div className="flex items-center gap-6">
-                <h1 className="text-5xl font-bold text-yellow-400">Zest</h1>
+                <h1 className="text-5xl font-bold text-yellow-500">Zest</h1>
 
                 <Image
                   src="/images/zest-logo.png"
@@ -119,25 +120,28 @@ export default function Home() {
                   className="rounded-lg"
                 />
               </div>
-              <p className="text-gray-300 text-sm mt-2">
+              <p className="text-gray-600 dark:text-gray-300 text-sm mt-2">
                 Create and join chat rooms
               </p>
             </div>
-            <button
-              onClick={() => setShowRoomForm(!showRoomForm)}
-              className="px-4 py-2 bg-yellow-500 text-black rounded-md hover:bg-yellow-400 text-sm font-medium cursor-pointer"
-            >
-              + Create New Room
-            </button>
+            <div className="flex items-center gap-3">
+              <ThemeToggle />
+              <button
+                onClick={() => setShowRoomForm(!showRoomForm)}
+                className="px-4 py-2 bg-yellow-500 text-black rounded-md hover:bg-yellow-400 text-sm font-medium cursor-pointer"
+              >
+                + Create New Room
+              </button>
+            </div>
           </div>
         </div>
       </header>
 
       <main className="max-w-4xl mx-auto px-4 py-6 sm:px-6 lg:px-8">
         {showRoomForm && (
-          <div className="bg-gray-800 rounded-lg shadow-sm border border-gray-700 mb-6">
-            <div className="p-4 border-b border-gray-700">
-              <h2 className="text-lg font-semibold text-white">
+          <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 mb-6">
+            <div className="p-4 border-b border-gray-200 dark:border-gray-700">
+              <h2 className="text-lg font-semibold text-gray-900 dark:text-white">
                 Create New Room
               </h2>
             </div>
@@ -146,7 +150,7 @@ export default function Home() {
                 <div>
                   <label
                     htmlFor="roomTitle"
-                    className="block text-sm font-medium text-gray-300 mb-2"
+                    className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
                   >
                     Room Title
                   </label>
@@ -156,7 +160,7 @@ export default function Home() {
                     value={roomTitle}
                     onChange={(e) => setRoomTitle(e.target.value)}
                     placeholder="Enter a title for your room..."
-                    className="text-gray-100 bg-gray-700 w-full px-3 py-2 border border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-transparent"
+                    className="text-gray-900 dark:text-gray-100 bg-white dark:bg-gray-700 w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-transparent"
                     required
                     disabled={creatingRoom}
                   />
@@ -175,7 +179,7 @@ export default function Home() {
                       setShowRoomForm(false);
                       setRoomTitle("");
                     }}
-                    className="px-4 py-2 bg-gray-600 text-gray-200 rounded-md hover:bg-gray-500 cursor-pointer"
+                    className="px-4 py-2 bg-gray-300 dark:bg-gray-600 text-gray-700 dark:text-gray-200 rounded-md hover:bg-gray-200 dark:hover:bg-gray-500 cursor-pointer"
                   >
                     Cancel
                   </button>
@@ -186,20 +190,20 @@ export default function Home() {
         )}
 
         {/* Chatrooms List */}
-        <div className="bg-gray-800 rounded-lg shadow-sm border border-gray-700 mb-6">
-          <div className="p-4 border-b">
-            <h2 className="text-lg font-semibold text-white">
+        <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 mb-6">
+          <div className="p-4 border-b border-gray-200 dark:border-gray-700">
+            <h2 className="text-lg font-semibold text-gray-900 dark:text-white">
               Active Chatrooms
             </h2>
           </div>
           <div className="p-4">
             {loadingRooms ? (
               <div className="text-center py-4">
-                <div className="text-gray-400">Loading chatrooms...</div>
+                <div className="text-gray-600 dark:text-gray-400">Loading chatrooms...</div>
               </div>
             ) : chatrooms.length === 0 ? (
               <div className="text-center py-4">
-                <div className="text-gray-400">
+                <div className="text-gray-600 dark:text-gray-400">
                   No chatrooms available. Create one to get started!
                 </div>
               </div>
@@ -208,11 +212,11 @@ export default function Home() {
                 {chatrooms.map((room) => (
                   <div
                     key={room.id}
-                    className="flex items-center justify-between p-3 border border-gray-600 rounded-md hover:bg-gray-700"
+                    className="flex items-center justify-between p-3 border border-gray-200 dark:border-gray-600 rounded-md hover:bg-gray-50 dark:hover:bg-gray-700"
                   >
                     <div className="flex-1">
-                      <h3 className="font-medium text-white">{room.title}</h3>
-                      <div className="text-sm text-gray-400 mt-1">
+                      <h3 className="font-medium text-gray-900 dark:text-white">{room.title}</h3>
+                      <div className="text-sm text-gray-600 dark:text-gray-400 mt-1">
                         {room._count.messages} messages • Created{" "}
                         {new Date(room.createdAt).toLocaleDateString()}
                       </div>

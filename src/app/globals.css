@@ -1,30 +1,42 @@
 @import "tailwindcss";
 
-:root {
-  --background: #1a1a1a;
-  --foreground: #e5e5e5;
-  --accent: #ffc100;
-  --accent-dark: #e6ad00;
-  --card-bg: #2a2a2a;
-  --border: #3a3a3a;
-  --muted: #6a6a6a;
-}
+@custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --color-accent: var(--accent);
-  --color-accent-dark: var(--accent-dark);
-  --color-card: var(--card-bg);
-  --color-border: var(--border);
-  --color-muted: var(--muted);
+@theme {
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  --color-background-light: #ffffff;
+  --color-background-dark: #1a1a1a;
+  --color-card: var(--color-card-light);
+  --color-card-light: #f5f5f5;
+  --color-card-dark: #2a2a2a;
+  --color-text: var(--color-text-light);
+  --color-text-light: #1a1a1a;
+  --color-text-dark: #e5e5e5;
+  --color-border: var(--color-border-light);
+  --color-border-light: #e5e5e5;
+  --color-border-dark: #3a3a3a;
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
-  min-height: 100vh;
+@layer base {
+  [data-theme="light"] {
+    --color-card: var(--color-card-light);
+    --color-text: var(--color-text-light);
+    --color-border: var(--color-border-light);
+  }
+  [data-theme="dark"] {
+    --color-card: var(--color-card-dark);
+    --color-text: var(--color-text-dark);
+    --color-border: var(--color-border-dark);
+  }
+}
+
+:root[data-theme="light"] {
+  background-color: var(--color-background-light);
+  color: var(--color-text-light);
+}
+
+:root[data-theme="dark"] {
+  background-color: var(--color-background-dark);
+  color: var(--color-text-dark);
 }

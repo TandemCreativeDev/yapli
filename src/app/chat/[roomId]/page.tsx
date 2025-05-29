@@ -7,6 +7,7 @@ import AliasInput from "@/components/AliasInput";
 import MessageList from "@/components/MessageList";
 import MessageInput from "@/components/MessageInput";
 import Logo from "@/components/Logo";
+import ThemeToggle from "@/components/ThemeToggle";
 
 interface Message {
   id: string;
@@ -154,9 +155,9 @@ export default function ChatRoomPage() {
 
   if (error) {
     return (
-      <div className="min-h-screen bg-gray-900 flex items-center justify-center">
+      <div className="min-h-screen bg-white dark:bg-gray-900 flex items-center justify-center">
         <div className="text-center">
-          <h1 className="text-2xl font-bold text-white mb-2">{error}</h1>
+          <h1 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">{error}</h1>
           <button
             onClick={() => router.push("/")}
             className="px-4 py-2 bg-yellow-500 text-black rounded-md hover:bg-yellow-400 cursor-pointer"
@@ -170,40 +171,43 @@ export default function ChatRoomPage() {
 
   if (!chatroom) {
     return (
-      <div className="min-h-screen bg-gray-900 flex items-center justify-center">
-        <div className="text-lg text-gray-400">Loading...</div>
+      <div className="min-h-screen bg-white dark:bg-gray-900 flex items-center justify-center">
+        <div className="text-lg text-gray-600 dark:text-gray-400">Loading...</div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gray-900">
-      <header className="bg-gray-800 shadow-sm border-b border-gray-700">
+    <div className="min-h-screen bg-white dark:bg-gray-900">
+      <header className="bg-gray-100 dark:bg-gray-800 shadow-sm border-b border-gray-200 dark:border-gray-700">
         <div className="max-w-4xl mx-auto px-4 py-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between">
             <div>
-              <h1 className="text-2xl font-bold text-white">
+              <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
                 {chatroom.title}
               </h1>
-              <p className="text-gray-300 text-sm">
+              <p className="text-gray-600 dark:text-gray-300 text-sm">
                 Created {new Date(chatroom.createdAt).toLocaleDateString()}
               </p>
             </div>
-            <button
-              onClick={() => router.push("/")}
-              className="px-3 bg-yellow-500 py-3 text-sm text-black hover:bg-yellow-400 cursor-pointer rounded-lg"
-            >
-              ← Leave Room
-            </button>
+            <div className="flex items-center gap-3">
+              <ThemeToggle />
+              <button
+                onClick={() => router.push("/")}
+                className="px-3 bg-yellow-500 py-3 text-sm text-black hover:bg-yellow-400 cursor-pointer rounded-lg"
+              >
+                ← Leave Room
+              </button>
+            </div>
           </div>
         </div>
       </header>
 
       <main className="max-w-4xl mx-auto px-4 py-6 sm:px-6 lg:px-8">
-        <div className="bg-gray-800 rounded-lg shadow-sm border border-gray-700">
-          <div className="p-4 border-b border-gray-700">
+        <div className="bg-card rounded-lg shadow-sm border border-border">
+          <div className="p-4 border-b border-border">
             <div className="flex items-center justify-between">
-              <h2 className="text-lg font-semibold text-white">
+              <h2 className="text-lg font-semibold text-text">
                 {alias ? `Welcome, ${alias}!` : "Join the conversation"}
               </h2>
               {alias && (
@@ -225,51 +229,53 @@ export default function ChatRoomPage() {
           </div>
 
           <div className="p-4 space-y-4">
-            {!alias ? (
-              <AliasInput onAliasSet={setAlias} />
-            ) : (
-              <div className="grid grid-cols-1 lg:grid-cols-4 gap-4">
-                <div className="lg:col-span-3 space-y-4">
-                  <MessageList messages={messages} />
-                  <div className="border-t pt-4">
-                    <MessageInput
-                      onSendMessageAction={sendMessage}
-                      disabled={loading}
-                    />
-                  </div>
+            <div className="grid grid-cols-1 lg:grid-cols-4 gap-4">
+              <div className="lg:col-span-3 space-y-4">
+                <MessageList messages={messages} />
+                <div className="border-t pt-4">
+                  <MessageInput
+                    onSendMessageAction={sendMessage}
+                    disabled={loading || !alias}
+                  />
                 </div>
+              </div>
 
-                <div className="lg:col-span-1">
-                  <div className="bg-gray-700 rounded-lg p-4">
-                    <h3 className="text-sm font-semibold text-white mb-3">
-                      Online Users ({activeUsers.length})
-                    </h3>
-                    <div className="space-y-2">
-                      {activeUsers.length === 0 ? (
-                        <p className="text-sm text-gray-400">No users online</p>
-                      ) : (
-                        activeUsers.map((user, index) => (
-                          <div
-                            key={index}
-                            className="flex items-center space-x-2"
-                          >
-                            <div className="w-2 h-2 bg-green-500 rounded-full" />
-                            <span className="text-sm text-gray-200">
-                              {user}
-                            </span>
-                          </div>
-                        ))
-                      )}
-                    </div>
+              <div className="lg:col-span-1">
+                <div className="bg-card rounded-lg p-4 border border-border">
+                  <h3 className="text-sm font-semibold text-text mb-3">
+                    Online Users ({activeUsers.length})
+                  </h3>
+                  <div className="space-y-2">
+                    {activeUsers.length === 0 ? (
+                      <p className="text-sm text-gray-600 dark:text-gray-400">No users online</p>
+                    ) : (
+                      activeUsers.map((user, index) => (
+                        <div
+                          key={index}
+                          className="flex items-center space-x-2"
+                        >
+                          <div className="w-2 h-2 bg-green-500 rounded-full" />
+                          <span className="text-sm text-text">{user}</span>
+                        </div>
+                      ))
+                    )}
                   </div>
                 </div>
               </div>
-            )}
+            </div>
           </div>
+
+          {/* Modal overlay for alias input */}
+          {!alias && (
+            <div className="fixed inset-0 backdrop-blur-sm flex items-center justify-center z-50">
+              <div className="bg-card border border-border rounded-lg p-6 max-w-md w-full mx-4 shadow-xl">
+                <AliasInput onAliasSet={setAlias} />
+              </div>
+            </div>
+          )}
         </div>
       </main>
       <Logo />
     </div>
   );
 }
-
