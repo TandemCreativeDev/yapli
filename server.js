@@ -32,46 +32,75 @@ app.prepare().then(() => {
   io.on('connection', (socket) => {
     console.log('Client connected:', socket.id)
 
-    // Join the global chat room
-    socket.join('global-chat')
+    // Handle joining a specific room
+    socket.on('join-room', (roomId) => {
+      // Leave any previously joined rooms (except the socket's own room)
+      const rooms = Array.from(socket.rooms)
+      rooms.forEach(room => {
+        if (room !== socket.id) {
+          socket.leave(room)
+        }
+      })
 
-    // Handle new messages
+      // Join the specified room
+      socket.join(roomId)
+      socket.data.currentRoom = roomId
+      console.log(`User ${socket.id} joined room: ${roomId}`)
+
+      // Broadcast updated user list for this room
+      updateRoomUsers(roomId)
+    })
+
+    // Handle setting alias in current room
+    socket.on('set-alias', (alias) => {
+      socket.data.alias = alias
+      const roomId = socket.data.currentRoom
+      console.log(`User ${socket.id} set alias to: ${alias} in room: ${roomId}`)
+      
+      if (roomId) {
+        updateRoomUsers(roomId)
+      }
+    })
+
+    // Handle new messages with room context
     socket.on('send-message', (data) => {
-      console.log('Message received:', data)
-      // Broadcast to all clients in the global chat
-      io.to('global-chat').emit('new-message', {
+      const { roomId, alias, message } = data
+      console.log('Message received for room:', roomId, data)
+      
+      // Broadcast to all clients in the specific room
+      io.to(roomId).emit('new-message', {
         id: `temp-${Date.now()}-${Math.random()}`,
-        alias: data.alias,
-        message: data.message,
+        chatroomId: roomId,
+        alias,
+        message,
         timestamp: new Date().toISOString()
       })
     })
 
-    // Handle alias updates (for presence tracking)
-    socket.on('set-alias', (alias) => {
-      socket.data.alias = alias
-      console.log(`User ${socket.id} set alias to: ${alias}`)
-      
-      // Broadcast updated user list
-      const users = Array.from(io.sockets.sockets.values())
-        .filter(s => s.data.alias)
-        .map(s => s.data.alias)
-      
-      io.to('global-chat').emit('users-updated', [...new Set(users)])
-    })
-
     socket.on('disconnect', () => {
       console.log('Client disconnected:', socket.id)
+      const roomId = socket.data.currentRoom
       
       // Broadcast updated user list after disconnect
-      setTimeout(() => {
-        const users = Array.from(io.sockets.sockets.values())
-          .filter(s => s.data.alias)
-          .map(s => s.data.alias)
-        
-        io.to('global-chat').emit('users-updated', [...new Set(users)])
-      }, 100)
+      if (roomId) {
+        setTimeout(() => {
+          updateRoomUsers(roomId)
+        }, 100)
+      }
     })
+
+    // Helper function to update users list for a specific room
+    function updateRoomUsers(roomId) {
+      const room = io.sockets.adapter.rooms.get(roomId)
+      if (!room) return
+
+      const users = Array.from(room)
+        .map(socketId => io.sockets.sockets.get(socketId))
+        .filter(s => s && s.data.alias && s.data.currentRoom === roomId)
+        .map(s => s.data.alias)
+      
+      io.to(roomId).emit('users-updated', [...new Set(users)])
+    }
   })
 
   // Store io instance globally for access in API routes
