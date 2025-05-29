@@ -158,3 +158,111 @@ All dynamic rooms functionality has been successfully implemented and tested. Th
 - Frontend components adapted for dynamic routing
 - Backward compatibility maintained
 
+## 🆕 Recent Enhancements (Post-Dynamic Rooms)
+
+**Date Updated:** May 29, 2025
+
+### ✅ Link Detection & Hyperlinking
+
+**Implementation Details:**
+- **Package Added:** `linkifyjs` and `linkify-react` for automatic URL detection
+- **Component Updated:** `MessageList.tsx` now converts URLs to clickable links
+- **Security Features:** Links open in new tabs with `noopener noreferrer`
+- **Styling:** Yellow links (#ffc100) with hover effects for dark theme compatibility
+
+**Benefits:**
+- Automatic detection of http/https URLs in chat messages
+- Secure external link handling
+- Improved user experience for sharing links
+
+### ✅ Dark Theme Implementation
+
+**Design System:**
+- **Primary Background:** `#1a1a1a` (dark gray)
+- **Secondary Background:** `#2a2a2a` (card backgrounds)
+- **Accent Color:** `#ffc100` (yellow/gold for buttons and links)
+- **Text Colors:** White and light gray variants
+- **Border Colors:** Dark gray variants for visual separation
+
+**Components Updated:**
+- Global CSS variables for consistent theming
+- Homepage with dark header, cards, and forms
+- Chat room pages with dark backgrounds
+- Message components with yellow accent links
+- Input components with yellow focus states
+- All buttons updated to yellow primary, gray secondary
+
+### ✅ Logo Integration
+
+**Implementation:**
+- **Component Created:** `Logo.tsx` for reusable logo display
+- **Positioning:** Fixed bottom-right corner on all pages
+- **Asset Used:** `/images/zest-logo.png` (existing asset)
+- **Animation:** Opacity fade on hover for subtle interaction
+
+**Placement:**
+- Homepage (bottom-right)
+- Chat room pages (bottom-right)
+- Consistent sizing and positioning across all pages
+
+### ✅ UI/UX Improvements
+
+**Button Enhancements:**
+- **Cursor Pointers:** Added to all interactive buttons
+- **Delete Button:** Replaced text with trash icon from Heroicons
+- **Icon Library:** Added `@heroicons/react` package
+- **Accessibility:** Added title attributes for icon buttons
+
+**Visual Improvements:**
+- Consistent hover states across all interactive elements
+- Better visual hierarchy with yellow accent system
+- Improved contrast ratios for dark theme accessibility
+- Smooth transition animations for better user experience
+
+## 📦 Updated Dependencies
+
+**New Packages Added:**
+```json
+{
+  "linkifyjs": "^4.3.1",
+  "linkify-react": "^4.3.1", 
+  "@heroicons/react": "^2.2.0"
+}
+```
+
+## 🔧 Technical Architecture Updates
+
+**Component Structure:**
+```
+src/components/
+├── Logo.tsx (new)
+├── MessageList.tsx (updated with link detection)
+├── MessageInput.tsx (dark theme)
+└── AliasInput.tsx (dark theme)
+```
+
+**Styling Architecture:**
+- CSS custom properties for theme consistency
+- Tailwind classes updated for dark theme
+- Yellow accent color system implementation
+- Responsive design maintained across theme changes
+
+## 🎯 Current Status
+
+**Fully Functional Features:**
+- ✅ Dynamic room creation and management
+- ✅ Real-time messaging with WebSocket integration
+- ✅ Presence tracking and online user display
+- ✅ Automatic link detection and conversion
+- ✅ Modern dark theme with yellow accents
+- ✅ Logo integration and branding
+- ✅ Icon-based UI elements (trash icon for delete)
+- ✅ Responsive design across all screen sizes
+
+**Ready for Production:**
+- All core chat functionality working
+- Modern, accessible dark theme
+- Professional UI with consistent branding
+- Secure link handling implementation
+- Cross-browser compatible design
+
