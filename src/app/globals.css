@@ -29,14 +29,14 @@
     --color-text: var(--color-text-dark);
     --color-border: var(--color-border-dark);
   }
-}
 
-:root[data-theme="light"] {
-  background-color: var(--color-background-light);
-  color: var(--color-text-light);
-}
+  html[data-theme="light"],
+  html[data-theme="light"] body {
+    color: var(--color-text-light);
+  }
 
-:root[data-theme="dark"] {
-  background-color: var(--color-background-dark);
-  color: var(--color-text-dark);
+  html[data-theme="dark"],
+  html[data-theme="dark"] body {
+    color: var(--color-text-dark);
+  }
 }

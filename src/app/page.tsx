@@ -104,8 +104,8 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-white dark:bg-gray-900">
-      <header className="bg-gray-100 dark:bg-gray-800 shadow-sm border-b border-gray-200 dark:border-gray-700">
+    <div className="min-h-screen">
+      <header className="bg-card shadow-sm border-b border-border">
         <div className="max-w-4xl mx-auto px-4 py-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between">
             <div>
@@ -120,7 +120,7 @@ export default function Home() {
                   className="rounded-lg"
                 />
               </div>
-              <p className="text-gray-600 dark:text-gray-300 text-sm mt-2">
+              <p className="text-text opacity-70 text-sm mt-2">
                 Create and join chat rooms
               </p>
             </div>
@@ -139,9 +139,9 @@ export default function Home() {
 
       <main className="max-w-4xl mx-auto px-4 py-6 sm:px-6 lg:px-8">
         {showRoomForm && (
-          <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 mb-6">
-            <div className="p-4 border-b border-gray-200 dark:border-gray-700">
-              <h2 className="text-lg font-semibold text-gray-900 dark:text-white">
+          <div className="bg-card rounded-lg shadow-sm border border-border mb-6">
+            <div className="p-4 border-b border-border">
+              <h2 className="text-lg font-semibold text-text">
                 Create New Room
               </h2>
             </div>
@@ -150,7 +150,7 @@ export default function Home() {
                 <div>
                   <label
                     htmlFor="roomTitle"
-                    className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
+                    className="block text-sm font-medium text-text mb-2"
                   >
                     Room Title
                   </label>
@@ -160,7 +160,7 @@ export default function Home() {
                     value={roomTitle}
                     onChange={(e) => setRoomTitle(e.target.value)}
                     placeholder="Enter a title for your room..."
-                    className="text-gray-900 dark:text-gray-100 bg-white dark:bg-gray-700 w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-transparent"
+                    className="text-text bg-card w-full px-3 py-2 border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-transparent"
                     required
                     disabled={creatingRoom}
                   />
@@ -179,7 +179,7 @@ export default function Home() {
                       setShowRoomForm(false);
                       setRoomTitle("");
                     }}
-                    className="px-4 py-2 bg-gray-300 dark:bg-gray-600 text-gray-700 dark:text-gray-200 rounded-md hover:bg-gray-200 dark:hover:bg-gray-500 cursor-pointer"
+                    className="px-4 py-2 bg-card border border-border text-text rounded-md hover:opacity-80 cursor-pointer"
                   >
                     Cancel
                   </button>
@@ -190,7 +190,7 @@ export default function Home() {
         )}
 
         {/* Chatrooms List */}
-        <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 mb-6">
+        <div className="bg-card rounded-lg shadow-sm border border-border mb-6">
           <div className="p-4 border-b border-gray-200 dark:border-gray-700">
             <h2 className="text-lg font-semibold text-gray-900 dark:text-white">
               Active Chatrooms
@@ -199,7 +199,9 @@ export default function Home() {
           <div className="p-4">
             {loadingRooms ? (
               <div className="text-center py-4">
-                <div className="text-gray-600 dark:text-gray-400">Loading chatrooms...</div>
+                <div className="text-gray-600 dark:text-gray-400">
+                  Loading chatrooms...
+                </div>
               </div>
             ) : chatrooms.length === 0 ? (
               <div className="text-center py-4">
@@ -215,7 +217,9 @@ export default function Home() {
                     className="flex items-center justify-between p-3 border border-gray-200 dark:border-gray-600 rounded-md hover:bg-gray-50 dark:hover:bg-gray-700"
                   >
                     <div className="flex-1">
-                      <h3 className="font-medium text-gray-900 dark:text-white">{room.title}</h3>
+                      <h3 className="font-medium text-gray-900 dark:text-white">
+                        {room.title}
+                      </h3>
                       <div className="text-sm text-gray-600 dark:text-gray-400 mt-1">
                         {room._count.messages} messages • Created{" "}
                         {new Date(room.createdAt).toLocaleDateString()}
@@ -223,7 +227,9 @@ export default function Home() {
                     </div>
                     <div className="flex items-center space-x-2">
                       <button
-                        onClick={() => router.push(`/chat/${room.roomUrl || room.id}`)}
+                        onClick={() =>
+                          router.push(`/chat/${room.roomUrl || room.id}`)
+                        }
                         className="px-3 py-1 bg-yellow-500 text-black text-sm rounded-md hover:bg-yellow-400 cursor-pointer"
                       >
                         Join

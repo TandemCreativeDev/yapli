@@ -155,9 +155,9 @@ export default function ChatRoomPage() {
 
   if (error) {
     return (
-      <div className="min-h-screen bg-white dark:bg-gray-900 flex items-center justify-center">
+      <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
-          <h1 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">{error}</h1>
+          <h1 className="text-2xl font-bold text-text mb-2">{error}</h1>
           <button
             onClick={() => router.push("/")}
             className="px-4 py-2 bg-yellow-500 text-black rounded-md hover:bg-yellow-400 cursor-pointer"
@@ -171,22 +171,22 @@ export default function ChatRoomPage() {
 
   if (!chatroom) {
     return (
-      <div className="min-h-screen bg-white dark:bg-gray-900 flex items-center justify-center">
-        <div className="text-lg text-gray-600 dark:text-gray-400">Loading...</div>
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-lg text-text">Loading...</div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-white dark:bg-gray-900">
-      <header className="bg-gray-100 dark:bg-gray-800 shadow-sm border-b border-gray-200 dark:border-gray-700">
+    <div className="min-h-screen">
+      <header className="bg-card shadow-sm border-b border-border">
         <div className="max-w-4xl mx-auto px-4 py-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between">
             <div>
-              <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
+              <h1 className="text-2xl font-bold text-text">
                 {chatroom.title}
               </h1>
-              <p className="text-gray-600 dark:text-gray-300 text-sm">
+              <p className="text-text opacity-70 text-sm">
                 Created {new Date(chatroom.createdAt).toLocaleDateString()}
               </p>
             </div>
@@ -215,11 +215,11 @@ export default function ChatRoomPage() {
                   <div
                     className={`w-2 h-2 rounded-full ${isConnected ? "bg-green-500" : "bg-red-500"}`}
                   />
-                  <span className="text-sm text-gray-300">
+                  <span className="text-sm text-text">
                     {isConnected ? "Connected" : "Disconnected"}
                   </span>
                   {activeUsers.length > 0 && (
-                    <span className="text-sm text-gray-400">
+                    <span className="text-sm text-text opacity-70">
                       • {activeUsers.length} online
                     </span>
                   )}
@@ -247,7 +247,7 @@ export default function ChatRoomPage() {
                   </h3>
                   <div className="space-y-2">
                     {activeUsers.length === 0 ? (
-                      <p className="text-sm text-gray-600 dark:text-gray-400">No users online</p>
+                      <p className="text-sm text-text opacity-70">No users online</p>
                     ) : (
                       activeUsers.map((user, index) => (
                         <div

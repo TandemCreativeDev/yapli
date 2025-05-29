@@ -33,7 +33,7 @@ export default function MessageList({ messages }: MessageListProps) {
   return (
     <div className="space-y-3 h-[600px] overflow-y-auto">
       {messages.length === 0 ? (
-        <div className="text-center text-gray-600 dark:text-gray-400 py-8">
+        <div className="text-center text-text opacity-70 py-8">
           No messages yet. Be the first to say hello!
         </div>
       ) : (
@@ -46,7 +46,7 @@ export default function MessageList({ messages }: MessageListProps) {
               <span className="font-semibold text-text text-sm">
                 {msg.alias}
               </span>
-              <span className="text-xs text-gray-500 dark:text-gray-400">
+              <span className="text-xs text-text opacity-50">
                 {formatTimestamp(msg.timestamp)}
               </span>
             </div>
