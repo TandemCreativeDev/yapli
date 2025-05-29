@@ -1,18 +1,7 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { io, Socket } from "socket.io-client";
-import AliasInput from "@/components/AliasInput";
-import MessageList from "@/components/MessageList";
-import MessageInput from "@/components/MessageInput";
-
-interface Message {
-  id: string;
-  alias: string;
-  message: string;
-  timestamp: string;
-}
 
 interface Chatroom {
   id: string;
@@ -25,29 +14,11 @@ interface Chatroom {
 
 export default function Home() {
   const router = useRouter();
-  const [alias, setAlias] = useState<string | null>(null);
-  const [messages, setMessages] = useState<Message[]>([]);
-  const [loading, setLoading] = useState(false);
-  const [isConnected, setIsConnected] = useState(false);
-  const [activeUsers, setActiveUsers] = useState<string[]>([]);
   const [roomTitle, setRoomTitle] = useState("");
   const [creatingRoom, setCreatingRoom] = useState(false);
   const [showRoomForm, setShowRoomForm] = useState(false);
   const [chatrooms, setChatrooms] = useState<Chatroom[]>([]);
   const [loadingRooms, setLoadingRooms] = useState(false);
-  const socketRef = useRef<Socket | null>(null);
-
-  const fetchMessages = async () => {
-    try {
-      const response = await fetch("/api/rooms/global-chat/messages");
-      if (response.ok) {
-        const data = await response.json();
-        setMessages(data);
-      }
-    } catch (error) {
-      console.error("Error fetching messages:", error);
-    }
-  };
 
   const fetchChatrooms = async () => {
     setLoadingRooms(true);
@@ -90,38 +61,6 @@ export default function Home() {
     }
   };
 
-  const sendMessage = async (message: string) => {
-    if (!alias || !socketRef.current?.connected) return;
-
-    setLoading(true);
-    try {
-      // Send via API to persist in database
-      const response = await fetch("/api/rooms/global-chat/messages", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ alias, message }),
-      });
-
-      if (!response.ok) {
-        throw new Error("Failed to send message");
-      }
-
-      // Also emit to WebSocket for real-time updates
-      if (socketRef.current) {
-        socketRef.current.emit("send-message", {
-          roomId: "global-chat",
-          alias,
-          message,
-        });
-      }
-    } catch (error) {
-      console.error("Error sending message:", error);
-    } finally {
-      setLoading(false);
-    }
-  };
 
   const createRoom = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -153,59 +92,6 @@ export default function Home() {
     }
   };
 
-  // Socket.io connection and event handling
-  useEffect(() => {
-    // Initialize socket connection
-    const socket = io();
-    socketRef.current = socket;
-
-    // Connection events
-    socket.on("connect", () => {
-      console.log("Connected to server:", socket.id);
-      setIsConnected(true);
-
-      // Join the global chat room
-      socket.emit("join-room", "global-chat");
-    });
-
-    socket.on("disconnect", () => {
-      console.log("Disconnected from server");
-      setIsConnected(false);
-    });
-
-    // Chat events
-    socket.on("new-message", (message: any) => {
-      console.log("New message received:", message);
-      // Only add messages for the global chat
-      if (message.chatroomId === "global-chat") {
-        setMessages((prev) => [...prev, message]);
-      }
-    });
-
-    socket.on("users-updated", (users: string[]) => {
-      console.log("Active users updated:", users);
-      setActiveUsers(users);
-    });
-
-    // Cleanup on unmount
-    return () => {
-      socket.disconnect();
-    };
-  }, []);
-
-  // Load initial messages and set alias when user joins
-  useEffect(() => {
-    if (alias && isConnected) {
-      // Load existing messages from database
-      fetchMessages();
-
-      // Set alias for presence tracking
-      if (socketRef.current) {
-        socketRef.current.emit("set-alias", alias);
-      }
-    }
-  }, [alias, isConnected]);
-
   // Load chatrooms on component mount
   useEffect(() => {
     fetchChatrooms();
@@ -219,7 +105,7 @@ export default function Home() {
             <div>
               <h1 className="text-2xl font-bold text-gray-900">Zest Chat</h1>
               <p className="text-gray-600 text-sm">
-                Global chat room for everyone
+                Create and join chat rooms
               </p>
             </div>
             <button
