@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useRef } from 'react'
+import Linkify from 'linkify-react'
 
 interface Message {
   id: string
@@ -46,9 +47,17 @@ export default function MessageList({ messages }: MessageListProps) {
                 {formatTimestamp(msg.timestamp)}
               </span>
             </div>
-            <p className="text-gray-700 text-sm leading-relaxed">
-              {msg.message}
-            </p>
+            <div className="text-gray-700 text-sm leading-relaxed">
+              <Linkify
+                options={{
+                  target: '_blank',
+                  rel: 'noopener noreferrer',
+                  className: 'text-blue-600 hover:text-blue-800 underline break-all'
+                }}
+              >
+                {msg.message}
+              </Linkify>
+            </div>
           </div>
         ))
       )}
