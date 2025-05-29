@@ -7,6 +7,84 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.1.1] - 2025-05-29
+
+### Fixed
+
+#### 🔧 Production Database Setup
+
+- **Database Migration**: Fixed missing `roomUrl` column in production database
+- **Schema Synchronization**: Resolved database schema drift between development and production
+- **Authentication**: Fixed PostgreSQL authentication issues for remote connections
+- **Column Naming**: Corrected case sensitivity for `roomUrl` field in production database
+
+### Technical Details
+
+#### Database Operations
+
+- Applied missing migration for `roomUrl` field to production database
+- Fixed column naming case mismatch (`roomurl` → `roomUrl`)
+- Resolved Prisma client synchronization with production schema
+- Established stable connection to VPS PostgreSQL instance
+
+#### Production Readiness
+
+- **Environment Configuration**: Validated production environment variables
+- **Database Connectivity**: Confirmed stable connection from application to VPS database
+- **Schema Consistency**: Ensured development and production schemas match
+- **Migration Management**: Proper baseline and deployment of database migrations
+
+## [2.1.0] - 2025-05-29
+
+### Added
+
+#### 🔗 Short URLs for Room Sharing
+
+- **Compact URLs**: Room URLs now use 6-character codes like `/chat/abc123` instead of full UUIDs
+- **Easy Sharing**: Short URLs are much easier to share and remember
+- **Collision Handling**: Automatic retry logic ensures unique room codes
+- **Character Set**: Uses alphanumeric characters excluding confusing ones (0, O, l, I, 1)
+
+### Changed
+
+#### 🗄️ Database Schema
+
+- **New Field**: Added `roomUrl` field to Chatroom model for storing short codes
+- **Backward Compatibility**: Existing UUID-based URLs continue to work
+- **Migration**: Updated schema with nullable `roomUrl` field
+
+#### 🔧 API Enhancements
+
+- **Dual Support**: All API endpoints now accept both short URLs and UUIDs
+- **Room Creation**: New rooms automatically generate short URLs
+- **Fallback Logic**: Smart lookup prioritizes short URLs, falls back to UUIDs
+
+#### 🎨 Frontend Updates
+
+- **Room Creation**: New rooms redirect to short URL format
+- **Navigation**: Room lists use short URLs for better UX
+- **Compatibility**: Graceful handling of rooms with or without short URLs
+
+### Technical Details
+
+#### New Components
+
+- **Utility**: `src/lib/roomUrl.ts` for generating and validating room codes
+- **Generation**: Collision-resistant 6-character ID creation
+- **Validation**: Pattern matching for short URL format
+
+#### Database Migration
+
+```sql
+-- Added to existing Chatroom model
+roomUrl String? @unique
+```
+
+### Fixed
+
+- **React Hooks**: Resolved ESLint warnings with proper useCallback implementation
+- **Type Safety**: Updated interfaces to include optional roomUrl field
+
 ## [2.0.0] - 2025-05-29
 
 ### Added

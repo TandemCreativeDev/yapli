@@ -266,3 +266,31 @@ src/components/
 - Secure link handling implementation
 - Cross-browser compatible design
 
+## 🔗 Short URLs Implementation (May 29, 2025)
+
+### ✅ COMPLETED - Short Room URLs
+
+**Status:** Fully implemented and working!
+
+**Implementation Details:**
+- **URL Format:** `/chat/abc123` instead of `/chat/a8b2c3d4-e5f6-g7h8-i9j0-k1l2m3n4o5p6`
+- **Database Schema:** Added `roomUrl` field to Chatroom model
+- **ID Generation:** 6-character codes using alphanumeric chars (excluding confusing ones)
+- **Collision Handling:** Automatic retry logic ensures uniqueness
+- **Backward Compatibility:** Existing UUID links continue to work
+
+**Technical Components:**
+- **Utility:** `src/lib/roomUrl.ts` for generating and validating room codes
+- **API Updates:** All endpoints accept both short URLs and UUIDs
+- **Frontend Updates:** Room creation uses short URLs, fallbacks to UUIDs
+- **Migration:** Database schema updated with nullable `roomUrl` field
+
+**Benefits Achieved:**
+- Much easier to share room links (6 characters vs 36)
+- Better user experience for manual URL entry
+- Maintains full backward compatibility
+- Collision-resistant with retry logic
+- Clean, memorable room identifiers
+
+**Commit:** `3975025` - feat: implement short URLs for chatroom sharing
+
