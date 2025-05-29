@@ -9,7 +9,7 @@
   --color-background-dark: #1a1a1a;
   --color-card: var(--color-card-light);
   --color-card-light: #f5f5f5;
-  --color-card-dark: #2a2a2a;
+  --color-card-dark: #252525;
   --color-text: var(--color-text-light);
   --color-text-light: #1a1a1a;
   --color-text-dark: #e5e5e5;
@@ -32,11 +32,13 @@
 
   html[data-theme="light"],
   html[data-theme="light"] body {
+    background-color: var(--color-background-light);
     color: var(--color-text-light);
   }
 
   html[data-theme="dark"],
   html[data-theme="dark"] body {
+    background-color: var(--color-background-dark);
     color: var(--color-text-dark);
   }
 }
