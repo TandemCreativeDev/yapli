@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Logo from "@/components/Logo";
 import Image from "next/image";
+import { TrashIcon } from "@heroicons/react/24/outline";
 
 interface Chatroom {
   id: string;
@@ -222,9 +223,10 @@ export default function Home() {
                       </button>
                       <button
                         onClick={() => deleteChatroom(room.id)}
-                        className="px-3 py-1 bg-red-500 text-white text-sm rounded-md hover:bg-red-400 cursor-pointer"
+                        className="p-2 bg-red-500 text-white rounded-md hover:bg-red-400 cursor-pointer transition-colors"
+                        title="Delete room"
                       >
-                        Delete
+                        <TrashIcon className="w-3 h-3" />
                       </button>
                     </div>
                   </div>
