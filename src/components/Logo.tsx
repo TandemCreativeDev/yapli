@@ -4,7 +4,7 @@ export default function Logo() {
   return (
     <div className="fixed bottom-4 right-4 z-10 opacity-60 hover:opacity-100 transition-opacity">
       <Image
-        src="/images/zest-logo.png"
+        src="/images/yapli-logo.png"
         alt="Zest Logo"
         width={48}
         height={48}
@@ -13,4 +13,3 @@ export default function Logo() {
     </div>
   );
 }
-

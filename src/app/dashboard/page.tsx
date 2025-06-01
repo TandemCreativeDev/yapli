@@ -109,14 +109,16 @@ export default function Home() {
         <div className="max-w-4xl mx-auto px-4 py-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between">
             <div>
-              <div className="flex items-center gap-6">
-                <h1 className="text-5xl font-bold text-yellow-400">Zest</h1>
+              <div className="flex items-center gap-0">
+                <h1 className="text-5xl font-bold font-mono text-[#3EBDC7]">
+                  yapli
+                </h1>
 
                 <Image
-                  src="/images/zest-logo.png"
+                  src="/images/yapli-logo.png"
                   alt="Zest Logo"
-                  width={40}
-                  height={40}
+                  width={60}
+                  height={60}
                   className="rounded-lg"
                 />
               </div>
@@ -128,7 +130,7 @@ export default function Home() {
               <ThemeToggle />
               <button
                 onClick={() => setShowRoomForm(!showRoomForm)}
-                className="px-4 py-2 bg-yellow-400 text-black rounded-md hover:bg-yellow-300 text-sm font-medium cursor-pointer"
+                className="px-4 py-2 bg-[#3EBDC7] text-black rounded-md hover:bg-yellow-300 text-sm font-medium cursor-pointer"
               >
                 + Create New Room
               </button>
