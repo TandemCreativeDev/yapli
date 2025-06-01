@@ -4,10 +4,10 @@ import { isValidRoomUrl } from '@/lib/roomUrl';
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { roomId: string } }
+  { params }: { params: Promise<{ roomId: string }> }
 ) {
   try {
-    const { roomId } = params;
+    const { roomId } = await params;
 
     // Try to find by roomUrl first, then by UUID as fallback
     let chatroom;
@@ -54,10 +54,10 @@ export async function GET(
 
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { roomId: string } }
+  { params }: { params: Promise<{ roomId: string }> }
 ) {
   try {
-    const { roomId } = params;
+    const { roomId } = await params;
 
     // Find chatroom by roomUrl or UUID
     let chatroom;

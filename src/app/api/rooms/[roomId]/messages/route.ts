@@ -16,10 +16,10 @@ async function findChatroomByRoomUrlOrId(roomId: string) {
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { roomId: string } },
+  { params }: { params: Promise<{ roomId: string }> },
 ) {
   try {
-    const { roomId } = params;
+    const { roomId } = await params;
 
     // Check if the chatroom exists
     const chatroom = await findChatroomByRoomUrlOrId(roomId);
@@ -52,10 +52,10 @@ export async function GET(
 
 export async function POST(
   request: NextRequest,
-  { params }: { params: { roomId: string } },
+  { params }: { params: Promise<{ roomId: string }> },
 ) {
   try {
-    const { roomId } = params;
+    const { roomId } = await params;
     const { alias, message } = await request.json();
 
     if (!alias || !message) {
