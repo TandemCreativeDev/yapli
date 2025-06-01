@@ -159,10 +159,10 @@ export default function ChatRoomPage() {
         <div className="text-center">
           <h1 className="text-2xl font-bold text-text mb-2">{error}</h1>
           <button
-            onClick={() => router.push("/")}
+            onClick={() => router.push("/dashboard")}
             className="px-4 py-2 bg-yellow-500 text-black rounded-md hover:bg-yellow-400 cursor-pointer"
           >
-            Go Home
+            Go to Dashboard
           </button>
         </div>
       </div>
