@@ -190,12 +190,12 @@ export default function ChatRoomPage() {
             </div>
             <div className="flex items-center gap-3">
               <ThemeToggle />
-              <button
-                onClick={() => router.push("/")}
-                className="px-3 bg-yellow-400 py-3 text-sm text-black hover:bg-yellow-300 cursor-pointer rounded-lg"
-              >
-                ← Leave Room
-              </button>
+              {/* <button */}
+              {/*   onClick={() => router.push("/")} */}
+              {/*   className="px-3 bg-yellow-400 py-3 text-sm text-black hover:bg-yellow-300 cursor-pointer rounded-lg" */}
+              {/* > */}
+              {/*   ← Leave Room */}
+              {/* </button> */}
             </div>
           </div>
         </div>
