@@ -6,7 +6,7 @@
     "dev": "node server.js",
     "proddb": "node -r dotenv/config server.js dotenv_config_path=.env.production",
     "build": "next build",
-    "start": "node server.js",
+    "start": "node -r dotenv/config server.js dotenv_config_path=.env.production",
     "lint": "next lint"
   },
   "dependencies": {
