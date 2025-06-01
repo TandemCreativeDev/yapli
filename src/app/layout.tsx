@@ -14,8 +14,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Zest Chat",
-  description: "Zest Chat for online disposable chatrooms with memory",
+  title: "Yapli Chat",
+  description: "Yapli Chat for online disposable chatrooms with memory",
 };
 
 export default function RootLayout({
