@@ -2,7 +2,9 @@
 
 import { useState, useEffect, useRef, useCallback } from "react";
 import { useParams, useRouter } from "next/navigation";
+import { useSession } from "next-auth/react";
 import { io, Socket } from "socket.io-client";
+import Link from "next/link";
 import AliasInput from "@/components/AliasInput";
 import MessageList from "@/components/MessageList";
 import MessageInput from "@/components/MessageInput";
@@ -23,11 +25,13 @@ interface Chatroom {
   title: string;
   createdAt: string;
   messageCount: number;
+  userId?: string;
 }
 
 export default function ChatRoomPage() {
   const params = useParams();
   const router = useRouter();
+  const { data: session } = useSession();
   const roomId = params.roomId as string;
 
   const [alias, setAlias] = useState<string | null>(null);
@@ -215,6 +219,14 @@ export default function ChatRoomPage() {
               </div>
             </div>
             <div className="flex items-center gap-3 flex-shrink-0">
+              {session?.user && chatroom?.userId === session.user.id && (
+                <Link
+                  href="/dashboard"
+                  className="px-3 py-1.5 text-xs sm:text-sm bg-gradient-to-r from-[#3EBDC7] to-blue-500 hover:from-[#7bcad9] hover:to-blue-600 text-white rounded-md focus:outline-none focus:ring-2 focus:ring-yapli-teal focus:ring-offset-2 transition-all duration-300"
+                >
+                  Dashboard
+                </Link>
+              )}
               <ThemeToggle />
             </div>
           </div>
