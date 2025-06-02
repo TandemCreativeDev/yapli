@@ -104,4 +104,3 @@
 - Blue-green deployments
 - Advanced observability
 - Compliance tooling
-
