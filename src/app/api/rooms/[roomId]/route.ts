@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import { isValidRoomUrl } from '@/lib/roomUrl';
+import { getServerSession } from 'next-auth/next';
+import { authOptions } from '@/lib/auth';
 
 export async function GET(
   request: NextRequest,
@@ -42,6 +44,7 @@ export async function GET(
       title: chatroom.title,
       createdAt: chatroom.createdAt,
       messageCount: chatroom._count.messages,
+      userId: chatroom.userId,
     });
   } catch (error) {
     console.error('Error fetching chatroom:', error);
@@ -57,17 +60,42 @@ export async function DELETE(
   { params }: { params: Promise<{ roomId: string }> }
 ) {
   try {
+    const session = await getServerSession(authOptions);
+    
+    if (!session?.user?.email) {
+      return NextResponse.json(
+        { error: 'Unauthorized' },
+        { status: 401 }
+      );
+    }
+
     const { roomId } = await params;
 
-    // Find chatroom by roomUrl or UUID
+    // Get the user from the database
+    const user = await prisma.user.findUnique({
+      where: { email: session.user.email },
+    });
+
+    if (!user) {
+      return NextResponse.json(
+        { error: 'User not found' },
+        { status: 404 }
+      );
+    }
+
+    // Find chatroom by roomUrl or UUID and ensure it belongs to the user
     let chatroom;
     if (isValidRoomUrl(roomId)) {
       chatroom = await prisma.chatroom.findUnique({
-        where: { roomUrl: roomId }
+        where: { 
+          roomUrl: roomId,
+        }
       });
     } else {
       chatroom = await prisma.chatroom.findUnique({
-        where: { id: roomId }
+        where: { 
+          id: roomId,
+        }
       });
     }
 
@@ -75,6 +103,14 @@ export async function DELETE(
       return NextResponse.json(
         { error: 'Chatroom not found' },
         { status: 404 }
+      );
+    }
+
+    // Check if the chatroom belongs to the authenticated user
+    if (chatroom.userId !== user.id) {
+      return NextResponse.json(
+        { error: 'Forbidden: You can only delete your own chatrooms' },
+        { status: 403 }
       );
     }
 
