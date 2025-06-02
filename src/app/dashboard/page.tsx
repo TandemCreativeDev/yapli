@@ -119,7 +119,7 @@ export default function Home() {
           <div className="flex items-center justify-between">
             <div>
               <div className="flex items-center gap-0">
-                <h1 className="text-5xl font-bold font-mono text-[#3EBDC7]">
+                <h1 className="text-5xl font-bold font-mono bg-gradient-to-r from-[#3EBDC7] to-blue-500 bg-clip-text text-transparent">
                   yapli
                 </h1>
 
@@ -139,7 +139,7 @@ export default function Home() {
               <ThemeToggle />
               <button
                 onClick={() => setShowRoomForm(!showRoomForm)}
-                className="px-4 py-2 bg-yapli-teal text-black rounded-md hover:bg-yapli-hover focus:outline-none focus:ring-2 focus:ring-yapli-teal focus:ring-offset-2 text-sm font-medium cursor-pointer"
+                className="px-4 py-2 bg-gradient-to-r from-[#3EBDC7] to-blue-500 hover:from-[#7bcad9] hover:to-blue-600 text-white rounded-md focus:outline-none focus:ring-2 focus:ring-yapli-teal focus:ring-offset-2 text-sm font-medium cursor-pointer transition-all duration-300"
                 aria-label={
                   showRoomForm ? "Cancel room creation" : "Create new chat room"
                 }
