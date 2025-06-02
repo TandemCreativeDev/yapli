@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef, useCallback } from "react";
-import { useParams, useRouter } from "next/navigation";
+import { useParams } from "next/navigation";
 import { useSession } from "next-auth/react";
 import { io, Socket } from "socket.io-client";
 import Link from "next/link";
@@ -28,9 +28,15 @@ interface Chatroom {
   userId?: string;
 }
 
+interface ExtendedUser {
+  id?: string;
+  name?: string | null;
+  email?: string | null;
+  image?: string | null;
+}
+
 export default function ChatRoomPage() {
   const params = useParams();
-  const router = useRouter();
   const { data: session } = useSession();
   const roomId = params.roomId as string;
 
@@ -219,7 +225,7 @@ export default function ChatRoomPage() {
               </div>
             </div>
             <div className="flex items-center gap-3 flex-shrink-0">
-              {session?.user && chatroom?.userId === session.user.id && (
+              {session?.user && chatroom?.userId === (session.user as ExtendedUser).id && (
                 <Link
                   href="/dashboard"
                   className="px-3 py-1.5 text-xs sm:text-sm bg-gradient-to-r from-[#3EBDC7] to-blue-500 hover:from-[#7bcad9] hover:to-blue-600 text-white rounded-md focus:outline-none focus:ring-2 focus:ring-yapli-teal focus:ring-offset-2 transition-all duration-300"

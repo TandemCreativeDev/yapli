@@ -1,25 +1,17 @@
 "use client";
 
-import { signIn, getProviders } from "next-auth/react";
-import { useEffect, useState } from "react";
+import { signIn } from "next-auth/react";
+import { useState } from "react";
 import Link from "next/link";
 import Logo from "@/components/Logo";
 import ThemeToggle from "@/components/ThemeToggle";
 import Image from "next/image";
 
 export default function SignIn() {
-  const [providers, setProviders] = useState<any>(null);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
-
-  useEffect(() => {
-    (async () => {
-      const res = await getProviders();
-      setProviders(res);
-    })();
-  }, []);
 
   const handleCredentialsSignIn = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -38,7 +30,7 @@ export default function SignIn() {
       } else if (result?.ok) {
         window.location.href = "/dashboard";
       }
-    } catch (error) {
+    } catch {
       setError("An error occurred. Please try again.");
     } finally {
       setIsLoading(false);
@@ -137,7 +129,7 @@ export default function SignIn() {
 
           <div className="text-center mt-4">
             <p className="text-sm text-text opacity-70">
-              Don't have an account?{" "}
+              Don&apos;t have an account?{" "}
               <Link
                 href="/auth/register"
                 className="text-yapli-teal hover:underline"

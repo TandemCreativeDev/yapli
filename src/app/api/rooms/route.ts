@@ -4,7 +4,7 @@ import { generateRoomUrl } from '@/lib/roomUrl';
 import { getServerSession } from 'next-auth/next';
 import { authOptions } from '@/lib/auth';
 
-export async function GET(request: NextRequest) {
+export async function GET() {
   try {
     const session = await getServerSession(authOptions);
     console.log("Session in GET /api/rooms:", session);

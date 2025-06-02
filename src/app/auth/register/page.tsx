@@ -68,8 +68,8 @@ export default function Register() {
         // If auto sign-in fails, redirect to sign-in page
         window.location.href = "/auth/signin";
       }
-    } catch (error: any) {
-      setError(error.message || "An error occurred. Please try again.");
+    } catch (error: unknown) {
+      setError((error as Error)?.message || "An error occurred. Please try again.");
     } finally {
       setIsLoading(false);
     }
