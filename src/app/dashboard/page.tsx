@@ -119,7 +119,7 @@ export default function Home() {
           <div className="flex items-center justify-between">
             <div>
               <div className="flex items-center gap-0">
-                <h1 className="text-5xl font-bold font-mono bg-gradient-to-r from-[#3EBDC7] to-blue-500 bg-clip-text text-transparent">
+                <h1 className="text-5xl font-bold font-mono bg-gradient-to-r from-[#3EBDC7] to-blue-500 bg-clip-text text-transparent pb-2">
                   yapli
                 </h1>
 
@@ -262,7 +262,7 @@ export default function Home() {
         </div>
       </main>
       <Logo />
-      
+
       <ConfirmationModal
         isOpen={showDeleteModal}
         onClose={cancelDelete}
