@@ -54,7 +54,7 @@ export default function Register() {
       }
 
       setSuccess(true);
-      
+
       // Auto sign in after successful registration
       const result = await signIn("credentials", {
         email,
@@ -69,7 +69,9 @@ export default function Register() {
         window.location.href = "/auth/signin";
       }
     } catch (error: unknown) {
-      setError((error as Error)?.message || "An error occurred. Please try again.");
+      setError(
+        (error as Error)?.message || "An error occurred. Please try again.",
+      );
     } finally {
       setIsLoading(false);
     }
@@ -80,7 +82,9 @@ export default function Register() {
       <div className="min-h-screen flex items-center justify-center bg-background">
         <div className="bg-card rounded-lg shadow-sm border border-border p-6 max-w-md w-full mx-4">
           <div className="text-center">
-            <h2 className="text-2xl font-bold text-text mb-2">Registration Successful!</h2>
+            <h2 className="text-2xl font-bold text-text mb-2">
+              Registration Successful!
+            </h2>
             <p className="text-text opacity-70 mb-4">
               Your account has been created. Redirecting to dashboard...
             </p>
@@ -124,12 +128,17 @@ export default function Register() {
           <form onSubmit={handleSubmit} className="space-y-4">
             {error && (
               <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-md p-3">
-                <p className="text-red-600 dark:text-red-400 text-sm">{error}</p>
+                <p className="text-red-600 dark:text-red-400 text-sm">
+                  {error}
+                </p>
               </div>
             )}
-            
+
             <div>
-              <label htmlFor="name" className="block text-sm font-medium text-text mb-1">
+              <label
+                htmlFor="name"
+                className="block text-sm font-medium text-text mb-1"
+              >
                 Name (optional)
               </label>
               <input
@@ -141,9 +150,12 @@ export default function Register() {
                 placeholder="Enter your name"
               />
             </div>
-            
+
             <div>
-              <label htmlFor="email" className="block text-sm font-medium text-text mb-1">
+              <label
+                htmlFor="email"
+                className="block text-sm font-medium text-text mb-1"
+              >
                 Email
               </label>
               <input
@@ -156,9 +168,12 @@ export default function Register() {
                 placeholder="Enter your email"
               />
             </div>
-            
+
             <div>
-              <label htmlFor="password" className="block text-sm font-medium text-text mb-1">
+              <label
+                htmlFor="password"
+                className="block text-sm font-medium text-text mb-1"
+              >
                 Password
               </label>
               <input
@@ -171,9 +186,12 @@ export default function Register() {
                 placeholder="Enter your password (min. 6 characters)"
               />
             </div>
-            
+
             <div>
-              <label htmlFor="confirmPassword" className="block text-sm font-medium text-text mb-1">
+              <label
+                htmlFor="confirmPassword"
+                className="block text-sm font-medium text-text mb-1"
+              >
                 Confirm Password
               </label>
               <input
@@ -186,24 +204,28 @@ export default function Register() {
                 placeholder="Confirm your password"
               />
             </div>
-            
+
             <button
               type="submit"
               disabled={isLoading}
-              className="w-full px-4 py-2 bg-gradient-to-r from-[#3EBDC7] to-blue-500 hover:from-[#7bcad9] hover:to-blue-600 text-white rounded-md focus:outline-none focus:ring-2 focus:ring-yapli-teal focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300"
+              className="w-full px-4 py-2 bg-gradient-to-r from-[#3EBDC7] to-blue-500 hover:from-[#7bcad9] hover:to-blue-600 text-white rounded-md focus:outline-none focus:ring-2 focus:ring-yapli-teal focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 cursor-pointer"
             >
               {isLoading ? "Creating account..." : "Create Account"}
             </button>
           </form>
 
           <p className="text-xs text-text opacity-50 text-center mt-6">
-            By creating an account, you agree to our terms of service and privacy policy.
+            By creating an account, you agree to our terms of service and
+            privacy policy.
           </p>
-          
+
           <div className="text-center mt-4">
             <p className="text-sm text-text opacity-70">
               Already have an account?{" "}
-              <Link href="/auth/signin" className="text-yapli-teal hover:underline">
+              <Link
+                href="/auth/signin"
+                className="text-yapli-teal hover:underline"
+              >
                 Sign in
               </Link>
             </p>
@@ -215,3 +237,4 @@ export default function Register() {
     </div>
   );
 }
+

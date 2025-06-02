@@ -79,10 +79,7 @@ export default function ConfirmationModal({
         onClick={(e) => e.stopPropagation()}
       >
         <div className="flex items-start justify-between mb-4">
-          <h2
-            id="modal-title"
-            className="text-lg font-semibold text-text"
-          >
+          <h2 id="modal-title" className="text-lg font-semibold text-text">
             {title}
           </h2>
           <button
@@ -90,17 +87,14 @@ export default function ConfirmationModal({
             className="p-1 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-yapli-teal focus:ring-offset-2"
             aria-label="Close modal"
           >
-            <XMarkIcon className="w-5 h-5 text-text" />
+            <XMarkIcon className="w-5 h-5 text-text cursor-pointer" />
           </button>
         </div>
-        
-        <p
-          id="modal-description"
-          className="text-text opacity-80 mb-6"
-        >
+
+        <p id="modal-description" className="text-text opacity-80 mb-6">
           {message}
         </p>
-        
+
         <div className="flex space-x-3 justify-end">
           <button
             onClick={onClose}
@@ -120,3 +114,4 @@ export default function ConfirmationModal({
     </div>
   );
 }
+

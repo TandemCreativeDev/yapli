@@ -8,7 +8,6 @@ import Link from "next/link";
 import AliasInput from "@/components/AliasInput";
 import MessageList from "@/components/MessageList";
 import MessageInput from "@/components/MessageInput";
-import Logo from "@/components/Logo";
 import ThemeToggle from "@/components/ThemeToggle";
 import Image from "next/image";
 
@@ -232,14 +231,15 @@ export default function ChatRoomPage() {
               </div>
             </div>
             <div className="flex items-center gap-3 flex-shrink-0">
-              {session?.user && chatroom?.userId === (session.user as ExtendedUser).id && (
-                <Link
-                  href="/dashboard"
-                  className="px-3 py-1.5 text-xs sm:text-sm bg-gradient-to-r from-[#3EBDC7] to-blue-500 hover:from-[#7bcad9] hover:to-blue-600 text-white rounded-md focus:outline-none focus:ring-2 focus:ring-yapli-teal focus:ring-offset-2 transition-all duration-300"
-                >
-                  Dashboard
-                </Link>
-              )}
+              {session?.user &&
+                chatroom?.userId === (session.user as ExtendedUser).id && (
+                  <Link
+                    href="/dashboard"
+                    className="px-3 py-1.5 text-xs sm:text-sm bg-gradient-to-r from-[#3EBDC7] to-blue-500 hover:from-[#7bcad9] hover:to-blue-600 text-white rounded-md focus:outline-none focus:ring-2 focus:ring-yapli-teal focus:ring-offset-2 transition-all duration-300"
+                  >
+                    Dashboard
+                  </Link>
+                )}
               <ThemeToggle />
             </div>
           </div>
@@ -326,18 +326,16 @@ export default function ChatRoomPage() {
       {!alias && (
         <div className="fixed inset-0 backdrop-blur-sm flex items-center justify-center z-50">
           <div className="bg-card border border-border rounded-lg p-6 max-w-md w-full mx-4 shadow-xl">
-            <AliasInput 
+            <AliasInput
               onAliasSet={(newAlias) => {
                 setAliasError(null); // Clear error when setting new alias
                 setAlias(newAlias);
-              }} 
+              }}
               error={aliasError}
             />
           </div>
         </div>
       )}
-
-      <Logo />
     </div>
   );
 }
