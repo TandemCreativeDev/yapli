@@ -130,7 +130,7 @@ export default function Home() {
               <ThemeToggle />
               <button
                 onClick={() => setShowRoomForm(!showRoomForm)}
-                className="px-4 py-2 bg-[#3EBDC7] text-black rounded-md hover:bg-yellow-300 text-sm font-medium cursor-pointer"
+                className="px-4 py-2 bg-[#3EBDC7] text-black rounded-md hover:bg-[#7bcad9] text-sm font-medium cursor-pointer"
               >
                 + Create New Room
               </button>
