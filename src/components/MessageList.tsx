@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import Linkify from "linkify-react";
+import LinkPreview from "./LinkPreview";
 
 interface Message {
   id: string;
@@ -17,6 +18,12 @@ interface MessageListProps {
 function formatTimestamp(timestamp: string) {
   const date = new Date(timestamp);
   return date.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+}
+
+function extractUrls(text: string): string[] {
+  const urlRegex = /(https?:\/\/[^\s]+)/g;
+  const matches = text.match(urlRegex);
+  return matches || [];
 }
 
 export default function MessageList({ messages }: MessageListProps) {
@@ -37,33 +44,44 @@ export default function MessageList({ messages }: MessageListProps) {
           No messages yet. Be the first to say hello!
         </div>
       ) : (
-        messages.map((msg) => (
-          <div
-            key={msg.id}
-            className="border-b border-border pb-3 last:border-b-0"
-          >
-            <div className="flex items-baseline justify-between mb-1">
-              <span className="font-semibold text-text text-sm">
-                {msg.alias}
-              </span>
-              <span className="text-xs text-text opacity-50">
-                {formatTimestamp(msg.timestamp)}
-              </span>
+        messages.map((msg) => {
+          const urls = extractUrls(msg.message);
+          
+          return (
+            <div
+              key={msg.id}
+              className="border-b border-border pb-3 last:border-b-0"
+            >
+              <div className="flex items-baseline justify-between mb-1">
+                <span className="font-semibold text-text text-sm">
+                  {msg.alias}
+                </span>
+                <span className="text-xs text-text opacity-50">
+                  {formatTimestamp(msg.timestamp)}
+                </span>
+              </div>
+              <div className="text-text text-sm leading-relaxed">
+                <Linkify
+                  options={{
+                    target: "_blank",
+                    rel: "noopener noreferrer",
+                    className:
+                      "text-yellow-600 dark:text-yellow-400 hover:text-yellow-500 dark:hover:text-yellow-300 underline break-all",
+                  }}
+                >
+                  {msg.message}
+                </Linkify>
+              </div>
+              {urls.length > 0 && (
+                <div className="mt-3 space-y-2">
+                  {urls.map((url, index) => (
+                    <LinkPreview key={`${msg.id}-${index}`} url={url} />
+                  ))}
+                </div>
+              )}
             </div>
-            <div className="text-text text-sm leading-relaxed">
-              <Linkify
-                options={{
-                  target: "_blank",
-                  rel: "noopener noreferrer",
-                  className:
-                    "text-yellow-600 dark:text-yellow-400 hover:text-yellow-500 dark:hover:text-yellow-300 underline break-all",
-                }}
-              >
-                {msg.message}
-              </Linkify>
-            </div>
-          </div>
-        ))
+          );
+        })
       )}
       <div ref={messagesEndRef} />
     </div>
