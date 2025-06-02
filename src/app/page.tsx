@@ -88,7 +88,7 @@ export default function Home() {
               </div>
               <div className="flex items-center">
                 <span className="mr-3">🔗</span>
-                Frictionless sharing with a simple link
+                Frictionless sharing with a simple link or code
               </div>
             </div>
           </div>
