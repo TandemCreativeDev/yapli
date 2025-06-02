@@ -120,9 +120,11 @@ export default function Home() {
                   <button
                     onClick={handleJoinRoom}
                     disabled={isChecking}
-                    className="bg-gradient-to-r from-[#3EBDC7] to-blue-500 hover:from-[#7bcad9] hover:to-blue-600 text-white font-bold py-3 px-6 rounded-full text-lg transition-all duration-300 transform hover:scale-105 shadow-lg disabled:opacity-50 disabled:transform-none cursor-pointer"
+                    className="relative overflow-hidden bg-gradient-to-r from-[#3EBDC7] to-blue-500 text-white font-bold py-3 px-6 rounded-full text-lg transition-all duration-300 transform hover:scale-105 shadow-lg disabled:opacity-50 disabled:transform-none cursor-pointer before:absolute before:inset-0 before:bg-gradient-to-r before:from-[#7bcad9] before:to-blue-600 before:opacity-0 before:transition-opacity before:duration-300 hover:before:opacity-100"
                   >
-                    {isChecking ? "Checking..." : "Join Room"}
+                    <span className="relative z-10">
+                      {isChecking ? "Checking..." : "Join Room"}
+                    </span>
                   </button>
                 </div>
               </div>
@@ -134,9 +136,9 @@ export default function Home() {
                 <div className="flex flex-col sm:flex-row gap-4">
                   <Link
                     href="/auth/signin"
-                    className="bg-gradient-to-r from-[#3EBDC7] to-blue-500 hover:from-[#7bcad9] hover:to-blue-600 text-white font-bold py-4 px-8 rounded-full text-xl transition-all duration-300 transform hover:scale-105 shadow-lg"
+                    className="relative overflow-hidden bg-gradient-to-r from-[#3EBDC7] to-blue-500 text-white font-bold py-4 px-8 rounded-full text-xl transition-all duration-300 transform hover:scale-105 shadow-lg before:absolute before:inset-0 before:bg-gradient-to-r before:from-[#7bcad9] before:to-blue-600 before:opacity-0 before:transition-opacity before:duration-300 hover:before:opacity-100"
                   >
-                    Login
+                    <span className="relative z-10">Login</span>
                   </Link>
                   <Link
                     href="/auth/register"
