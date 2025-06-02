@@ -156,15 +156,22 @@ export default function ChatRoomPage() {
 
   if (error) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
+      <div className="min-h-screen flex flex-col items-center justify-center">
+        <div className="flex items-center gap-0 mb-10">
+          <h1 className="text-5xl font-bold font-mono bg-gradient-to-r from-[#3EBDC7] to-blue-500 bg-clip-text text-transparent pb-2">
+            yapli
+          </h1>
+
+          <Image
+            src="/images/yapli-logo.png"
+            alt="Zest Logo"
+            width={60}
+            height={60}
+            className="rounded-lg"
+          />
+        </div>
         <div className="text-center">
           <h1 className="text-2xl font-bold text-text mb-2">{error}</h1>
-          <button
-            onClick={() => router.push("/dashboard")}
-            className="px-4 py-2 bg-yapli-teal text-black rounded-md hover:bg-yapli-hover cursor-pointer"
-          >
-            Go to Dashboard
-          </button>
         </div>
       </div>
     );
@@ -249,7 +256,7 @@ export default function ChatRoomPage() {
               <div className="flex-1 min-h-0 py-4">
                 <MessageList messages={messages} />
               </div>
-              
+
               {/* Message Input - Sticky at bottom */}
               <div className="flex-shrink-0 py-4 border-t border-border bg-background">
                 <MessageInput
@@ -298,7 +305,7 @@ export default function ChatRoomPage() {
           </div>
         </div>
       )}
-      
+
       <Logo />
     </div>
   );
