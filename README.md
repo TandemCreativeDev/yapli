@@ -1,17 +1,17 @@
-# Zest
+# Yapli
 
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/47ef837d-709e-4778-989d-39e0947d155a" alt="Zest App Logo May 21 2025" width="200">
+  <img src="https://github.com/user-attachments/assets/47ef837d-709e-4778-989d-39e0947d155a" alt="Yapli App Logo" width="200">
 </p>
 
-Zest is a modern, minimalist web-based chatroom application built with Next.js and real-time WebSocket communication. Create dynamic chat rooms, join conversations with custom aliases, and share links seamlessly in a beautiful dark-themed interface.
+Yapli is a modern, minimalist web-based chatroom application built with Next.js and real-time WebSocket communication. Create dynamic chat rooms, join conversations with custom aliases, and share links seamlessly in a beautiful dark-themed interface.
 
 ## ✨ Features
 
 ### 🏠 **Dynamic Room Management**
 
 - Create unlimited chat rooms with custom titles
-- Unique shareable URLs for each room (`/chat/[roomId]`)
+- Unique shareable URLs for each room (`/[roomId]`)
 - Room isolation - messages and presence tracking scoped per room
 - Real-time room deletion with trash icon interface
 
@@ -26,7 +26,7 @@ Zest is a modern, minimalist web-based chatroom application built with Next.js a
 
 - Beautiful dark interface with #ffc100 yellow accents
 - Responsive design for all screen sizes
-- Consistent branding with integrated logo
+- Consistent branding with integrated Yapli logo
 - Smooth hover animations and transitions
 
 ### 🔒 **Security & Accessibility**
@@ -77,11 +77,9 @@ All core functionality is complete and ready for deployment.
 
 ## Documentation
 
-- [Functional Requirements](docs/FUNCTIONAL.md) - Complete functional specifications and features
-- [Architecture](docs/ARCHITECTURE.md) - Detailed project architecture and technical design
+- [Changelog](docs/CHANGELOG.md) - Project changelog and release notes
 - [Standards & Guidelines](docs/CLAUDE.md) - Development standards and project guidelines
-- [Research for Libraries and Packages](docs/RESEARCH.md) - Research for libraries that solve the problems we need to tackle
-- [Critical Analysis of Research](docs/FLAWS.md) - What it says on the tin
+- [Error Documentation](docs/errors/) - Known issues and troubleshooting guides
 
 ## Getting Started
 
