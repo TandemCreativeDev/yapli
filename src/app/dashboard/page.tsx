@@ -8,7 +8,7 @@ import Logo from "@/components/Logo";
 import ThemeToggle from "@/components/ThemeToggle";
 import ConfirmationModal from "@/components/ConfirmationModal";
 import Image from "next/image";
-import { TrashIcon } from "@heroicons/react/24/outline";
+import { TrashIcon, Square2StackIcon } from "@heroicons/react/24/outline";
 
 interface Chatroom {
   id: string;
@@ -86,6 +86,15 @@ export default function Home() {
   const cancelDelete = () => {
     setShowDeleteModal(false);
     setRoomToDelete(null);
+  };
+
+  const copyRoomUrl = async (room: Chatroom) => {
+    const url = `${window.location.origin}/${room.roomUrl || room.id}`;
+    try {
+      await navigator.clipboard.writeText(url);
+    } catch (error) {
+      console.error("Failed to copy URL:", error);
+    }
   };
 
   const createRoom = async (e: React.FormEvent) => {
@@ -279,7 +288,19 @@ export default function Home() {
                         {new Date(room.createdAt).toLocaleDateString()}
                       </div>
                     </div>
-                    <div className="flex items-center space-x-2 ml-auto">
+                    <div className="flex items-center space-x-3 ml-auto">
+                      <button
+                        onClick={(e) => {
+                          e.preventDefault();
+                          e.stopPropagation();
+                          copyRoomUrl(room);
+                        }}
+                        className="p-2 bg-gray-300 text-gray-700 rounded-md hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2 cursor-pointer transition-colors"
+                        aria-label={`Copy URL for ${room.title} chatroom`}
+                        title="Copy room URL"
+                      >
+                        <Square2StackIcon className="w-4 h-4" />
+                      </button>
                       <button
                         onClick={(e) => {
                           e.preventDefault();
@@ -290,7 +311,7 @@ export default function Home() {
                         aria-label={`Delete ${room.title} chatroom`}
                         title="Delete room"
                       >
-                        <TrashIcon className="w-3 h-3" />
+                        <TrashIcon className="w-4 h-4" />
                       </button>
                     </div>
                   </Link>
