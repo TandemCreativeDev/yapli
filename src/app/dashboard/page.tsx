@@ -190,14 +190,14 @@ export default function Home() {
                   <>
                     <button
                       onClick={() => setShowRoomForm(!showRoomForm)}
-                      className="px-3 py-2 bg-gradient-to-r from-[#3EBDC7] to-blue-500 hover:from-[#7bcad9] hover:to-blue-600 text-white rounded-md text-sm font-medium cursor-pointer transition-all duration-300"
+                      className="relative overflow-hidden px-3 py-2 bg-gradient-to-r from-[#3EBDC7] to-blue-500 text-white rounded-md text-sm font-medium cursor-pointer transition-all duration-300 before:absolute before:inset-0 before:bg-gradient-to-r before:from-[#7bcad9] before:to-blue-600 before:opacity-0 before:transition-opacity before:duration-300 hover:before:opacity-100"
                       aria-label={
                         showRoomForm
                           ? "Cancel room creation"
                           : "Create new chat room"
                       }
                     >
-                      + Create Room
+                      <span className="relative z-10">+ Create Room</span>
                     </button>
                     <button
                       onClick={() => signOut({ callbackUrl: "/" })}
@@ -239,14 +239,14 @@ export default function Home() {
                   </span>
                   <button
                     onClick={() => setShowRoomForm(!showRoomForm)}
-                    className="px-4 py-2 bg-gradient-to-r from-[#3EBDC7] to-blue-500 hover:from-[#7bcad9] hover:to-blue-600 text-white rounded-md focus:outline-none focus:ring-2 focus:ring-yapli-teal focus:ring-offset-2 text-sm font-medium cursor-pointer transition-all duration-300"
+                    className="relative overflow-hidden px-4 py-2 bg-gradient-to-r from-[#3EBDC7] to-blue-500 text-white rounded-md focus:outline-none focus:ring-2 focus:ring-yapli-teal focus:ring-offset-2 text-sm font-medium cursor-pointer transition-all duration-300 before:absolute before:inset-0 before:bg-gradient-to-r before:from-[#7bcad9] before:to-blue-600 before:opacity-0 before:transition-opacity before:duration-300 hover:before:opacity-100"
                     aria-label={
                       showRoomForm
                         ? "Cancel room creation"
                         : "Create new chat room"
                     }
                   >
-                    + Create New Room
+                    <span className="relative z-10">+ Create New Room</span>
                   </button>
                   <div className="flex items-center gap-3 text-sm text-text opacity-70">
                     <button
@@ -339,10 +339,16 @@ export default function Home() {
             ) : (
               <div className="space-y-3">
                 {chatrooms.map((room) => (
-                  <div key={room.id} className="w-full p-3 border border-gray-200 dark:border-gray-600 rounded-md hover:bg-gray-50 dark:hover:bg-gray-700">
+                  <div
+                    key={room.id}
+                    className="w-full p-3 border border-gray-200 dark:border-gray-600 rounded-md hover:bg-gray-50 dark:hover:bg-gray-700"
+                  >
                     {/* Mobile Layout - Stacked */}
                     <div className="block sm:hidden">
-                      <Link href={`/${room.roomUrl || room.id}`} className="block mb-3">
+                      <Link
+                        href={`/${room.roomUrl || room.id}`}
+                        className="block mb-3"
+                      >
                         <h3 className="font-medium text-gray-900 dark:text-white">
                           {room.title}
                         </h3>
@@ -364,7 +370,7 @@ export default function Home() {
                             {room.roomUrl || room.id}
                           </button>
                           <div className="absolute bottom-full mb-1 left-4 px-2 py-1 bg-gray-800 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap">
-                            Copy room ID to clipboard
+                            Copy room code to clipboard
                           </div>
                         </div>
                         <div className="flex space-x-2">
@@ -428,7 +434,7 @@ export default function Home() {
                             {room.roomUrl || room.id}
                           </button>
                           <div className="absolute bottom-full mb-1 left-1/2 transform -translate-x-1/2 px-2 py-1 bg-gray-800 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap">
-                            Copy room ID to clipboard
+                            Copy room code to clipboard
                           </div>
                         </div>
                         <div className="relative group">
