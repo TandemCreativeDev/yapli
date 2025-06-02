@@ -26,6 +26,7 @@ GITHUB_SECRET="your-github-app-secret"
 ### Security Considerations
 
 1. **NEXTAUTH_SECRET**: Generate a secure 64-character secret:
+
    ```bash
    openssl rand -base64 64
    ```
@@ -39,11 +40,13 @@ GITHUB_SECRET="your-github-app-secret"
 ## Database Migration
 
 ### 1. Backup Current Database
+
 ```bash
 pg_dump -h localhost -U current_user -d zest_current > backup_before_auth.sql
 ```
 
 ### 2. Run Prisma Migration
+
 ```bash
 # Generate Prisma client with new schema
 npx prisma generate
@@ -56,6 +59,7 @@ npx prisma migrate deploy
 ```
 
 ### 3. Verify Migration
+
 ```bash
 # Check that new tables exist
 psql -d zest_prod -c "\dt"
@@ -108,6 +112,7 @@ location /api/auth {
 ### 2. SSL Certificate
 
 Ensure HTTPS is configured for authentication security:
+
 ```bash
 # Using Let's Encrypt
 certbot --nginx -d yourdomain.com
@@ -182,12 +187,14 @@ journalctl -u zest -f
 ### In Case of Issues
 
 1. **Database Rollback**:
+
    ```bash
    # Restore from backup
    psql -d zest_prod < backup_before_auth.sql
    ```
 
 2. **Application Rollback**:
+
    ```bash
    # Switch back to main branch
    git checkout main
@@ -207,6 +214,7 @@ journalctl -u zest -f
 ### 1. Authentication Metrics
 
 Monitor these endpoints for errors:
+
 - `/api/auth/*` - Authentication endpoints
 - `/auth/signin` - Sign-in page
 - `/auth/register` - Registration page
@@ -216,19 +224,19 @@ Monitor these endpoints for errors:
 
 ```sql
 -- Monitor user registrations
-SELECT DATE(created_at), COUNT(*) 
-FROM users 
-GROUP BY DATE(created_at) 
+SELECT DATE(created_at), COUNT(*)
+FROM users
+GROUP BY DATE(created_at)
 ORDER BY DATE(created_at) DESC;
 
 -- Monitor session activity
-SELECT COUNT(*) as active_sessions 
-FROM sessions 
+SELECT COUNT(*) as active_sessions
+FROM sessions
 WHERE expires > NOW();
 
 -- Monitor OAuth vs credentials usage
-SELECT 
-  CASE 
+SELECT
+  CASE
     WHEN password IS NOT NULL THEN 'credentials'
     ELSE 'oauth'
   END as auth_type,
@@ -249,14 +257,17 @@ GROUP BY auth_type;
 ### Common Issues
 
 1. **JWT Decryption Errors**:
+
    - Verify NEXTAUTH_SECRET is set correctly
    - Check that secret hasn't changed between deployments
 
 2. **OAuth Callback Errors**:
+
    - Verify redirect URIs match exactly in OAuth provider settings
    - Check NEXTAUTH_URL matches production domain
 
 3. **Database Connection Issues**:
+
    - Verify DATABASE_URL format and credentials
    - Check database user permissions for new tables
 
@@ -283,22 +294,26 @@ pm2 logs zest --lines 100
 ## Security Best Practices
 
 ### 1. Environment Security
+
 - Never commit `.env` files to version control
 - Use strong, unique passwords for all accounts
 - Rotate OAuth secrets periodically
 
 ### 2. Database Security
+
 - Use dedicated database user with minimal required permissions
 - Enable database connection encryption
 - Regular database backups with encryption
 
 ### 3. Application Security
+
 - Keep NextAuth.js and dependencies updated
 - Monitor for security advisories
 - Implement rate limiting on authentication endpoints
 - Use HTTPS everywhere
 
 ### 4. OAuth Security
+
 - Regularly review OAuth application permissions
 - Monitor for suspicious OAuth activity
 - Use principle of least privilege for OAuth scopes
@@ -306,16 +321,19 @@ pm2 logs zest --lines 100
 ## Performance Considerations
 
 ### 1. Session Storage
+
 - Current setup uses JWT tokens (stateless)
 - Consider database sessions for better security at scale
 - Monitor session cleanup for database strategy
 
 ### 2. Database Optimization
+
 - Add indexes on frequently queried user fields
 - Monitor query performance on users table
 - Consider connection pooling for high traffic
 
 ### 3. Caching
+
 - Consider caching user sessions at application level
 - Implement proper cache invalidation strategies
 - Monitor authentication endpoint response times
@@ -323,18 +341,22 @@ pm2 logs zest --lines 100
 ## Maintenance Schedule
 
 ### Weekly
+
 - [ ] Review authentication logs for anomalies
 - [ ] Check OAuth provider status and quotas
 - [ ] Monitor user registration trends
 
 ### Monthly
+
 - [ ] Update dependencies and security patches
 - [ ] Review and rotate OAuth secrets if needed
 - [ ] Analyze authentication performance metrics
 - [ ] Database cleanup of expired sessions
 
 ### Quarterly
+
 - [ ] Full security audit of authentication system
 - [ ] Review and update OAuth application configurations
 - [ ] Performance optimization review
 - [ ] Disaster recovery testing
+
