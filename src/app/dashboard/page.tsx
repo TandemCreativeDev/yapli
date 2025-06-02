@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import Logo from "@/components/Logo";
 import ThemeToggle from "@/components/ThemeToggle";
+import ConfirmationModal from "@/components/ConfirmationModal";
 import Image from "next/image";
 import { TrashIcon } from "@heroicons/react/24/outline";
 
@@ -25,6 +26,8 @@ export default function Home() {
   const [showRoomForm, setShowRoomForm] = useState(false);
   const [chatrooms, setChatrooms] = useState<Chatroom[]>([]);
   const [loadingRooms, setLoadingRooms] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [roomToDelete, setRoomToDelete] = useState<Chatroom | null>(null);
 
   const fetchChatrooms = async () => {
     setLoadingRooms(true);
@@ -41,25 +44,26 @@ export default function Home() {
     }
   };
 
-  const deleteChatroom = async (room: Chatroom) => {
-    if (
-      !confirm(
-        "Are you sure you want to delete this chatroom? This action cannot be undone.",
-      )
-    ) {
-      return;
-    }
+  const handleDeleteClick = (room: Chatroom) => {
+    setRoomToDelete(room);
+    setShowDeleteModal(true);
+  };
+
+  const confirmDelete = async () => {
+    if (!roomToDelete) return;
 
     try {
       // Use roomUrl if available, otherwise fall back to id
-      const identifier = room.roomUrl || room.id;
+      const identifier = roomToDelete.roomUrl || roomToDelete.id;
       const response = await fetch(`/api/rooms/${identifier}`, {
         method: "DELETE",
       });
 
       if (response.ok) {
         // Remove from local state
-        setChatrooms((prev) => prev.filter((r) => r.id !== room.id));
+        setChatrooms((prev) => prev.filter((r) => r.id !== roomToDelete.id));
+        setShowDeleteModal(false);
+        setRoomToDelete(null);
       } else {
         throw new Error("Failed to delete chatroom");
       }
@@ -67,6 +71,11 @@ export default function Home() {
       console.error("Error deleting chatroom:", error);
       alert("Failed to delete chatroom. Please try again.");
     }
+  };
+
+  const cancelDelete = () => {
+    setShowDeleteModal(false);
+    setRoomToDelete(null);
   };
 
   const createRoom = async (e: React.FormEvent) => {
@@ -87,7 +96,9 @@ export default function Home() {
         const { roomUrl } = await response.json();
         // Refresh the chatrooms list
         await fetchChatrooms();
-        router.push(`/${roomUrl}`);
+        // Reset form and hide it
+        setRoomTitle("");
+        setShowRoomForm(false);
       } else {
         throw new Error("Failed to create room");
       }
@@ -237,7 +248,7 @@ export default function Home() {
                         onClick={(e) => {
                           e.preventDefault();
                           e.stopPropagation();
-                          deleteChatroom(room);
+                          handleDeleteClick(room);
                         }}
                         className="p-2 bg-red-500 text-white rounded-md hover:bg-red-400 focus:outline-none focus:ring-2 focus:ring-red-400 focus:ring-offset-2 cursor-pointer transition-colors"
                         aria-label={`Delete ${room.title} chatroom`}
@@ -254,6 +265,17 @@ export default function Home() {
         </div>
       </main>
       <Logo />
+      
+      <ConfirmationModal
+        isOpen={showDeleteModal}
+        onClose={cancelDelete}
+        onConfirm={confirmDelete}
+        title="Delete Chatroom"
+        message={`Are you sure you want to delete "${roomToDelete?.title}"? This action cannot be undone.`}
+        confirmText="Delete"
+        cancelText="Cancel"
+        confirmVariant="danger"
+      />
     </div>
   );
 }
