@@ -120,7 +120,7 @@ export default function Home() {
                   <button
                     onClick={handleJoinRoom}
                     disabled={isChecking}
-                    className="bg-gradient-to-r from-[#3EBDC7] to-blue-500 hover:from-[#7bcad9] hover:to-blue-600 text-white font-bold py-3 px-6 rounded-full text-lg transition-all duration-300 transform hover:scale-105 shadow-lg disabled:opacity-50 disabled:transform-none"
+                    className="bg-gradient-to-r from-[#3EBDC7] to-blue-500 hover:from-[#7bcad9] hover:to-blue-600 text-white font-bold py-3 px-6 rounded-full text-lg transition-all duration-300 transform hover:scale-105 shadow-lg disabled:opacity-50 disabled:transform-none cursor-pointer"
                   >
                     {isChecking ? "Checking..." : "Join Room"}
                   </button>
