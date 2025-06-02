@@ -17,21 +17,21 @@ export default function Home() {
               </span>
             </h1>
             <p className="text-xl lg:text-2xl text-muted-text mb-8 leading-relaxed">
-              Create instant chat rooms and connect with anyone, anywhere. 
-              Share a link and start conversations in seconds.
+              Create instant chat rooms and connect with anyone, anywhere. Share
+              a link and start conversations in seconds.
             </p>
             <div className="space-y-4 text-lg text-muted-text">
               <div className="flex items-center">
                 <span className="mr-3">✨</span>
-                No signup required
+                No signup required for chatroom participants
               </div>
               <div className="flex items-center">
                 <span className="mr-3">🚀</span>
-                Instant room creation
+                Instant room creation with modern UI
               </div>
               <div className="flex items-center">
                 <span className="mr-3">🔗</span>
-                Share with a simple link
+                Frictionless sharing with a simple link
               </div>
             </div>
           </div>
@@ -47,12 +47,20 @@ export default function Home() {
                 className="rounded-2xl shadow-2xl"
               />
             </div>
-            <Link
-              href="/dashboard"
-              className="bg-gradient-to-r from-[#3EBDC7] to-blue-500 hover:from-[#7bcad9] hover:to-blue-600 text-white font-bold py-4 px-8 rounded-full text-xl transition-all duration-300 transform hover:scale-105 shadow-lg"
-            >
-              Get Started
-            </Link>
+            <div className="flex flex-col sm:flex-row gap-4">
+              <Link
+                href="/auth/signin"
+                className="bg-gradient-to-r from-[#3EBDC7] to-blue-500 hover:from-[#7bcad9] hover:to-blue-600 text-white font-bold py-4 px-8 rounded-full text-xl transition-all duration-300 transform hover:scale-105 shadow-lg"
+              >
+                Login
+              </Link>
+              <Link
+                href="/auth/register"
+                className="border-2 border-[#3EBDC7] text-[#3EBDC7] hover:bg-[#3EBDC7] hover:text-white font-bold py-4 px-8 rounded-full text-xl transition-all duration-300 transform hover:scale-105"
+              >
+                Sign Up
+              </Link>
+            </div>
             <p className="text-sm text-muted-text mt-4">
               Start chatting in under 10 seconds
             </p>
@@ -62,3 +70,4 @@ export default function Home() {
     </div>
   );
 }
+
