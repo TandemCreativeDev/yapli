@@ -1,6 +1,8 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { useSession, signOut } from "next-auth/react";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 import Logo from "@/components/Logo";
 import ThemeToggle from "@/components/ThemeToggle";
@@ -19,6 +21,8 @@ interface Chatroom {
 }
 
 export default function Home() {
+  const { data: session, status } = useSession();
+  const router = useRouter();
   const [roomTitle, setRoomTitle] = useState("");
   const [creatingRoom, setCreatingRoom] = useState(false);
   const [showRoomForm, setShowRoomForm] = useState(false);
@@ -26,6 +30,14 @@ export default function Home() {
   const [loadingRooms, setLoadingRooms] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [roomToDelete, setRoomToDelete] = useState<Chatroom | null>(null);
+
+  // Redirect to sign-in if not authenticated
+  useEffect(() => {
+    if (status === "loading") return; // Still loading
+    if (!session) {
+      router.push("/auth/signin");
+    }
+  }, [session, status, router]);
 
   const fetchChatrooms = async () => {
     setLoadingRooms(true);
@@ -109,8 +121,24 @@ export default function Home() {
 
   // Load chatrooms on component mount
   useEffect(() => {
-    fetchChatrooms();
-  }, []);
+    if (session) {
+      fetchChatrooms();
+    }
+  }, [session]);
+
+  // Show loading state while checking authentication
+  if (status === "loading") {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-text">Loading...</div>
+      </div>
+    );
+  }
+
+  // Don't render anything if not authenticated (redirect will happen)
+  if (!session) {
+    return null;
+  }
 
   return (
     <div className="min-h-screen">
@@ -136,6 +164,17 @@ export default function Home() {
               </p>
             </div>
             <div className="flex items-center gap-3">
+              {session?.user && (
+                <div className="flex items-center gap-2 text-sm text-text opacity-70">
+                  <span>Welcome, {session.user.name || session.user.email}</span>
+                  <button
+                    onClick={() => signOut({ callbackUrl: "/" })}
+                    className="text-red-500 hover:text-red-400 underline"
+                  >
+                    Sign out
+                  </button>
+                </div>
+              )}
               <ThemeToggle />
               <button
                 onClick={() => setShowRoomForm(!showRoomForm)}
