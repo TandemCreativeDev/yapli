@@ -24,13 +24,31 @@ model Chatroom {
 }
 
 model Message {
-  id         String   @id @default(uuid())
-  chatroomId String
-  alias      String
-  message    String
-  timestamp  DateTime @default(now())
+  id           String        @id @default(uuid())
+  chatroomId   String
+  alias        String
+  message      String
+  timestamp    DateTime      @default(now())
+  linkPreviews LinkPreview[]
 
   chatroom Chatroom @relation(fields: [chatroomId], references: [id])
 
   @@map("messages")
+}
+
+model LinkPreview {
+  id          String  @id @default(uuid())
+  messageId   String
+  url         String
+  title       String?
+  description String?
+  imageUrl    String?
+  siteName    String?
+  favicon     String?
+  domain      String?
+  createdAt   DateTime @default(now())
+
+  message Message @relation(fields: [messageId], references: [id], onDelete: Cascade)
+
+  @@map("link_previews")
 }
