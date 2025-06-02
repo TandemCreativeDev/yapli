@@ -46,17 +46,25 @@ export async function GET(request: NextRequest) {
     const data = await getLinkPreview(url, {
       followRedirects: "follow",
       timeout: 10000, // 10 second timeout
-      resolveDNSHost: isProduction, // Only use DNS resolution in production
     });
 
     // Extract and structure the relevant data
+    const linkData = data as {
+      url: string;
+      title?: string;
+      description?: string;
+      images?: string[];
+      siteName?: string;
+      favicons?: string[];
+    };
+
     const preview = {
-      url: data.url,
-      title: data.title || "",
-      description: data.description || "",
-      images: data.images || [],
-      siteName: data.siteName || "",
-      favicon: data.favicons?.[0] || "",
+      url: linkData.url,
+      title: linkData.title || "",
+      description: linkData.description || "",
+      images: linkData.images || [],
+      siteName: linkData.siteName || "",
+      favicon: linkData.favicons?.[0] || "",
       domain: urlObj.hostname,
     };
 

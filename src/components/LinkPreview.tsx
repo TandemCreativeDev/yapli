@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Image from "next/image";
 
 interface LinkPreviewData {
   url: string;
@@ -82,9 +83,11 @@ export default function LinkPreview({ url, className = "" }: LinkPreviewProps) {
       <div className="flex space-x-3">
         {image && (
           <div className="flex-shrink-0">
-            <img
+            <Image
               src={image}
               alt={title || "Link preview"}
+              width={64}
+              height={64}
               className="w-16 h-16 object-cover rounded"
               onError={(e) => {
                 e.currentTarget.style.display = "none";
