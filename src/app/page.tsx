@@ -2,10 +2,15 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import ThemeToggle from "@/components/ThemeToggle";
 
 export default function Home() {
   return (
     <div className="min-h-screen bg-background text-text">
+      {/* Theme toggle in top-right corner */}
+      <div className="absolute top-4 right-4 z-10">
+        <ThemeToggle />
+      </div>
       <div className="container mx-auto px-4 py-16">
         <div className="flex flex-col lg:flex-row items-center justify-between min-h-[80vh]">
           {/* Left side - Welcome text */}
