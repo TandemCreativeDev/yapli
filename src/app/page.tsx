@@ -2,9 +2,54 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
 import ThemeToggle from "@/components/ThemeToggle";
 
 export default function Home() {
+  const [roomCode, setRoomCode] = useState("");
+  const [isChecking, setIsChecking] = useState(false);
+  const [error, setError] = useState("");
+  const router = useRouter();
+
+  const handleJoinRoom = async () => {
+    if (!roomCode.trim()) {
+      setError("Please enter a room code");
+      return;
+    }
+
+    setIsChecking(true);
+    setError("");
+
+    try {
+      const response = await fetch("/api/rooms/check", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ roomUrl: roomCode.trim() }),
+      });
+
+      const data = await response.json();
+
+      if (data.exists) {
+        router.push(`/${data.roomUrl}`);
+      } else {
+        setError("Room not found. Please check your code.");
+      }
+    } catch {
+      setError("Failed to check room. Please try again.");
+    } finally {
+      setIsChecking(false);
+    }
+  };
+
+  const handleKeyPress = (e: React.KeyboardEvent) => {
+    if (e.key === "Enter" && !isChecking) {
+      handleJoinRoom();
+    }
+  };
+
   return (
     <div className="min-h-screen bg-background text-text">
       {/* Theme toggle in top-right corner */}
@@ -15,11 +60,18 @@ export default function Home() {
         <div className="flex flex-col lg:flex-row items-center justify-between min-h-[80vh]">
           {/* Left side - Welcome text */}
           <div className="lg:w-1/2 mb-12 lg:mb-0">
-            <h1 className="text-5xl lg:text-7xl font-bold mb-6 text-text">
+            <h1 className="text-4xl lg:text-5xl font-bold mb-6 text-text flex flex-wrap items-center justify-center lg:justify-start gap-4">
               Welcome to{" "}
               <span className="bg-gradient-to-r from-[#3EBDC7] to-blue-500 bg-clip-text text-transparent">
                 Yapli
               </span>
+              <Image
+                src="/images/yapli-logo.png"
+                alt="Yapli Logo"
+                width={80}
+                height={80}
+                className=""
+              />
             </h1>
             <p className="text-xl lg:text-2xl text-muted-text mb-8 leading-relaxed">
               Create instant chat rooms and connect with anyone, anywhere. Share
@@ -41,38 +93,66 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Right side - Logo and CTA */}
+          {/* Right side - CTA */}
           <div className="lg:w-1/2 flex flex-col items-center text-center">
-            <div className="mb-8">
-              <Image
-                src="/images/yapli-logo.png"
-                alt="Yapli Logo"
-                width={200}
-                height={200}
-                className="rounded-2xl shadow-2xl"
-              />
+            <div className="space-y-6">
+              <div className="bg-card border border-border rounded-2xl p-8 shadow-lg">
+                <h3 className="text-2xl font-semibold mb-6 text-center text-text">
+                  Trying to join a room?
+                </h3>
+                <p className="text-center text-muted-text mb-6">
+                  Enter your six character code here
+                </p>
+                <div className="flex flex-col gap-4">
+                  <input
+                    type="text"
+                    placeholder="abcdef"
+                    maxLength={6}
+                    value={roomCode}
+                    onChange={(e) => setRoomCode(e.target.value.toLowerCase())}
+                    onKeyPress={handleKeyPress}
+                    disabled={isChecking}
+                    className="w-full px-4 py-3 text-center text-2xl font-mono tracking-widest border border-border rounded-lg bg-background text-text placeholder-muted-text focus:outline-none focus:ring-2 focus:ring-[#3EBDC7] focus:border-transparent disabled:opacity-50"
+                  />
+                  {error && (
+                    <p className="text-red-500 text-sm text-center">{error}</p>
+                  )}
+                  <button 
+                    onClick={handleJoinRoom}
+                    disabled={isChecking}
+                    className="bg-gradient-to-r from-[#3EBDC7] to-blue-500 hover:from-[#7bcad9] hover:to-blue-600 text-white font-bold py-3 px-6 rounded-full text-lg transition-all duration-300 transform hover:scale-105 shadow-lg disabled:opacity-50 disabled:transform-none"
+                  >
+                    {isChecking ? "Checking..." : "Join Room"}
+                  </button>
+                </div>
+              </div>
+
+              <div className="bg-card border border-border rounded-2xl p-8 shadow-lg">
+                <h3 className="text-2xl font-semibold mb-6 text-center text-text">
+                  Want to create chat rooms?
+                </h3>
+                <div className="flex flex-col sm:flex-row gap-4">
+                  <Link
+                    href="/auth/signin"
+                    className="bg-gradient-to-r from-[#3EBDC7] to-blue-500 hover:from-[#7bcad9] hover:to-blue-600 text-white font-bold py-4 px-8 rounded-full text-xl transition-all duration-300 transform hover:scale-105 shadow-lg"
+                  >
+                    Login
+                  </Link>
+                  <Link
+                    href="/auth/register"
+                    className="border-2 border-[#3EBDC7] text-[#3EBDC7] hover:bg-[#3EBDC7] hover:text-white font-bold py-4 px-8 rounded-full text-xl transition-all duration-300 transform hover:scale-105"
+                  >
+                    Sign Up
+                  </Link>
+                </div>
+                <p className="text-sm text-muted-text mt-4 text-center">
+                  Start chatting in under 10 seconds
+                </p>
+              </div>
             </div>
-            <div className="flex flex-col sm:flex-row gap-4">
-              <Link
-                href="/auth/signin"
-                className="bg-gradient-to-r from-[#3EBDC7] to-blue-500 hover:from-[#7bcad9] hover:to-blue-600 text-white font-bold py-4 px-8 rounded-full text-xl transition-all duration-300 transform hover:scale-105 shadow-lg"
-              >
-                Login
-              </Link>
-              <Link
-                href="/auth/register"
-                className="border-2 border-[#3EBDC7] text-[#3EBDC7] hover:bg-[#3EBDC7] hover:text-white font-bold py-4 px-8 rounded-full text-xl transition-all duration-300 transform hover:scale-105"
-              >
-                Sign Up
-              </Link>
-            </div>
-            <p className="text-sm text-muted-text mt-4">
-              Start chatting in under 10 seconds
-            </p>
           </div>
         </div>
       </div>
     </div>
   );
 }
-
