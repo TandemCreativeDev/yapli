@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 import Logo from "@/components/Logo";
 import ThemeToggle from "@/components/ThemeToggle";
 import Image from "next/image";
@@ -217,37 +218,35 @@ export default function Home() {
             ) : (
               <div className="space-y-3">
                 {chatrooms.map((room) => (
-                  <div
+                  <Link
+                    href={`/${room.roomUrl || room.id}`}
                     key={room.id}
-                    className="flex items-center justify-between p-3 border border-gray-200 dark:border-gray-600 rounded-md hover:bg-gray-50 dark:hover:bg-gray-700"
+                    className="w-full flex items-center justify-start p-3 border border-gray-200 dark:border-gray-600 rounded-md hover:bg-gray-50 dark:hover:bg-gray-700 cursor-pointer"
                   >
-                    <div className="flex-1">
-                      <h3 className="font-medium text-gray-900 dark:text-white">
+                    <div className="flex-1 text-left">
+                      <h3 className="font-medium text-gray-900 dark:text-white text-left">
                         {room.title}
                       </h3>
-                      <div className="text-sm text-gray-600 dark:text-gray-400 mt-1">
+                      <div className="text-sm text-gray-600 dark:text-gray-400 mt-1 text-left">
                         {room._count.messages} messages • Created{" "}
                         {new Date(room.createdAt).toLocaleDateString()}
                       </div>
                     </div>
-                    <div className="flex items-center space-x-2">
+                    <div className="flex items-center space-x-2 ml-auto">
                       <button
-                        onClick={() =>
-                          router.push(`/${room.roomUrl || room.id}`)
-                        }
-                        className="px-3 py-1 bg-gray-500 text-white text-sm rounded-md hover:bg-gray-400 cursor-pointer"
-                      >
-                        Join
-                      </button>
-                      <button
-                        onClick={() => deleteChatroom(room)}
-                        className="p-2 bg-red-500 text-white rounded-md hover:bg-red-400 cursor-pointer transition-colors"
+                        onClick={(e) => {
+                          e.preventDefault();
+                          e.stopPropagation();
+                          deleteChatroom(room);
+                        }}
+                        className="p-2 bg-red-500 text-white rounded-md hover:bg-red-400 focus:outline-none focus:ring-2 focus:ring-red-400 focus:ring-offset-2 cursor-pointer transition-colors"
+                        aria-label={`Delete ${room.title} chatroom`}
                         title="Delete room"
                       >
                         <TrashIcon className="w-3 h-3" />
                       </button>
                     </div>
-                  </div>
+                  </Link>
                 ))}
               </div>
             )}

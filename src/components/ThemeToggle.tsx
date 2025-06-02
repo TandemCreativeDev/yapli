@@ -41,7 +41,8 @@ export default function ThemeToggle() {
   return (
     <button
       onClick={handleClick}
-      className="p-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors cursor-pointer"
+      className="p-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-yapli-teal focus:ring-offset-2 transition-colors cursor-pointer"
+      aria-label={getTooltipText()}
       title={getTooltipText()}
     >
       {showLightIcon ? (
