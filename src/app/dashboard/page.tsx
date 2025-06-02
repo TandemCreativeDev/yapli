@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
 import Link from "next/link";
 import Logo from "@/components/Logo";
 import ThemeToggle from "@/components/ThemeToggle";
@@ -20,7 +19,6 @@ interface Chatroom {
 }
 
 export default function Home() {
-  const router = useRouter();
   const [roomTitle, setRoomTitle] = useState("");
   const [creatingRoom, setCreatingRoom] = useState(false);
   const [showRoomForm, setShowRoomForm] = useState(false);
@@ -93,7 +91,6 @@ export default function Home() {
       });
 
       if (response.ok) {
-        const { roomUrl } = await response.json();
         // Refresh the chatrooms list
         await fetchChatrooms();
         // Reset form and hide it
