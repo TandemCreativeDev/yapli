@@ -248,7 +248,7 @@ export default function Home() {
                   >
                     <span className="relative z-10">+ Create New Room</span>
                   </button>
-                  <div className="flex items-center gap-3 text-sm text-text opacity-70">
+                  <div className="flex items-center gap-3 text-sm text-text">
                     <button
                       onClick={() => signOut({ callbackUrl: "/" })}
                       className="px-3 py-2 bg-red-500 hover:bg-red-400 text-white text-sm rounded-md cursor-pointer transition-colors"
