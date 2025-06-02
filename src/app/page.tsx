@@ -145,9 +145,6 @@ export default function Home() {
                     Sign Up
                   </Link>
                 </div>
-                <p className="text-sm text-muted-text mt-4 text-center">
-                  Start chatting in under 10 seconds
-                </p>
               </div>
             </div>
           </div>
