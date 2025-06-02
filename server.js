@@ -53,8 +53,28 @@ app.prepare().then(() => {
 
     // Handle setting alias in current room
     socket.on('set-alias', (alias) => {
-      socket.data.alias = alias
       const roomId = socket.data.currentRoom
+      
+      if (roomId) {
+        // Check if alias is already taken in this room
+        const room = io.sockets.adapter.rooms.get(roomId)
+        if (room) {
+          const existingAliases = Array.from(room)
+            .map(socketId => io.sockets.sockets.get(socketId))
+            .filter(s => s && s.data.alias && s.data.currentRoom === roomId && s.id !== socket.id)
+            .map(s => s.data.alias)
+          
+          if (existingAliases.includes(alias)) {
+            // Reject the alias and notify the client
+            socket.emit('alias-rejected', { 
+              reason: 'This name is already taken in this room. Please choose a different name.' 
+            })
+            return
+          }
+        }
+      }
+      
+      socket.data.alias = alias
       console.log(`User ${socket.id} set alias to: ${alias} in room: ${roomId}`)
       
       if (roomId) {

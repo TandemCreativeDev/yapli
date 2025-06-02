@@ -47,6 +47,7 @@ export default function ChatRoomPage() {
   const [activeUsers, setActiveUsers] = useState<string[]>([]);
   const [chatroom, setChatroom] = useState<Chatroom | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [aliasError, setAliasError] = useState<string | null>(null);
   const socketRef = useRef<Socket | null>(null);
 
   const fetchChatroom = useCallback(async () => {
@@ -143,6 +144,12 @@ export default function ChatRoomPage() {
     socket.on("users-updated", (users: string[]) => {
       console.log("Active users updated:", users);
       setActiveUsers(users);
+    });
+
+    socket.on("alias-rejected", (data: { reason: string }) => {
+      console.log("Alias rejected:", data.reason);
+      setAliasError(data.reason);
+      setAlias(null); // Reset alias to show the input again
     });
 
     // Cleanup on unmount
@@ -319,7 +326,13 @@ export default function ChatRoomPage() {
       {!alias && (
         <div className="fixed inset-0 backdrop-blur-sm flex items-center justify-center z-50">
           <div className="bg-card border border-border rounded-lg p-6 max-w-md w-full mx-4 shadow-xl">
-            <AliasInput onAliasSet={setAlias} />
+            <AliasInput 
+              onAliasSet={(newAlias) => {
+                setAliasError(null); // Clear error when setting new alias
+                setAlias(newAlias);
+              }} 
+              error={aliasError}
+            />
           </div>
         </div>
       )}
