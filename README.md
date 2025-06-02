@@ -1,7 +1,7 @@
 # Yapli
 
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/47ef837d-709e-4778-989d-39e0947d155a" alt="Yapli App Logo" width="200">
+  <img src="https://github.com/user-attachments/assets/b8f95c0b-5f27-4156-8ddc-92cf51c4c878" alt="Yapli App Logo" width="200">
 </p>
 
 Yapli is a modern, minimalist web-based chatroom application built with Next.js and real-time WebSocket communication. Create dynamic chat rooms, join conversations with custom aliases, and share links seamlessly in a beautiful dark-themed interface.
