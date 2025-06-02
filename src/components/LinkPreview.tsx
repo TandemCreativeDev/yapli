@@ -106,7 +106,7 @@ export default function LinkPreview({ url, className = "" }: LinkPreviewProps) {
               {description}
             </p>
           )}
-          <p className="text-xs text-yellow-600 dark:text-yellow-400">
+          <p className="text-xs text-yapli-teal">
             {preview.domain || new URL(url).hostname}
           </p>
         </div>

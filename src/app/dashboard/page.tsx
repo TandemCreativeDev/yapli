@@ -171,7 +171,7 @@ export default function Home() {
                   <button
                     type="submit"
                     disabled={creatingRoom || !roomTitle.trim()}
-                    className="px-4 py-2 bg-yellow-500 text-black rounded-md hover:bg-yellow-400 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
+                    className="px-4 py-2 bg-yellow-500 text-black rounded-md hover:bg-yapli-teal disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
                   >
                     {creatingRoom ? "Creating..." : "Create Room"}
                   </button>

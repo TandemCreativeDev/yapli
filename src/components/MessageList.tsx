@@ -66,7 +66,7 @@ export default function MessageList({ messages }: MessageListProps) {
                     target: "_blank",
                     rel: "noopener noreferrer",
                     className:
-                      "text-yellow-600 dark:text-yellow-400 hover:text-yellow-500 dark:hover:text-yellow-300 underline break-all",
+                      "text-yapli-teal hover:text-yapli-hover underline break-all",
                   }}
                 >
                   {msg.message}
