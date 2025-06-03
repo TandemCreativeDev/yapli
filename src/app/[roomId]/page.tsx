@@ -111,7 +111,7 @@ export default function ChatRoomPage() {
         setLoading(false);
       }
     },
-    [alias, roomId]
+    [alias, roomId],
   );
 
   // Socket.io connection and event handling
@@ -205,13 +205,7 @@ export default function ChatRoomPage() {
           <div className="flex items-center justify-between gap-2 min-h-12">
             <div className="flex items-center gap-2 sm:gap-4 min-w-0 flex-1">
               <div className="flex items-center gap-2 flex-shrink-0">
-                <Image
-                  src="/images/yapli-logo.png"
-                  alt="Yapli Logo"
-                  width={32}
-                  height={32}
-                  className="rounded-lg sm:w-10 sm:h-10"
-                />
+                <Logo size={20} />
                 <h1 className="text-base sm:text-lg font-bold font-mono bg-yapli-teal bg-clip-text text-transparent">
                   yapli
                 </h1>
