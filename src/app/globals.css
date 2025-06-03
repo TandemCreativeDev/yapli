@@ -16,8 +16,9 @@
   --color-border: var(--color-border-light);
   --color-border-light: #e5e5e5;
   --color-border-dark: #3a3a3a;
-  --color-yapli-teal: #3EBDC7;
+  --color-yapli-teal: #3ebdc7;
   --color-yapli-hover: #7bcad9;
+  --color-yapli-dark: #064e64;
 }
 
 @layer base {
@@ -52,14 +53,14 @@
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 1;
   }
-  
+
   .line-clamp-2 {
     overflow: hidden;
     display: -webkit-box;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 2;
   }
-  
+
   .line-clamp-3 {
     overflow: hidden;
     display: -webkit-box;
