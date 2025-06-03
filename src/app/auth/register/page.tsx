@@ -5,8 +5,6 @@ import { signIn } from "next-auth/react";
 import Link from "next/link";
 import Logo from "@/components/Logo";
 import ThemeToggle from "@/components/ThemeToggle";
-import Image from "next/image";
-import LogoMark from "@/components/LogoMark";
 
 export default function Register() {
   const [name, setName] = useState("");
@@ -71,7 +69,7 @@ export default function Register() {
       }
     } catch (error: unknown) {
       setError(
-        (error as Error)?.message || "An error occurred. Please try again."
+        (error as Error)?.message || "An error occurred. Please try again.",
       );
     } finally {
       setIsLoading(false);
@@ -229,8 +227,6 @@ export default function Register() {
           </div>
         </div>
       </main>
-
-      <LogoMark />
     </div>
   );
 }

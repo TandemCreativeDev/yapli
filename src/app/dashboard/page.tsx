@@ -169,13 +169,7 @@ export default function Home() {
                 <h1 className="text-3xl font-bold font-mono bg-yapli-teal bg-clip-text text-transparent">
                   yapli
                 </h1>
-                <Image
-                  src="/images/yapli-logo.png"
-                  alt="Yapli Logo"
-                  width={40}
-                  height={40}
-                  className="rounded-lg"
-                />
+                <Logo size={32} className="mt-2" />
               </div>
               <ThemeToggle />
             </div>
@@ -215,17 +209,11 @@ export default function Home() {
           <div className="hidden sm:flex items-center justify-between">
             <div>
               <div className="flex items-center gap-0">
-                <h1 className="text-5xl font-bold font-mono text-yapli-teal pb-2">
+                <h1 className="text-5xl font-bold font-mono text-yapli-teal pb-2 mr-3">
                   yapli
                 </h1>
 
-                <Image
-                  src="/images/yapli-logo.png"
-                  alt="Zest Logo"
-                  width={60}
-                  height={60}
-                  className="rounded-lg"
-                />
+                <Logo size={32} className="mt-2" />
               </div>
               <p className="text-text opacity-70 text-sm mt-2">
                 Create and join chat rooms
@@ -470,7 +458,6 @@ export default function Home() {
           </div>
         </div>
       </main>
-      <Logo />
 
       <ConfirmationModal
         isOpen={showDeleteModal}

@@ -3,9 +3,7 @@
 import { signIn } from "next-auth/react";
 import { useState } from "react";
 import Link from "next/link";
-import LogoMark from "@/components/LogoMark";
 import ThemeToggle from "@/components/ThemeToggle";
-import Image from "next/image";
 import Logo from "@/components/Logo";
 
 export default function SignIn() {
@@ -137,8 +135,6 @@ export default function SignIn() {
           </div>
         </div>
       </main>
-
-      <LogoMark />
     </div>
   );
 }

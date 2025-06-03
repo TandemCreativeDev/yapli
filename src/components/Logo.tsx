@@ -1,5 +1,9 @@
+"use client";
+
 import { twMerge } from "tailwind-merge";
 import clsx from "clsx";
+import { useTheme } from "next-themes";
+import { useEffect, useState } from "react";
 
 interface LogoProps {
   bodyColour?: string;
@@ -13,13 +17,30 @@ interface LogoProps {
 
 export default function Logo({
   bodyColour = "#3ebdc7",
-  eyeColour = "#064e64",
+  eyeColour,
   hoverBodyColour = "#3ebdc7",
-  hoverEyeColour = "#064e64",
+  hoverEyeColour,
   animate = false,
   className,
   size = 48,
 }: LogoProps) {
+  const [mounted, setMounted] = useState(false);
+  const { resolvedTheme } = useTheme();
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  const defaultEyeColour = mounted ? 
+    (resolvedTheme === "dark" ? "#ffffff" : "#064e64") : 
+    "#064e64";
+  
+  const defaultHoverEyeColour = mounted ? 
+    (resolvedTheme === "dark" ? "#e5e5e5" : "#064e64") : 
+    "#064e64";
+
+  const finalEyeColour = eyeColour || defaultEyeColour;
+  const finalHoverEyeColour = hoverEyeColour || defaultHoverEyeColour;
   return (
     <svg
       className={twMerge(
@@ -39,9 +60,9 @@ export default function Logo({
       <style>
         {`
           .logo-body { fill: ${bodyColour}; transition: fill 0.3s ease; }
-          .logo-eyes { fill: ${eyeColour}; transition: fill 0.3s ease; }
+          .logo-eyes { fill: ${finalEyeColour}; transition: fill 0.3s ease; }
           .logo-container:hover .logo-body { fill: ${hoverBodyColour}; }
-          .logo-container:hover .logo-eyes { fill: ${hoverEyeColour}; }
+          .logo-container:hover .logo-eyes { fill: ${finalHoverEyeColour}; }
         `}
       </style>
       <g>
