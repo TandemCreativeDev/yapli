@@ -10,6 +10,7 @@ import MessageList from "@/components/MessageList";
 import MessageInput from "@/components/MessageInput";
 import ThemeToggle from "@/components/ThemeToggle";
 import Image from "next/image";
+import Logo from "@/components/Logo";
 
 interface Message {
   id: string;
@@ -78,38 +79,41 @@ export default function ChatRoomPage() {
     }
   }, [roomId]);
 
-  const sendMessage = useCallback(async (message: string) => {
-    if (!alias || !socketRef.current?.connected) return;
+  const sendMessage = useCallback(
+    async (message: string) => {
+      if (!alias || !socketRef.current?.connected) return;
 
-    setLoading(true);
-    try {
-      // Send via API to persist in database
-      const response = await fetch(`/api/rooms/${roomId}/messages`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ alias, message }),
-      });
-
-      if (!response.ok) {
-        throw new Error("Failed to send message");
-      }
-
-      // Also emit to WebSocket for real-time updates
-      if (socketRef.current) {
-        socketRef.current.emit("send-message", {
-          roomId,
-          alias,
-          message,
+      setLoading(true);
+      try {
+        // Send via API to persist in database
+        const response = await fetch(`/api/rooms/${roomId}/messages`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ alias, message }),
         });
+
+        if (!response.ok) {
+          throw new Error("Failed to send message");
+        }
+
+        // Also emit to WebSocket for real-time updates
+        if (socketRef.current) {
+          socketRef.current.emit("send-message", {
+            roomId,
+            alias,
+            message,
+          });
+        }
+      } catch (error) {
+        console.error("Error sending message:", error);
+      } finally {
+        setLoading(false);
       }
-    } catch (error) {
-      console.error("Error sending message:", error);
-    } finally {
-      setLoading(false);
-    }
-  }, [alias, roomId]);
+    },
+    [alias, roomId]
+  );
 
   // Socket.io connection and event handling
   useEffect(() => {
@@ -173,18 +177,11 @@ export default function ChatRoomPage() {
   if (error) {
     return (
       <div className="min-h-screen flex flex-col items-center justify-center">
-        <div className="flex items-center gap-0 mb-10">
+        <div className="flex items-center gap-4 mb-10">
           <h1 className="text-5xl font-bold font-mono bg-yapli-teal bg-clip-text text-transparent pb-2">
             yapli
           </h1>
-
-          <Image
-            src="/images/yapli-logo.png"
-            alt="Zest Logo"
-            width={60}
-            height={60}
-            className="rounded-lg"
-          />
+          <Logo size={32} className="mt-2" />
         </div>
         <div className="text-center">
           <h1 className="text-2xl font-bold text-text mb-2">{error}</h1>
@@ -256,7 +253,9 @@ export default function ChatRoomPage() {
             {alias && (
               <div className="flex items-center space-x-2">
                 <div
-                  className={`w-2 h-2 rounded-full ${isConnected ? "bg-green-500" : "bg-red-500"}`}
+                  className={`w-2 h-2 rounded-full ${
+                    isConnected ? "bg-green-500" : "bg-red-500"
+                  }`}
                 />
                 <span className="text-xs sm:text-sm text-text">
                   {isConnected ? "Connected" : "Disconnected"}
