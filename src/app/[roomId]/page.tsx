@@ -9,7 +9,6 @@ import AliasInput from "@/components/AliasInput";
 import MessageList from "@/components/MessageList";
 import MessageInput from "@/components/MessageInput";
 import ThemeToggle from "@/components/ThemeToggle";
-import Image from "next/image";
 import Logo from "@/components/Logo";
 
 interface Message {
