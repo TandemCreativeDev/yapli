@@ -8,7 +8,7 @@ import Brand from "@/components/Brand";
 import Logo from "@/components/Logo";
 import ThemeToggle from "@/components/ThemeToggle";
 import ConfirmationModal from "@/components/ConfirmationModal";
-import Image from "next/image";
+import RoomCreationForm from "@/components/RoomCreationForm";
 import { copyRoomUrl, copyRoomId } from "@/lib/roomUtils";
 import {
   fetchChatrooms,
@@ -30,7 +30,6 @@ interface Chatroom {
 export default function Home() {
   const { data: session, status } = useSession();
   const router = useRouter();
-  const [roomTitle, setRoomTitle] = useState("");
   const [creatingRoom, setCreatingRoom] = useState(false);
   const [showRoomForm, setShowRoomForm] = useState(false);
   const [chatrooms, setChatrooms] = useState<Chatroom[]>([]);
@@ -211,54 +210,11 @@ export default function Home() {
 
       <main className="max-w-4xl mx-auto px-4 py-6 sm:px-6 lg:px-8">
         {showRoomForm && (
-          <div className="bg-card rounded-lg shadow-sm border border-border mb-6">
-            <div className="p-4 border-b border-border">
-              <h2 className="text-lg font-semibold text-text">
-                Create New Room
-              </h2>
-            </div>
-            <div className="p-4">
-              <form onSubmit={createRoom} className="space-y-4">
-                <div>
-                  <label
-                    htmlFor="roomTitle"
-                    className="block text-sm font-medium text-text mb-2"
-                  >
-                    Room Title
-                  </label>
-                  <input
-                    type="text"
-                    id="roomTitle"
-                    value={roomTitle}
-                    onChange={(e) => setRoomTitle(e.target.value)}
-                    placeholder="Enter a title for your room..."
-                    className="text-text bg-card w-full px-3 py-2 border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-transparent"
-                    required
-                    disabled={creatingRoom}
-                  />
-                </div>
-                <div className="flex space-x-3">
-                  <button
-                    type="submit"
-                    disabled={creatingRoom || !roomTitle.trim()}
-                    className="px-4 py-2 bg-yapli-teal text-black rounded-md hover:bg-yapli-hover disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
-                  >
-                    {creatingRoom ? "Creating..." : "Create Room"}
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => {
-                      setShowRoomForm(false);
-                      setRoomTitle("");
-                    }}
-                    className="px-4 py-2 bg-card border border-border text-text rounded-md hover:opacity-80 cursor-pointer"
-                  >
-                    Cancel
-                  </button>
-                </div>
-              </form>
-            </div>
-          </div>
+          <RoomCreationForm
+            onSubmit={handleCreateRoom}
+            onCancel={handleCancelCreateRoom}
+            isLoading={creatingRoom}
+          />
         )}
 
         {/* Chatrooms List */}
