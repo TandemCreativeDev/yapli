@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import ThemeToggle from "@/components/ThemeToggle";
+import Logo from "@/components/Logo";
 
 export default function Home() {
   const [roomCode, setRoomCode] = useState("");
@@ -65,13 +66,7 @@ export default function Home() {
               <span className="bg-gradient-to-r from-[#3EBDC7] to-[#064E64] bg-clip-text text-transparent">
                 Yapli
               </span>
-              <Image
-                src="/images/yapli-logo.png"
-                alt="Yapli Logo"
-                width={80}
-                height={80}
-                className=""
-              />
+              <Logo size={40} className="mt-2" />
             </h1>
             <p className="text-lg lg:text-2xl text-muted-text mb-8 leading-relaxed">
               Create instant chat rooms and connect with anyone, anywhere. Share
