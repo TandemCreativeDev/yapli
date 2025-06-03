@@ -69,7 +69,7 @@ export default function Register() {
       }
     } catch (error: unknown) {
       setError(
-        (error as Error)?.message || "An error occurred. Please try again."
+        (error as Error)?.message || "An error occurred. Please try again.",
       );
     } finally {
       setIsLoading(false);
