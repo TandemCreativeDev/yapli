@@ -22,11 +22,8 @@ export default function Logo({
   className,
   size = 48,
 }: LogoProps) {
-  const defaultEyeColour = "var(--color-eyes)";
-  const defaultHoverEyeColour = "var(--color-eyes)";
-
-  const finalEyeColour = eyeColour || defaultEyeColour;
-  const finalHoverEyeColour = hoverEyeColour || defaultHoverEyeColour;
+  const finalEyeColour = eyeColour || "var(--color-eyes)";
+  const finalHoverEyeColour = hoverEyeColour || "var(--color-eyes)";
   return (
     <svg
       className={twMerge(
