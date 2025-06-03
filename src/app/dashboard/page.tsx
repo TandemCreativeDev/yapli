@@ -329,7 +329,7 @@ export default function Home() {
             ) : chatrooms.length === 0 ? (
               <div className="text-center py-4">
                 <div className="text-gray-600 dark:text-gray-400">
-                  You haven't created any chatrooms yet.
+                  You haven&apos;t created any chatrooms yet.
                 </div>
               </div>
             ) : (
