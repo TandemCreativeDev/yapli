@@ -1,5 +1,3 @@
-"use client";
-
 import Link from "next/link";
 import { TrashIcon, LinkIcon } from "@heroicons/react/24/outline";
 
@@ -16,17 +14,17 @@ interface Chatroom {
 interface ChatroomsListProps {
   chatrooms: Chatroom[];
   isLoading: boolean;
-  onCopyRoomUrl: (room: Chatroom) => void;
-  onCopyRoomId: (room: Chatroom) => void;
-  onDeleteRoom: (room: Chatroom) => void;
+  handleCopyRoomUrl: (room: Chatroom) => void;
+  handleCopyRoomId: (room: Chatroom) => void;
+  handleDeleteRoom: (room: Chatroom) => void;
 }
 
 export default function ChatroomsList({
   chatrooms,
   isLoading,
-  onCopyRoomUrl,
-  onCopyRoomId,
-  onDeleteRoom,
+  handleCopyRoomUrl,
+  handleCopyRoomId,
+  handleDeleteRoom,
 }: ChatroomsListProps) {
   return (
     <div className="bg-card rounded-lg shadow-sm border border-border mb-6">
@@ -75,7 +73,7 @@ export default function ChatroomsList({
                         onClick={(e) => {
                           e.preventDefault();
                           e.stopPropagation();
-                          onCopyRoomId(room);
+                          handleCopyRoomId(room);
                         }}
                         className="w-full px-2 py-1 bg-gray-300 text-gray-700 rounded text-base font-mono hover:bg-gray-200 cursor-pointer transition-colors text-center"
                       >
@@ -91,7 +89,7 @@ export default function ChatroomsList({
                           onClick={(e) => {
                             e.preventDefault();
                             e.stopPropagation();
-                            onCopyRoomUrl(room);
+                            handleCopyRoomUrl(room);
                           }}
                           className="w-full p-2 bg-gray-300 text-gray-700 rounded-md hover:bg-gray-200 cursor-pointer transition-colors flex items-center justify-center text-base"
                           aria-label={`Copy URL for ${room.title} chatroom`}
@@ -107,7 +105,7 @@ export default function ChatroomsList({
                         onClick={(e) => {
                           e.preventDefault();
                           e.stopPropagation();
-                          onDeleteRoom(room);
+                          handleDeleteRoom(room);
                         }}
                         className="p-2 bg-red-500 text-white rounded-md hover:bg-red-400 cursor-pointer transition-colors"
                         aria-label={`Delete ${room.title} chatroom`}
@@ -139,7 +137,7 @@ export default function ChatroomsList({
                         onClick={(e) => {
                           e.preventDefault();
                           e.stopPropagation();
-                          onCopyRoomId(room);
+                          handleCopyRoomId(room);
                         }}
                         className="px-2 py-1 bg-gray-300 text-gray-700 rounded text-base font-mono hover:bg-gray-200 cursor-pointer transition-colors"
                       >
@@ -154,7 +152,7 @@ export default function ChatroomsList({
                         onClick={(e) => {
                           e.preventDefault();
                           e.stopPropagation();
-                          onCopyRoomUrl(room);
+                          handleCopyRoomUrl(room);
                         }}
                         className="p-2 bg-gray-300 text-gray-700 rounded-md hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2 cursor-pointer transition-colors"
                         aria-label={`Copy URL for ${room.title} chatroom`}
@@ -169,7 +167,7 @@ export default function ChatroomsList({
                       onClick={(e) => {
                         e.preventDefault();
                         e.stopPropagation();
-                        onDeleteRoom(room);
+                        handleDeleteRoom(room);
                       }}
                       className="p-2 bg-red-500 text-white rounded-md hover:bg-red-400 focus:outline-none focus:ring-2 focus:ring-red-400 focus:ring-offset-2 cursor-pointer transition-colors"
                       aria-label={`Delete ${room.title} chatroom`}

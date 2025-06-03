@@ -219,9 +219,9 @@ export default function Home() {
         <ChatroomsList
           chatrooms={chatrooms}
           isLoading={loadingRooms}
-          onCopyRoomUrl={copyRoomUrl}
-          onCopyRoomId={copyRoomId}
-          onDeleteRoom={handleDeleteClick}
+          handleCopyRoomUrl={copyRoomUrl}
+          handleCopyRoomId={copyRoomId}
+          handleDeleteRoom={handleDeleteClick}
         />
       </main>
 

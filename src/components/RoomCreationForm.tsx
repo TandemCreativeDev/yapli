@@ -1,5 +1,3 @@
-"use client";
-
 import { useState } from "react";
 
 interface RoomCreationFormProps {
@@ -74,3 +72,4 @@ export default function RoomCreationForm({
     </div>
   );
 }
+
