@@ -6,6 +6,7 @@ import Link from "next/link";
 import Logo from "@/components/Logo";
 import ThemeToggle from "@/components/ThemeToggle";
 import Image from "next/image";
+import LogoMark from "@/components/LogoMark";
 
 export default function Register() {
   const [name, setName] = useState("");
@@ -70,7 +71,7 @@ export default function Register() {
       }
     } catch (error: unknown) {
       setError(
-        (error as Error)?.message || "An error occurred. Please try again.",
+        (error as Error)?.message || "An error occurred. Please try again."
       );
     } finally {
       setIsLoading(false);
@@ -99,17 +100,11 @@ export default function Register() {
       <header className="bg-card shadow-sm border-b border-border">
         <div className="max-w-4xl mx-auto px-4 py-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between">
-            <div className="flex items-center gap-0">
+            <div className="flex items-center gap-4">
               <h1 className="text-5xl font-bold font-mono text-yapli-teal pb-2">
                 yapli
               </h1>
-              <Image
-                src="/images/yapli-logo.png"
-                alt="Yapli Logo"
-                width={60}
-                height={60}
-                className="rounded-lg"
-              />
+              <Logo size={32} className="mt-2" />
             </div>
             <ThemeToggle />
           </div>
@@ -235,7 +230,7 @@ export default function Register() {
         </div>
       </main>
 
-      <Logo />
+      <LogoMark />
     </div>
   );
 }
