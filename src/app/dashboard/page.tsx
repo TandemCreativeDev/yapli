@@ -150,14 +150,14 @@ export default function Home() {
                   <>
                     <button
                       onClick={() => setShowRoomForm(!showRoomForm)}
-                      className="relative overflow-hidden px-3 py-2 bg-gradient-to-r from-[#3EBDC7] to-blue-500 text-white rounded-md text-sm font-medium cursor-pointer transition-all duration-300 before:absolute before:inset-0 before:bg-gradient-to-r before:from-[#7bcad9] before:to-blue-600 before:opacity-0 before:transition-opacity before:duration-300 hover:before:opacity-100"
+                      className="px-3 py-2 bg-yapli-teal hover:bg-yapli-hover text-white rounded-md text-sm font-medium cursor-pointer transition-colors"
                       aria-label={
                         showRoomForm
                           ? "Cancel room creation"
                           : "Create new chat room"
                       }
                     >
-                      <span className="relative z-10">+ Create Room</span>
+                      + Create Room
                     </button>
                     <button
                       onClick={() => signOut({ callbackUrl: "/" })}
