@@ -1,5 +1,7 @@
 import Link from "next/link";
-import { TrashIcon, LinkIcon } from "@heroicons/react/24/outline";
+import RoomCodeButton from "./RoomCodeButton";
+import CopyUrlButton from "./CopyUrlButton";
+import DeleteRoomButton from "./DeleteRoomButton";
 
 interface Chatroom {
   id: string;
@@ -68,51 +70,36 @@ export default function ChatroomsList({
                     </div>
                   </Link>
                   <div className="flex flex-col space-y-2">
-                    <div className="relative group">
-                      <button
-                        onClick={(e) => {
-                          e.preventDefault();
-                          e.stopPropagation();
-                          handleCopyRoomId(room);
-                        }}
-                        className="w-full px-2 py-1 bg-gray-300 text-gray-700 rounded text-base font-mono hover:bg-gray-200 cursor-pointer transition-colors text-center"
-                      >
-                        {room.roomUrl || room.id}
-                      </button>
-                      <div className="absolute bottom-full mb-1 left-4 px-2 py-1 bg-gray-800 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap">
-                        Copy room code to clipboard
-                      </div>
-                    </div>
+                    <RoomCodeButton
+                      code={room.roomUrl || room.id}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        handleCopyRoomId(room);
+                      }}
+                      fullWidth
+                    />
                     <div className="flex space-x-2">
-                      <div className="relative group flex-1">
-                        <button
+                      <div className="flex-1">
+                        <CopyUrlButton
                           onClick={(e) => {
                             e.preventDefault();
                             e.stopPropagation();
                             handleCopyRoomUrl(room);
                           }}
-                          className="w-full p-2 bg-gray-300 text-gray-700 rounded-md hover:bg-gray-200 cursor-pointer transition-colors flex items-center justify-center text-base"
-                          aria-label={`Copy URL for ${room.title} chatroom`}
-                        >
-                          <LinkIcon className="w-4 h-4 mr-2" />
-                          Copy URL
-                        </button>
-                        <div className="absolute bottom-full mb-1 left-1/2 transform -translate-x-1/2 px-2 py-1 bg-gray-800 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap">
-                          Copy full URL to clipboard
-                        </div>
+                          roomTitle={room.title}
+                          fullWidth
+                          showText
+                        />
                       </div>
-                      <button
+                      <DeleteRoomButton
                         onClick={(e) => {
                           e.preventDefault();
                           e.stopPropagation();
                           handleDeleteRoom(room);
                         }}
-                        className="p-2 bg-red-500 text-white rounded-md hover:bg-red-400 cursor-pointer transition-colors"
-                        aria-label={`Delete ${room.title} chatroom`}
-                        title="Delete room"
-                      >
-                        <TrashIcon className="w-4 h-4" />
-                      </button>
+                        roomTitle={room.title}
+                      />
                     </div>
                   </div>
                 </div>
@@ -132,49 +119,30 @@ export default function ChatroomsList({
                     </div>
                   </div>
                   <div className="flex items-center space-x-4 ml-auto">
-                    <div className="relative group">
-                      <button
-                        onClick={(e) => {
-                          e.preventDefault();
-                          e.stopPropagation();
-                          handleCopyRoomId(room);
-                        }}
-                        className="px-2 py-1 bg-gray-300 text-gray-700 rounded text-base font-mono hover:bg-gray-200 cursor-pointer transition-colors"
-                      >
-                        {room.roomUrl || room.id}
-                      </button>
-                      <div className="absolute bottom-full mb-1 left-1/2 transform -translate-x-1/2 px-2 py-1 bg-gray-800 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap">
-                        Copy room code to clipboard
-                      </div>
-                    </div>
-                    <div className="relative group">
-                      <button
-                        onClick={(e) => {
-                          e.preventDefault();
-                          e.stopPropagation();
-                          handleCopyRoomUrl(room);
-                        }}
-                        className="p-2 bg-gray-300 text-gray-700 rounded-md hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2 cursor-pointer transition-colors"
-                        aria-label={`Copy URL for ${room.title} chatroom`}
-                      >
-                        <LinkIcon className="w-4 h-4" />
-                      </button>
-                      <div className="absolute bottom-full mb-1 left-1/2 transform -translate-x-1/2 px-2 py-1 bg-gray-800 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap">
-                        Copy full URL to clipboard
-                      </div>
-                    </div>
-                    <button
+                    <RoomCodeButton
+                      code={room.roomUrl || room.id}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        handleCopyRoomId(room);
+                      }}
+                    />
+                    <CopyUrlButton
+                      onClick={(e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        handleCopyRoomUrl(room);
+                      }}
+                      roomTitle={room.title}
+                    />
+                    <DeleteRoomButton
                       onClick={(e) => {
                         e.preventDefault();
                         e.stopPropagation();
                         handleDeleteRoom(room);
                       }}
-                      className="p-2 bg-red-500 text-white rounded-md hover:bg-red-400 focus:outline-none focus:ring-2 focus:ring-red-400 focus:ring-offset-2 cursor-pointer transition-colors"
-                      aria-label={`Delete ${room.title} chatroom`}
-                      title="Delete room"
-                    >
-                      <TrashIcon className="w-4 h-4" />
-                    </button>
+                      roomTitle={room.title}
+                    />
                   </div>
                 </Link>
               </div>
