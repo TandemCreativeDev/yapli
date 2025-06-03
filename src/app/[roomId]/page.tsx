@@ -1,15 +1,15 @@
 "use client";
 
-import { useState, useEffect, useRef, useCallback } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useParams } from "next/navigation";
 import { useSession } from "next-auth/react";
-import { io, Socket } from "socket.io-client";
 import Link from "next/link";
 import AliasInput from "@/components/AliasInput";
 import MessageList from "@/components/MessageList";
 import MessageInput from "@/components/MessageInput";
 import ThemeToggle from "@/components/ThemeToggle";
 import Logo from "@/components/Logo";
+import { useSocket } from "@/lib/socket";
 
 interface Message {
   id: string;
@@ -42,12 +42,20 @@ export default function ChatRoomPage() {
   const [alias, setAlias] = useState<string | null>(null);
   const [messages, setMessages] = useState<Message[]>([]);
   const [loading, setLoading] = useState(false);
-  const [isConnected, setIsConnected] = useState(false);
   const [activeUsers, setActiveUsers] = useState<string[]>([]);
   const [chatroom, setChatroom] = useState<Chatroom | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [aliasError, setAliasError] = useState<string | null>(null);
-  const socketRef = useRef<Socket | null>(null);
+
+  const { isConnected, setAlias: setSocketAlias, emitMessage } = useSocket({
+    roomId,
+    onNewMessage: (message) => setMessages((prev) => [...prev, message]),
+    onUsersUpdated: (users) => setActiveUsers(users),
+    onAliasRejected: (reason) => {
+      setAliasError(reason);
+      setAlias(null);
+    },
+  });
 
   const fetchChatroom = useCallback(async () => {
     try {
@@ -80,7 +88,7 @@ export default function ChatRoomPage() {
 
   const sendMessage = useCallback(
     async (message: string) => {
-      if (!alias || !socketRef.current?.connected) return;
+      if (!alias || !isConnected) return;
 
       setLoading(true);
       try {
@@ -98,67 +106,16 @@ export default function ChatRoomPage() {
         }
 
         // Also emit to WebSocket for real-time updates
-        if (socketRef.current) {
-          socketRef.current.emit("send-message", {
-            roomId,
-            alias,
-            message,
-          });
-        }
+        emitMessage(alias, message);
       } catch (error) {
         console.error("Error sending message:", error);
       } finally {
         setLoading(false);
       }
     },
-    [alias, roomId],
+    [alias, roomId, isConnected, emitMessage],
   );
 
-  // Socket.io connection and event handling
-  useEffect(() => {
-    // Initialize socket connection
-    const socket = io();
-    socketRef.current = socket;
-
-    // Connection events
-    socket.on("connect", () => {
-      console.log("Connected to server:", socket.id);
-      setIsConnected(true);
-
-      // Join the specific room
-      socket.emit("join-room", roomId);
-    });
-
-    socket.on("disconnect", () => {
-      console.log("Disconnected from server");
-      setIsConnected(false);
-    });
-
-    // Chat events
-    socket.on("new-message", (message: Message) => {
-      console.log("New message received:", message);
-      // Only add messages for this room
-      if (message.chatroomId === roomId) {
-        setMessages((prev) => [...prev, message]);
-      }
-    });
-
-    socket.on("users-updated", (users: string[]) => {
-      console.log("Active users updated:", users);
-      setActiveUsers(users);
-    });
-
-    socket.on("alias-rejected", (data: { reason: string }) => {
-      console.log("Alias rejected:", data.reason);
-      setAliasError(data.reason);
-      setAlias(null); // Reset alias to show the input again
-    });
-
-    // Cleanup on unmount
-    return () => {
-      socket.disconnect();
-    };
-  }, [roomId]);
 
   // Load initial data when component mounts
   useEffect(() => {
@@ -168,10 +125,10 @@ export default function ChatRoomPage() {
 
   // Set alias for presence tracking when user joins
   useEffect(() => {
-    if (alias && isConnected && socketRef.current) {
-      socketRef.current.emit("set-alias", alias);
+    if (alias && isConnected) {
+      setSocketAlias(alias);
     }
-  }, [alias, isConnected]);
+  }, [alias, isConnected, setSocketAlias]);
 
   if (error) {
     return (
@@ -314,7 +271,6 @@ export default function ChatRoomPage() {
         </div>
       </main>
 
-      {/* Modal overlay for alias input */}
       {!alias && (
         <div className="fixed inset-0 backdrop-blur-sm flex items-center justify-center z-50">
           <div className="bg-card border border-border rounded-lg p-6 max-w-md w-full mx-4 shadow-xl">
