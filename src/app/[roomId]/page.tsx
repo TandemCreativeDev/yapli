@@ -78,7 +78,7 @@ export default function ChatRoomPage() {
     }
   }, [roomId]);
 
-  const sendMessage = async (message: string) => {
+  const sendMessage = useCallback(async (message: string) => {
     if (!alias || !socketRef.current?.connected) return;
 
     setLoading(true);
@@ -109,7 +109,7 @@ export default function ChatRoomPage() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [alias, roomId]);
 
   // Socket.io connection and event handling
   useEffect(() => {

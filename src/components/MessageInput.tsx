@@ -1,29 +1,41 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef, memo, useEffect } from "react";
 
 interface MessageInputProps {
   onSendMessageAction: (message: string) => void;
   disabled?: boolean;
 }
 
-export default function MessageInput({
+function MessageInput({
   onSendMessageAction,
   disabled = false,
 }: MessageInputProps) {
   const [message, setMessage] = useState("");
+  const [shouldRefocus, setShouldRefocus] = useState(false);
+  const inputRef = useRef<HTMLInputElement>(null);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (message.trim() && !disabled) {
+      setShouldRefocus(true);
       onSendMessageAction(message.trim());
       setMessage("");
     }
   };
 
+  // Refocus when disabled becomes false and we should refocus
+  useEffect(() => {
+    if (shouldRefocus && !disabled) {
+      inputRef.current?.focus();
+      setShouldRefocus(false);
+    }
+  }, [disabled, shouldRefocus]);
+
   return (
     <form onSubmit={handleSubmit} className="flex gap-2">
       <input
+        ref={inputRef}
         type="text"
         value={message}
         onChange={(e) => setMessage(e.target.value)}
@@ -43,3 +55,8 @@ export default function MessageInput({
     </form>
   );
 }
+
+export default memo(MessageInput, (prevProps, nextProps) => {
+  return prevProps.disabled === nextProps.disabled && 
+         prevProps.onSendMessageAction === nextProps.onSendMessageAction;
+});
