@@ -238,13 +238,9 @@ export default function Home() {
                     Welcome, {session.user.name || session.user.email}
                   </span>
                   <button
-                    onClick={() => setShowRoomForm(!showRoomForm)}
+                    onClick={() => setShowRoomForm(true)}
                     className="relative overflow-hidden px-4 py-2 bg-yapli-teal text-white rounded-md focus:outline-none focus:ring-2 focus:ring-yapli-teal focus:ring-offset-2 text-sm font-medium cursor-pointer transition-all duration-300 hover:bg-yapli-hover"
-                    aria-label={
-                      showRoomForm
-                        ? "Cancel room creation"
-                        : "Create new chat room"
-                    }
+                    aria-label="Create new chat room"
                   >
                     <span className="relative z-10">+ Create New Room</span>
                   </button>
