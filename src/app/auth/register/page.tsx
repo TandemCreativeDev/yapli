@@ -5,8 +5,6 @@ import { signIn } from "next-auth/react";
 import Link from "next/link";
 import Logo from "@/components/Logo";
 import ThemeToggle from "@/components/ThemeToggle";
-import Image from "next/image";
-import LogoMark from "@/components/LogoMark";
 
 export default function Register() {
   const [name, setName] = useState("");
