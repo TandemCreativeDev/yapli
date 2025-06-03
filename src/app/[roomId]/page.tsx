@@ -174,7 +174,7 @@ export default function ChatRoomPage() {
     return (
       <div className="min-h-screen flex flex-col items-center justify-center">
         <div className="flex items-center gap-0 mb-10">
-          <h1 className="text-5xl font-bold font-mono bg-gradient-to-r from-[#3EBDC7] to-blue-500 bg-clip-text text-transparent pb-2">
+          <h1 className="text-5xl font-bold font-mono bg-yapli-teal bg-clip-text text-transparent pb-2">
             yapli
           </h1>
 
@@ -216,7 +216,7 @@ export default function ChatRoomPage() {
                   height={32}
                   className="rounded-lg sm:w-10 sm:h-10"
                 />
-                <h1 className="text-base sm:text-lg font-bold font-mono bg-gradient-to-r from-[#3EBDC7] to-blue-500 bg-clip-text text-transparent">
+                <h1 className="text-base sm:text-lg font-bold font-mono bg-yapli-teal bg-clip-text text-transparent">
                   yapli
                 </h1>
               </div>
@@ -235,7 +235,7 @@ export default function ChatRoomPage() {
                 chatroom?.userId === (session.user as ExtendedUser).id && (
                   <Link
                     href="/dashboard"
-                    className="px-3 py-1.5 text-xs sm:text-sm bg-gradient-to-r from-[#3EBDC7] to-blue-500 hover:from-[#7bcad9] hover:to-blue-600 text-white rounded-md focus:outline-none focus:ring-2 focus:ring-yapli-teal focus:ring-offset-2 transition-all duration-300"
+                    className="px-3 py-1.5 text-xs sm:text-sm bg-yapli-teal hover:bg-yapli-hover text-white rounded-md focus:outline-none focus:ring-2 focus:ring-yapli-teal focus:ring-offset-2 transition-all duration-300"
                   >
                     Dashboard
                   </Link>

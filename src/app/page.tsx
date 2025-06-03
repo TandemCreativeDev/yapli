@@ -53,16 +53,16 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-background text-text">
       {/* Theme toggle in top-right corner */}
-      <div className="absolute top-4 right-4 z-10">
+      <div className="absolute top-4 right-4 z-10 hidden lg:block">
         <ThemeToggle />
       </div>
-      <div className="container mx-auto px-4 py-16">
+      <div className="container mx-auto px-4 pt-8 pb-16  lg:py-16">
         <div className="flex flex-col lg:flex-row items-center justify-between min-h-[80vh]">
           {/* Left side - Welcome text */}
           <div className="lg:w-1/2 mb-12 lg:mb-0">
             <h1 className="text-4xl lg:text-5xl font-bold mb-6 text-text flex flex-wrap items-center justify-center lg:justify-start gap-4">
               Welcome to{" "}
-              <span className="bg-gradient-to-r from-[#3EBDC7] to-blue-500 bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-[#3EBDC7] to-[#064E64] bg-clip-text text-transparent">
                 Yapli
               </span>
               <Image
@@ -73,20 +73,20 @@ export default function Home() {
                 className=""
               />
             </h1>
-            <p className="text-xl lg:text-2xl text-muted-text mb-8 leading-relaxed">
+            <p className="text-lg lg:text-2xl text-muted-text mb-8 leading-relaxed">
               Create instant chat rooms and connect with anyone, anywhere. Share
               a link and start conversations in seconds.
             </p>
-            <div className="space-y-4 text-lg text-muted-text">
-              <div className="flex items-center">
+            <div className="space-y-4 lg:text-lg text-base text-muted-text text-center lg:text-left">
+              <div className="flex items-center lg:flex-row flex-col">
                 <span className="mr-3">✨</span>
                 No signup required for chatroom participants
               </div>
-              <div className="flex items-center">
+              <div className="flex items-center lg:flex-row flex-col">
                 <span className="mr-3">🚀</span>
                 Instant room creation with modern UI
               </div>
-              <div className="flex items-center">
+              <div className="flex items-center lg:flex-row flex-col">
                 <span className="mr-3">🔗</span>
                 Frictionless sharing with a simple link or code
               </div>
@@ -120,7 +120,7 @@ export default function Home() {
                   <button
                     onClick={handleJoinRoom}
                     disabled={isChecking}
-                    className="relative overflow-hidden bg-gradient-to-r from-[#3EBDC7] to-blue-500 text-white font-bold py-3 px-6 rounded-full text-lg transition-all duration-300 transform hover:scale-105 shadow-lg disabled:opacity-50 disabled:transform-none cursor-pointer before:absolute before:inset-0 before:bg-gradient-to-r before:from-[#7bcad9] before:to-blue-600 before:opacity-0 before:transition-opacity before:duration-300 hover:before:opacity-100"
+                    className="relative overflow-hidden bg-gradient-to-r from-[#3EBDC7] to-[#064E64] text-white font-bold py-3 px-6 rounded-full text-lg transition-all duration-300 transform hover:scale-105 shadow-lg disabled:opacity-50 disabled:transform-none cursor-pointer before:absolute before:inset-0 before:bg-gradient-to-r before:from-[#7bcad9] before:to-[#064E64] before:opacity-0 before:transition-opacity before:duration-300 hover:before:opacity-100"
                   >
                     <span className="relative z-10">
                       {isChecking ? "Checking..." : "Join Room"}
@@ -136,7 +136,7 @@ export default function Home() {
                 <div className="flex flex-col sm:flex-row gap-4">
                   <Link
                     href="/auth/signin"
-                    className="relative overflow-hidden bg-gradient-to-r from-[#3EBDC7] to-blue-500 text-white font-bold py-4 px-8 rounded-full text-xl transition-all duration-300 transform hover:scale-105 shadow-lg before:absolute before:inset-0 before:bg-gradient-to-r before:from-[#7bcad9] before:to-blue-600 before:opacity-0 before:transition-opacity before:duration-300 hover:before:opacity-100"
+                    className="relative overflow-hidden bg-gradient-to-r from-[#3EBDC7] to-[#064E64] text-white font-bold py-4 px-8 rounded-full text-xl transition-all duration-300 transform hover:scale-105 shadow-lg before:absolute before:inset-0 before:bg-gradient-to-r before:from-[#7bcad9] before:to-[#064E64] before:opacity-0 before:transition-opacity before:duration-300 hover:before:opacity-100"
                   >
                     <span className="relative z-10">Login</span>
                   </Link>

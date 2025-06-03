@@ -215,7 +215,7 @@ export default function Home() {
           <div className="hidden sm:flex items-center justify-between">
             <div>
               <div className="flex items-center gap-0">
-                <h1 className="text-5xl font-bold font-mono bg-gradient-to-r from-[#3EBDC7] to-blue-500 bg-clip-text text-transparent pb-2">
+                <h1 className="text-5xl font-bold font-mono text-yapli-teal pb-2">
                   yapli
                 </h1>
 
@@ -239,7 +239,7 @@ export default function Home() {
                   </span>
                   <button
                     onClick={() => setShowRoomForm(!showRoomForm)}
-                    className="relative overflow-hidden px-4 py-2 bg-gradient-to-r from-[#3EBDC7] to-blue-500 text-white rounded-md focus:outline-none focus:ring-2 focus:ring-yapli-teal focus:ring-offset-2 text-sm font-medium cursor-pointer transition-all duration-300 before:absolute before:inset-0 before:bg-gradient-to-r before:from-[#7bcad9] before:to-blue-600 before:opacity-0 before:transition-opacity before:duration-300 hover:before:opacity-100"
+                    className="relative overflow-hidden px-4 py-2 bg-yapli-teal text-white rounded-md focus:outline-none focus:ring-2 focus:ring-yapli-teal focus:ring-offset-2 text-sm font-medium cursor-pointer transition-all duration-300 hover:bg-yapli-hover"
                     aria-label={
                       showRoomForm
                         ? "Cancel room creation"
