@@ -9,6 +9,12 @@ import Logo from "@/components/Logo";
 import ThemeToggle from "@/components/ThemeToggle";
 import ConfirmationModal from "@/components/ConfirmationModal";
 import Image from "next/image";
+import { copyRoomUrl, copyRoomId } from "@/lib/roomUtils";
+import {
+  fetchChatrooms,
+  createRoom as createRoomApi,
+  deleteRoom,
+} from "@/lib/roomApi";
 import { TrashIcon, LinkIcon } from "@heroicons/react/24/outline";
 
 interface Chatroom {
@@ -40,14 +46,11 @@ export default function Home() {
     }
   }, [session, status, router]);
 
-  const fetchChatrooms = async () => {
+  const fetchRooms = async () => {
     setLoadingRooms(true);
     try {
-      const response = await fetch("/api/rooms");
-      if (response.ok) {
-        const data = await response.json();
-        setChatrooms(data);
-      }
+      const data = await fetchChatrooms();
+      setChatrooms(data);
     } catch (error) {
       console.error("Error fetching chatrooms:", error);
     } finally {
@@ -64,20 +67,11 @@ export default function Home() {
     if (!roomToDelete) return;
 
     try {
-      // Use roomUrl if available, otherwise fall back to id
-      const identifier = roomToDelete.roomUrl || roomToDelete.id;
-      const response = await fetch(`/api/rooms/${identifier}`, {
-        method: "DELETE",
-      });
-
-      if (response.ok) {
-        // Remove from local state
-        setChatrooms((prev) => prev.filter((r) => r.id !== roomToDelete.id));
-        setShowDeleteModal(false);
-        setRoomToDelete(null);
-      } else {
-        throw new Error("Failed to delete chatroom");
-      }
+      await deleteRoom(roomToDelete);
+      // Remove from local state
+      setChatrooms((prev) => prev.filter((r) => r.id !== roomToDelete.id));
+      setShowDeleteModal(false);
+      setRoomToDelete(null);
     } catch (error) {
       console.error("Error deleting chatroom:", error);
       alert("Failed to delete chatroom. Please try again.");
@@ -89,46 +83,14 @@ export default function Home() {
     setRoomToDelete(null);
   };
 
-  const copyRoomUrl = async (room: Chatroom) => {
-    const url = `https://yapli.chat/${room.roomUrl || room.id}`;
-    try {
-      await navigator.clipboard.writeText(url);
-    } catch (error) {
-      console.error("Failed to copy URL:", error);
-    }
-  };
-
-  const copyRoomId = async (room: Chatroom) => {
-    try {
-      await navigator.clipboard.writeText(room.roomUrl || room.id);
-    } catch (error) {
-      console.error("Failed to copy room ID:", error);
-    }
-  };
-
-  const createRoom = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!roomTitle.trim()) return;
-
+  const handleCreateRoom = async (title: string) => {
     setCreatingRoom(true);
     try {
-      const response = await fetch("/api/rooms", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ title: roomTitle.trim() }),
-      });
-
-      if (response.ok) {
-        // Refresh the chatrooms list
-        await fetchChatrooms();
-        // Reset form and hide it
-        setRoomTitle("");
-        setShowRoomForm(false);
-      } else {
-        throw new Error("Failed to create room");
-      }
+      await createRoomApi(title);
+      // Refresh the chatrooms list
+      await fetchRooms();
+      // Hide the form
+      setShowRoomForm(false);
     } catch (error) {
       console.error("Error creating room:", error);
       alert("Failed to create room. Please try again.");
@@ -137,10 +99,14 @@ export default function Home() {
     }
   };
 
+  const handleCancelCreateRoom = () => {
+    setShowRoomForm(false);
+  };
+
   // Load chatrooms on component mount
   useEffect(() => {
     if (session) {
-      fetchChatrooms();
+      fetchRooms();
     }
   }, [session]);
 
