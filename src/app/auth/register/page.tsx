@@ -228,7 +228,6 @@ export default function Register() {
         </div>
       </main>
 
-      <LogoMark />
     </div>
   );
 }
