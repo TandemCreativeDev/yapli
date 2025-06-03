@@ -4,7 +4,7 @@ import { signIn } from "next-auth/react";
 import { useState } from "react";
 import Link from "next/link";
 import ThemeToggle from "@/components/ThemeToggle";
-import Logo from "@/components/Logo";
+import Brand from "@/components/Brand";
 
 export default function SignIn() {
   const [email, setEmail] = useState("");
@@ -41,12 +41,7 @@ export default function SignIn() {
       <header className="bg-card shadow-sm border-b border-border">
         <div className="max-w-4xl mx-auto px-4 py-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between">
-            <div className="flex items-center gap-4">
-              <h1 className="text-5xl font-bold font-mono text-yapli-teal">
-                yapli
-              </h1>
-              <Logo size={32} className="mt-2" />
-            </div>
+            <Brand />
             <ThemeToggle />
           </div>
         </div>

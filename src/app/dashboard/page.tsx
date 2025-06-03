@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { useSession, signOut } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import Brand from "@/components/Brand";
 import Logo from "@/components/Logo";
 import ThemeToggle from "@/components/ThemeToggle";
 import ConfirmationModal from "@/components/ConfirmationModal";
@@ -208,13 +209,7 @@ export default function Home() {
           {/* Desktop Layout - Original */}
           <div className="hidden sm:flex items-center justify-between">
             <div>
-              <div className="flex items-center gap-0">
-                <h1 className="text-5xl font-bold font-mono text-yapli-teal pb-2 mr-3">
-                  yapli
-                </h1>
-
-                <Logo size={32} className="mt-2" />
-              </div>
+              <Brand />
               <p className="text-text opacity-70 text-sm mt-2">
                 Create and join chat rooms
               </p>
