@@ -4,7 +4,7 @@ import { useState, useEffect, useCallback } from "react";
 import { useParams } from "next/navigation";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
-import AliasInput from "@/components/AliasInput";
+import AliasModal from "@/components/AliasModal";
 import MessageList from "@/components/MessageList";
 import MessageInput from "@/components/MessageInput";
 import ThemeToggle from "@/components/ThemeToggle";
@@ -271,19 +271,14 @@ export default function ChatRoomPage() {
         </div>
       </main>
 
-      {!alias && (
-        <div className="fixed inset-0 backdrop-blur-sm flex items-center justify-center z-50">
-          <div className="bg-card border border-border rounded-lg p-6 max-w-md w-full mx-4 shadow-xl">
-            <AliasInput
-              onAliasSet={(newAlias) => {
-                setAliasError(null); // Clear error when setting new alias
-                setAlias(newAlias);
-              }}
-              error={aliasError}
-            />
-          </div>
-        </div>
-      )}
+      <AliasModal
+        isOpen={!alias}
+        onAliasSet={(newAlias) => {
+          setAliasError(null);
+          setAlias(newAlias);
+        }}
+        error={aliasError}
+      />
     </div>
   );
 }
