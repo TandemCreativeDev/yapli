@@ -169,13 +169,7 @@ export default function Home() {
                 <h1 className="text-3xl font-bold font-mono bg-yapli-teal bg-clip-text text-transparent">
                   yapli
                 </h1>
-                <Image
-                  src="/images/yapli-logo.png"
-                  alt="Yapli Logo"
-                  width={40}
-                  height={40}
-                  className="rounded-lg"
-                />
+                <Logo size={32} className="mt-2" />
               </div>
               <ThemeToggle />
             </div>
