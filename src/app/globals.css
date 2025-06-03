@@ -19,6 +19,8 @@
   --color-yapli-teal: #3ebdc7;
   --color-yapli-hover: #7bcad9;
   --color-yapli-dark: #064e64;
+  --color-logo-eyes-light: #064e64;
+  --color-logo-eyes-dark: #ffffff;
 }
 
 @layer base {
@@ -26,11 +28,13 @@
     --color-card: var(--color-card-light);
     --color-text: var(--color-text-light);
     --color-border: var(--color-border-light);
+    --color-eyes: var(--color-logo-eyes-light);
   }
   [data-theme="dark"] {
     --color-card: var(--color-card-dark);
     --color-text: var(--color-text-dark);
     --color-border: var(--color-border-dark);
+    --color-eyes: var(--color-logo-eyes-dark);
   }
 
   html[data-theme="light"],

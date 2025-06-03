@@ -2,8 +2,6 @@
 
 import { twMerge } from "tailwind-merge";
 import clsx from "clsx";
-import { useTheme } from "next-themes";
-import { useEffect, useState } from "react";
 
 interface LogoProps {
   bodyColour?: string;
@@ -24,20 +22,8 @@ export default function Logo({
   className,
   size = 48,
 }: LogoProps) {
-  const [mounted, setMounted] = useState(false);
-  const { resolvedTheme } = useTheme();
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  const defaultEyeColour = mounted ? 
-    (resolvedTheme === "dark" ? "#ffffff" : "#064e64") : 
-    "#064e64";
-  
-  const defaultHoverEyeColour = mounted ? 
-    (resolvedTheme === "dark" ? "#e5e5e5" : "#064e64") : 
-    "#064e64";
+  const defaultEyeColour = "var(--color-eyes)";
+  const defaultHoverEyeColour = "var(--color-eyes)";
 
   const finalEyeColour = eyeColour || defaultEyeColour;
   const finalHoverEyeColour = hoverEyeColour || defaultHoverEyeColour;
