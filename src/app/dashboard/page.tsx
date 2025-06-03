@@ -458,7 +458,6 @@ export default function Home() {
           </div>
         </div>
       </main>
-      <Logo />
 
       <ConfirmationModal
         isOpen={showDeleteModal}
