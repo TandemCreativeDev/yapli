@@ -227,7 +227,6 @@ export default function Register() {
           </div>
         </div>
       </main>
-
     </div>
   );
 }
