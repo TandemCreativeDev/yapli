@@ -3,8 +3,8 @@
 import { useState } from "react";
 import { signIn } from "next-auth/react";
 import Link from "next/link";
-import Brand from "@/components/Brand";
-import ThemeToggle from "@/components/ThemeToggle";
+import FormInput from "@/components/FormInput";
+import PrimaryButton from "@/components/PrimaryButton";
 
 export default function Register() {
   const [name, setName] = useState("");
@@ -94,18 +94,7 @@ export default function Register() {
   }
 
   return (
-    <div className="min-h-screen bg-background">
-      <header className="bg-card shadow-sm border-b border-border">
-        <div className="max-w-4xl mx-auto px-4 py-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between">
-            <Brand />
-            <ThemeToggle />
-          </div>
-        </div>
-      </header>
-
-      <main className="max-w-md mx-auto mt-16 px-4">
-        <div className="bg-card rounded-lg shadow-sm border border-border p-6">
+    <div className="bg-card rounded-lg shadow-sm border border-border p-6">
           <h2 className="text-2xl font-bold text-text mb-2 text-center">
             Create Account
           </h2>
@@ -122,86 +111,52 @@ export default function Register() {
               </div>
             )}
 
-            <div>
-              <label
-                htmlFor="name"
-                className="block text-sm font-medium text-text mb-1"
-              >
-                Name (optional)
-              </label>
-              <input
-                type="text"
-                id="name"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                className="w-full px-3 py-2 border border-border rounded-md bg-card text-text focus:outline-none focus:ring-2 focus:ring-yapli-teal focus:border-transparent"
-                placeholder="Enter your name"
-              />
-            </div>
+            <FormInput
+              type="text"
+              id="name"
+              label="Name (optional)"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              placeholder="Enter your name"
+            />
 
-            <div>
-              <label
-                htmlFor="email"
-                className="block text-sm font-medium text-text mb-1"
-              >
-                Email
-              </label>
-              <input
-                type="email"
-                id="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-                className="w-full px-3 py-2 border border-border rounded-md bg-card text-text focus:outline-none focus:ring-2 focus:ring-yapli-teal focus:border-transparent"
-                placeholder="Enter your email"
-              />
-            </div>
+            <FormInput
+              type="email"
+              id="email"
+              label="Email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+              placeholder="Enter your email"
+            />
 
-            <div>
-              <label
-                htmlFor="password"
-                className="block text-sm font-medium text-text mb-1"
-              >
-                Password
-              </label>
-              <input
-                type="password"
-                id="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-                className="w-full px-3 py-2 border border-border rounded-md bg-card text-text focus:outline-none focus:ring-2 focus:ring-yapli-teal focus:border-transparent"
-                placeholder="Enter your password (min. 6 characters)"
-              />
-            </div>
+            <FormInput
+              type="password"
+              id="password"
+              label="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+              placeholder="Enter your password (min. 6 characters)"
+            />
 
-            <div>
-              <label
-                htmlFor="confirmPassword"
-                className="block text-sm font-medium text-text mb-1"
-              >
-                Confirm Password
-              </label>
-              <input
-                type="password"
-                id="confirmPassword"
-                value={confirmPassword}
-                onChange={(e) => setConfirmPassword(e.target.value)}
-                required
-                className="w-full px-3 py-2 border border-border rounded-md bg-card text-text focus:outline-none focus:ring-2 focus:ring-yapli-teal focus:border-transparent"
-                placeholder="Confirm your password"
-              />
-            </div>
+            <FormInput
+              type="password"
+              id="confirmPassword"
+              label="Confirm Password"
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+              required
+              placeholder="Confirm your password"
+            />
 
-            <button
+            <PrimaryButton
               type="submit"
               disabled={isLoading}
-              className="relative overflow-hidden w-full px-4 py-2 bg-gradient-to-r from-yapli-teal to-yapli-dark text-white rounded-md focus:outline-none focus:ring-2 focus:ring-yapli-teal focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
+              className="w-full px-4 py-2"
             >
-              <span className="relative z-10">
-                {isLoading ? "Creating account..." : "Create Account"}
-              </span>
-            </button>
+              {isLoading ? "Creating account..." : "Create Account"}
+            </PrimaryButton>
           </form>
 
           <p className="text-xs text-text opacity-50 text-center mt-6">
@@ -220,8 +175,6 @@ export default function Register() {
               </Link>
             </p>
           </div>
-        </div>
-      </main>
     </div>
   );
 }
