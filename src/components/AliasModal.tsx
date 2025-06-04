@@ -8,7 +8,11 @@ interface AliasModalProps {
   isOpen: boolean;
 }
 
-export default function AliasModal({ onAliasSet, error, isOpen }: AliasModalProps) {
+export default function AliasModal({
+  onAliasSet,
+  error,
+  isOpen,
+}: AliasModalProps) {
   const [alias, setAlias] = useState("");
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -34,18 +38,17 @@ export default function AliasModal({ onAliasSet, error, isOpen }: AliasModalProp
             <input
               type="text"
               id="alias"
+              name="alias"
               value={alias}
               onChange={(e) => setAlias(e.target.value)}
               placeholder="Your name"
               maxLength={50}
-              autoComplete="off"
+              autoComplete="nickname"
               className={`w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-yapli-teal focus:border-yapli-teal text-text bg-card placeholder-gray-500 ${
-                error ? 'border-red-500' : 'border-border'
+                error ? "border-red-500" : "border-border"
               }`}
             />
-            {error && (
-              <p className="mt-2 text-sm text-red-600">{error}</p>
-            )}
+            {error && <p className="mt-2 text-sm text-red-600">{error}</p>}
           </div>
           <button
             type="submit"
@@ -59,3 +62,4 @@ export default function AliasModal({ onAliasSet, error, isOpen }: AliasModalProp
     </div>
   );
 }
+
