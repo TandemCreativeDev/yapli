@@ -1,9 +1,9 @@
 # Yapli
 
 <p align="center">
-  <a href="https://yapli.app" target="_blank" rel="noopener noreferrer">
+  <a href="https://yapli.chat" target="_blank" rel="noopener noreferrer">
     <img src="https://github.com/user-attachments/assets/798b27c8-c9fb-477f-afb2-8ff9a764ab82" alt="Yapli App Logo" width="100"><br>
-    <strong>🌐 Visit Yapli</strong>
+    <strong>Visit Yapli</strong>
   </a>
 </p>
 
