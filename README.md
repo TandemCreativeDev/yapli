@@ -11,13 +11,6 @@ Yapli is a modern, full-featured web-based chatroom application built with Next.
 
 ## ✨ Features
 
-### 🔐 **Authentication System**
-
-- Multiple sign-in options: Email/Password, Google OAuth, GitHub OAuth
-- Secure user registration with bcrypt password hashing
-- JWT-based session management with NextAuth.js
-- Protected routes for room creation and management
-
 ### 🏠 **Dynamic Room Management**
 
 - Create unlimited chat rooms with custom titles (authenticated users)
@@ -47,6 +40,12 @@ Yapli is a modern, full-featured web-based chatroom application built with Next.
 - Gradient-based color scheme with teal and blue accents
 - Smooth animations and hover effects
 - Professional branding with integrated Yapli logo
+
+### 🔐 **Authentication System**
+
+- Secure user registration with bcrypt password hashing
+- JWT-based session management with NextAuth.js
+- Protected routes for room creation and management
 
 ### 🔒 **Security & Performance**
 
@@ -113,7 +112,7 @@ All core functionality is implemented and thoroughly tested. The application inc
 
 ### Prerequisites
 
-- Node.js 18+ 
+- Node.js 18+
 - PostgreSQL database
 - OAuth app credentials (Google and/or GitHub - optional)
 
@@ -139,17 +138,20 @@ GITHUB_SECRET="your-github-client-secret"
 ### Installation & Development
 
 1. **Install dependencies:**
+
    ```bash
    npm install
    ```
 
 2. **Set up the database:**
+
    ```bash
    npx prisma generate
    npx prisma db push
    ```
 
 3. **Run the development server:**
+
    ```bash
    npm run dev
    ```
@@ -160,6 +162,7 @@ GITHUB_SECRET="your-github-client-secret"
 ### Production Deployment
 
 1. **Build the application:**
+
    ```bash
    npm run build
    ```
