@@ -30,7 +30,7 @@ export default function PrimaryButton({
       type={type}
       onClick={onClick}
       disabled={disabled}
-      className={`${baseClasses} ${variantClasses} ${className}`}
+      className={twMerge(baseClasses, variantClasses, className)}
     >
       <span className="relative z-10">{children}</span>
     </button>
