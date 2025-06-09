@@ -13,7 +13,7 @@ export default function Brand({
   const isMobile = variation === "mobile";
 
   return (
-    <div className={`flex items-center gap-0 ${className}`}>
+    <div className={twMerge("flex items-center gap-0", className)}>
       <span
         className={`${isMobile ? "text-3xl" : "text-5xl"} font-bold font-mono ${isMobile ? "bg-yapli-teal bg-clip-text text-transparent" : "text-yapli-teal"} ${isMobile ? "" : "pb-2 mr-3"}`}
       >
