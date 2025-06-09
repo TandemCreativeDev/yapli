@@ -38,9 +38,9 @@ export default function SignIn() {
 
   return (
     <div className="bg-card rounded-lg shadow-sm border border-border p-6">
-          <h2 className="text-2xl font-bold text-text mb-2 text-center">
+          <h1 className="text-2xl font-bold text-text mb-2 text-center">
             Sign in to Yapli
-          </h2>
+          </h1>
           <p className="text-text opacity-70 text-center mb-6">
             Sign in to manage your chatrooms
           </p>
