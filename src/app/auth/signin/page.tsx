@@ -3,8 +3,8 @@
 import { signIn } from "next-auth/react";
 import { useState } from "react";
 import Link from "next/link";
-import ThemeToggle from "@/components/ThemeToggle";
-import Logo from "@/components/Logo";
+import FormInput from "@/components/FormInput";
+import PrimaryButton from "@/components/PrimaryButton";
 
 export default function SignIn() {
   const [email, setEmail] = useState("");
@@ -37,26 +37,10 @@ export default function SignIn() {
   };
 
   return (
-    <div className="min-h-screen bg-background">
-      <header className="bg-card shadow-sm border-b border-border">
-        <div className="max-w-4xl mx-auto px-4 py-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-4">
-              <h1 className="text-5xl font-bold font-mono text-yapli-teal">
-                yapli
-              </h1>
-              <Logo size={32} className="mt-2" />
-            </div>
-            <ThemeToggle />
-          </div>
-        </div>
-      </header>
-
-      <main className="max-w-md mx-auto mt-16 px-4">
-        <div className="bg-card rounded-lg shadow-sm border border-border p-6">
-          <h2 className="text-2xl font-bold text-text mb-2 text-center">
+    <div className="bg-card rounded-lg shadow-sm border border-border p-6">
+          <h1 className="text-2xl font-bold text-text mb-2 text-center">
             Sign in to Yapli
-          </h2>
+          </h1>
           <p className="text-text opacity-70 text-center mb-6">
             Sign in to manage your chatrooms
           </p>
@@ -71,51 +55,33 @@ export default function SignIn() {
               </div>
             )}
 
-            <div>
-              <label
-                htmlFor="email"
-                className="block text-sm font-medium text-text mb-1"
-              >
-                Email
-              </label>
-              <input
-                type="email"
-                id="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-                className="w-full px-3 py-2 border border-border rounded-md bg-card text-text focus:outline-none focus:ring-2 focus:ring-yapli-teal focus:border-transparent"
-                placeholder="Enter your email"
-              />
-            </div>
+            <FormInput
+              type="email"
+              id="email"
+              label="Email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+              placeholder="Enter your email"
+            />
 
-            <div>
-              <label
-                htmlFor="password"
-                className="block text-sm font-medium text-text mb-1"
-              >
-                Password
-              </label>
-              <input
-                type="password"
-                id="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-                className="w-full px-3 py-2 border border-border rounded-md bg-card text-text focus:outline-none focus:ring-2 focus:ring-yapli-teal focus:border-transparent"
-                placeholder="Enter your password"
-              />
-            </div>
+            <FormInput
+              type="password"
+              id="password"
+              label="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+              placeholder="Enter your password"
+            />
 
-            <button
+            <PrimaryButton
               type="submit"
               disabled={isLoading}
-              className="relative overflow-hidden w-full px-4 py-2 bg-gradient-to-r from-yapli-teal to-yapli-dark text-white rounded-md focus:outline-none focus:ring-2 focus:ring-yapli-teal focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
+              className="w-full px-4 py-2"
             >
-              <span className="relative z-10">
-                {isLoading ? "Signing in..." : "Sign in"}
-              </span>
-            </button>
+              {isLoading ? "Signing in..." : "Sign in"}
+            </PrimaryButton>
           </form>
 
           <p className="text-xs text-text opacity-50 text-center mt-6">
@@ -133,8 +99,6 @@ export default function SignIn() {
               </Link>
             </p>
           </div>
-        </div>
-      </main>
     </div>
   );
 }

@@ -39,6 +39,7 @@ export default function Logo({
       height={(size * 595) / 500}
       viewBox="0 0 500 595"
       xmlns="http://www.w3.org/2000/svg"
+      aria-hidden="true"
     >
       <style>
         {`

@@ -5,6 +5,8 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import ThemeToggle from "@/components/ThemeToggle";
 import Logo from "@/components/Logo";
+import Card from "@/components/Card";
+import PrimaryButton from "@/components/PrimaryButton";
 
 export default function Home() {
   const [roomCode, setRoomCode] = useState("");
@@ -90,10 +92,10 @@ export default function Home() {
           {/* Right side - CTA */}
           <div className="lg:w-1/2 flex flex-col items-center text-center">
             <div className="space-y-6">
-              <div className="bg-card border border-border rounded-2xl p-8 shadow-lg">
-                <h3 className="text-2xl font-semibold mb-6 text-center text-text">
+              <Card>
+                <h2 className="text-2xl font-semibold mb-6 text-center text-text">
                   Trying to join a room?
-                </h3>
+                </h2>
                 <p className="text-center text-muted-text mb-6">
                   Enter the six character code here
                 </p>
@@ -111,37 +113,33 @@ export default function Home() {
                   {error && (
                     <p className="text-red-500 text-sm text-center">{error}</p>
                   )}
-                  <button
+                  <PrimaryButton
                     onClick={handleJoinRoom}
                     disabled={isChecking}
-                    className="relative overflow-hidden bg-gradient-to-r from-[#3EBDC7] to-[#064E64] text-white font-bold py-3 px-6 rounded-full text-lg transition-all duration-300 transform hover:scale-105 shadow-lg disabled:opacity-50 disabled:transform-none cursor-pointer before:absolute before:inset-0 before:bg-gradient-to-r before:from-[#7bcad9] before:to-[#064E64] before:opacity-0 before:transition-opacity before:duration-300 hover:before:opacity-100"
+                    className="px-6 py-3"
                   >
-                    <span className="relative z-10">
-                      {isChecking ? "Checking..." : "Join Room"}
-                    </span>
-                  </button>
+                    {isChecking ? "Checking..." : "Join Room"}
+                  </PrimaryButton>
                 </div>
-              </div>
+              </Card>
 
-              <div className="bg-card border border-border rounded-2xl p-8 shadow-lg">
-                <h3 className="text-2xl font-semibold mb-6 text-center text-text">
+              <Card>
+                <h2 className="text-2xl font-semibold mb-6 text-center text-text">
                   Want to create chat rooms?
-                </h3>
+                </h2>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                  <Link
-                    href="/auth/signin"
-                    className="relative overflow-hidden bg-gradient-to-r from-[#3EBDC7] to-[#064E64] text-white font-bold py-3 px-8 rounded-full text-lg transition-all duration-300 transform hover:scale-105 shadow-lg before:absolute before:inset-0 before:bg-gradient-to-r before:from-[#7bcad9] before:to-[#064E64] before:opacity-0 before:transition-opacity before:duration-300 hover:before:opacity-100"
-                  >
-                    <span className="relative z-10">Login</span>
+                  <Link href="/auth/signin">
+                    <PrimaryButton className="px-8 py-3">
+                      Login
+                    </PrimaryButton>
                   </Link>
-                  <Link
-                    href="/auth/register"
-                    className="border-2 border-[#3EBDC7] text-[#3EBDC7] hover:bg-[#3EBDC7] hover:text-white font-bold py-3 px-8 rounded-full text-lg transition-all duration-300 transform hover:scale-105"
-                  >
-                    Sign Up
+                  <Link href="/auth/register">
+                    <PrimaryButton variant="outline" className="px-8 py-3">
+                      Sign Up
+                    </PrimaryButton>
                   </Link>
                 </div>
-              </div>
+              </Card>
             </div>
           </div>
         </div>
