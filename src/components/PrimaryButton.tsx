@@ -1,4 +1,5 @@
 import { ReactNode } from "react";
+import { twMerge } from tailwind-merge;
 
 interface PrimaryButtonProps {
   children: ReactNode;
@@ -30,7 +31,7 @@ export default function PrimaryButton({
       type={type}
       onClick={onClick}
       disabled={disabled}
-      className={`${baseClasses} ${variantClasses} ${className}`}
+      className={twMerge(baseClasses, variantClasses, className)}
     >
       <span className="relative z-10">{children}</span>
     </button>

@@ -37,17 +37,13 @@ export default function ChatroomsList({
       </div>
       <div className="p-4">
         {isLoading ? (
-          <div className="text-center py-4">
-            <div className="text-gray-600 dark:text-gray-400">
-              Loading chatrooms...
-            </div>
-          </div>
+          <span className="text-center py-4 text-gray-600 dark:text-gray-400">
+            Loading chatrooms...
+          </span>
         ) : chatrooms.length === 0 ? (
-          <div className="text-center py-4">
-            <div className="text-gray-600 dark:text-gray-400">
-              You haven&apos;t created any chatrooms yet.
-            </div>
-          </div>
+          <p className="text-center py-4 text-gray-600 dark:text-gray-400">
+            You haven&apos;t created any chatrooms yet.
+          </p>
         ) : (
           <div className="space-y-3">
             {chatrooms.map((room) => (

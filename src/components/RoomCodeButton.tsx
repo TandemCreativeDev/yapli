@@ -19,9 +19,9 @@ export default function RoomCodeButton({ code, onClick, fullWidth = false }: Roo
       >
         {code}
       </button>
-      <div className={`absolute bottom-full mb-1 px-2 py-1 bg-gray-800 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap ${
-        fullWidth ? 'left-4' : 'left-1/2 transform -translate-x-1/2'
-      }`}>
+      <div className={clsx("absolute bottom-full mb-1 px-2 py-1 bg-gray-800 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap",
+        fullWidth ? "left-4" : "left-1/2 transform -translate-x-1/2")
+      }>
         Copy room code to clipboard
       </div>
     </div>
