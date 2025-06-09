@@ -5,16 +5,18 @@ interface CopyUrlButtonProps {
   roomTitle: string;
   fullWidth?: boolean;
   showText?: boolean;
+  className?: string;
 }
 
 export default function CopyUrlButton({ 
   onClick, 
   roomTitle, 
   fullWidth = false, 
-  showText = false 
+  showText = false,
+  className = ""
 }: CopyUrlButtonProps) {
   return (
-    <div className="relative group">
+    <div className={`relative group ${className}`}>
       <button
         onClick={onClick}
         className={`p-2 bg-gray-300 text-gray-700 rounded-md hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2 cursor-pointer transition-colors ${

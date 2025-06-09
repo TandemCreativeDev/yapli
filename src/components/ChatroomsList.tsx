@@ -76,18 +76,17 @@ export default function ChatroomsList({
                       fullWidth
                     />
                     <div className="flex space-x-2">
-                      <div className="flex-1">
-                        <CopyUrlButton
-                          onClick={(e) => {
-                            e.preventDefault();
-                            e.stopPropagation();
-                            handleCopyRoomUrl(room);
-                          }}
-                          roomTitle={room.title}
-                          fullWidth
-                          showText
-                        />
-                      </div>
+                      <CopyUrlButton
+                        onClick={(e) => {
+                          e.preventDefault();
+                          e.stopPropagation();
+                          handleCopyRoomUrl(room);
+                        }}
+                        roomTitle={room.title}
+                        fullWidth
+                        showText
+                        className="flex-1"
+                      />
                       <DeleteRoomButton
                         onClick={(e) => {
                           e.preventDefault();
