@@ -130,12 +130,7 @@ export default function Home() {
           <div className="block sm:hidden space-y-4">
             {/* Brand Row */}
             <div className="flex items-center justify-between">
-              <div className="flex items-center gap-2">
-                <h1 className="text-3xl font-bold font-mono bg-yapli-teal bg-clip-text text-transparent">
-                  yapli
-                </h1>
-                <Logo size={32} className="mt-2" />
-              </div>
+              <Brand variation="mobile" className="gap-2" />
               <ThemeToggle />
             </div>
 

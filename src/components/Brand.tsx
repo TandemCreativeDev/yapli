@@ -2,15 +2,24 @@ import Logo from "@/components/Logo";
 
 interface BrandProps {
   className?: string;
+  variation?: "desktop" | "mobile";
 }
 
-export default function Brand({ className = "" }: BrandProps) {
+export default function Brand({
+  className = "",
+  variation = "desktop",
+}: BrandProps) {
+  const isMobile = variation === "mobile";
+
   return (
     <div className={`flex items-center gap-0 ${className}`}>
-      <h1 className="text-5xl font-bold font-mono text-yapli-teal pb-2 mr-3">
+      <span
+        className={`${isMobile ? "text-3xl" : "text-5xl"} font-bold font-mono ${isMobile ? "bg-yapli-teal bg-clip-text text-transparent" : "text-yapli-teal"} ${isMobile ? "" : "pb-2 mr-3"}`}
+      >
         yapli
-      </h1>
+      </span>
       <Logo size={32} className="mt-2" />
     </div>
   );
 }
+
