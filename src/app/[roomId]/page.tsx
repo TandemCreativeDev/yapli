@@ -133,9 +133,7 @@ export default function ChatRoomPage() {
   if (error) {
     return (
       <div className="min-h-screen flex flex-col items-center justify-center">
-        <div className="mb-10">
-          <Brand />
-        </div>
+        <Brand className="mb-10" />
         <div className="text-center">
           <h1 className="text-2xl font-bold text-text mb-2">{error}</h1>
         </div>
