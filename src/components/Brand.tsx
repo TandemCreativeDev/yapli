@@ -1,4 +1,5 @@
 import Logo from "@/components/Logo";
+import clsx from "clsx";
 
 interface BrandProps {
   className?: string;
@@ -14,7 +15,13 @@ export default function Brand({
   return (
     <div className={`flex items-center gap-0 ${className}`}>
       <span
-        className={`${isMobile ? "text-3xl" : "text-5xl"} font-bold font-mono ${isMobile ? "bg-yapli-teal bg-clip-text text-transparent" : "text-yapli-teal"} ${isMobile ? "" : "pb-2 mr-3"}`}
+        className={clsx(
+          "font-bold font-mono",
+          {
+            "text-3xl bg-yapli-teal bg-clip-text text-transparent": isMobile,
+            "text-5xl text-yapli-teal pb-2 mr-3": !isMobile,
+          }
+        )}
       >
         yapli
       </span>
