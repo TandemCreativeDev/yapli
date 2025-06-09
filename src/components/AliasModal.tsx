@@ -52,12 +52,17 @@ export default function AliasModal({
             {error && <p className="mt-2 text-sm text-red-600">{error}</p>}
           </div>
           <button
-            type="submit"
-            disabled={!alias.trim()}
-            className="w-full bg-yapli-teal text-black py-2 px-4 rounded-md hover:bg-yapli-hover focus:outline-none focus:ring-2 focus:ring-yapli-teal focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
-          >
-            Join Chat
-          </button>
+           type="submit"
+           disabled={!alias.trim()}
+           className="w-full bg-yapli-teal text-black py-2 px-4 rounded-md hover:bg-yapli-hover focus:outline-none focus:ring-2 focus:ring-yapli-teal focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
+           aria-describedby="alias-error"
+         >
+           Join Chat
+         </button>
+
+         <div id="alias-error" className="sr-only" aria-live="polite">
+           {!alias.trim() && "Please enter an alias to join the chat"}
+         </div>
         </form>
       </div>
     </div>
