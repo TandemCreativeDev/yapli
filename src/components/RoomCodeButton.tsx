@@ -1,4 +1,4 @@
-import clsx
+import clsx from "clsx";
 
 interface RoomCodeButtonProps {
   code: string;
