@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-import { twMerge } from tailwind-merge;
+import { twMerge } from "tailwind-merge";
 
 interface PrimaryButtonProps {
   children: ReactNode;
