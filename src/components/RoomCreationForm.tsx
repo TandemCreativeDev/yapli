@@ -49,6 +49,7 @@ export default function RoomCreationForm({
               className="text-text bg-card w-full px-3 py-2 border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-transparent"
               required
               disabled={isLoading}
+              aria-busy={isLoading}
             />
           </div>
           <div className="flex space-x-3">
