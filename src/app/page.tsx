@@ -124,9 +124,9 @@ export default function Home() {
               </Card>
 
               <Card>
-                <h3 className="text-2xl font-semibold mb-6 text-center text-text">
+                <h2 className="text-2xl font-semibold mb-6 text-center text-text">
                   Want to create chat rooms?
-                </h3>
+                </h2>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
                   <Link href="/auth/signin">
                     <PrimaryButton className="px-8 py-3">
