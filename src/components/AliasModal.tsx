@@ -27,6 +27,7 @@ export default function AliasModal({
   return (
     <div className="fixed inset-0 backdrop-blur-sm flex items-center justify-center z-50">
       <div className="bg-card border border-border rounded-lg p-6 max-w-md w-full mx-4 shadow-xl">
+        <h2 className="text-lg font-semibold text-text mb-4">Join Chat Room</h2>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
             <label
