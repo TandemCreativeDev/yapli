@@ -1,4 +1,5 @@
 import Logo from "@/components/Logo";
+import { twMerge } from "tailwind-merge";
 
 interface BrandProps {
   className?: string;
