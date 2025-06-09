@@ -8,7 +8,7 @@ import AliasModal from "@/components/AliasModal";
 import MessageList from "@/components/MessageList";
 import MessageInput from "@/components/MessageInput";
 import ThemeToggle from "@/components/ThemeToggle";
-import Logo from "@/components/Logo";
+import Brand from "@/components/Brand";
 import { useSocket } from "@/lib/socket";
 
 interface Message {
@@ -133,11 +133,8 @@ export default function ChatRoomPage() {
   if (error) {
     return (
       <div className="min-h-screen flex flex-col items-center justify-center">
-        <div className="flex items-center gap-4 mb-10">
-          <h1 className="text-5xl font-bold font-mono bg-yapli-teal bg-clip-text text-transparent pb-2">
-            yapli
-          </h1>
-          <Logo size={32} className="mt-2" />
+        <div className="mb-10">
+          <Brand />
         </div>
         <div className="text-center">
           <h1 className="text-2xl font-bold text-text mb-2">{error}</h1>
@@ -161,11 +158,8 @@ export default function ChatRoomPage() {
         <div className="max-w-4xl mx-auto px-4 py-3 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between gap-2 min-h-12">
             <div className="flex items-center gap-2 sm:gap-4 min-w-0 flex-1">
-              <div className="flex items-center gap-2 flex-shrink-0">
-                <Logo size={20} />
-                <h1 className="text-base sm:text-lg font-bold font-mono bg-yapli-teal bg-clip-text text-transparent">
-                  yapli
-                </h1>
+              <div className="flex-shrink-0">
+                <Brand variation="mobile" />
               </div>
               <div className="hidden sm:block border-l border-border h-8 flex-shrink-0"></div>
               <div className="min-w-0 flex-1">
