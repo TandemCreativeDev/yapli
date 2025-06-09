@@ -47,7 +47,11 @@ export default function ChatRoomPage() {
   const [error, setError] = useState<string | null>(null);
   const [aliasError, setAliasError] = useState<string | null>(null);
 
-  const { isConnected, setAlias: setSocketAlias, emitMessage } = useSocket({
+  const {
+    isConnected,
+    setAlias: setSocketAlias,
+    emitMessage,
+  } = useSocket({
     roomId,
     onNewMessage: (message) => setMessages((prev) => [...prev, message]),
     onUsersUpdated: (users) => setActiveUsers(users),
@@ -116,7 +120,6 @@ export default function ChatRoomPage() {
     [alias, roomId, isConnected, emitMessage],
   );
 
-
   // Load initial data when component mounts
   useEffect(() => {
     fetchChatroom();
@@ -163,9 +166,9 @@ export default function ChatRoomPage() {
               </div>
               <div className="hidden sm:block border-l border-border h-8 flex-shrink-0"></div>
               <div className="min-w-0 flex-1">
-                <h2 className="text-sm sm:text-lg lg:text-xl font-bold text-text truncate">
+                <h1 className="text-sm sm:text-lg lg:text-xl font-bold text-text truncate">
                   {chatroom.title}
-                </h2>
+                </h1>
                 <p className="text-text opacity-70 text-xs sm:text-sm hidden sm:block">
                   Created {new Date(chatroom.createdAt).toLocaleDateString()}
                 </p>
