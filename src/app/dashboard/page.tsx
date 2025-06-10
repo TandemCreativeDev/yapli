@@ -163,9 +163,7 @@ export default function Home() {
 
           {/* Desktop Layout - Original */}
           <div className="hidden sm:flex items-center justify-between">
-            <div>
-              <Brand />
-            </div>
+            <Brand />
             <div className="flex items-center gap-3">
               {session?.user && (
                 <>
