@@ -159,9 +159,7 @@ export default function ChatRoomPage() {
         <div className="max-w-4xl mx-auto px-4 py-3 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between gap-2 min-h-12">
             <div className="flex items-center gap-2 sm:gap-4 min-w-0 flex-1">
-              <div className="flex-shrink-0">
-                <Brand variation="mobile" />
-              </div>
+              <Brand />
               <div className="hidden sm:block border-l border-border h-8 flex-shrink-0"></div>
               <div className="min-w-0 flex-1">
                 <h1 className="text-sm sm:text-lg lg:text-xl font-bold text-text truncate">
