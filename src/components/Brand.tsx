@@ -1,13 +1,8 @@
 import Logo from "@/components/Logo";
-import { twMerge } from "tailwind-merge";
 
-interface BrandProps {
-  className?: string;
-}
-
-export default function Brand({ className = "" }: BrandProps) {
+export default function Brand() {
   return (
-    <div className={twMerge("flex items-center gap-2", className)}>
+    <div className="flex items-center gap-2">
       <span className="font-bold font-mono text-3xl md:text-5xl text-yapli-teal md:pb-2">
         yapli
       </span>
