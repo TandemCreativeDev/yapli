@@ -43,13 +43,13 @@ export default function MessageList({ messages }: MessageListProps) {
         {messages.length === 0 ? (
           <div className="h-full flex items-center justify-center">
             <div className="text-center text-text opacity-70">
-              No messages yet. Be the first to say hello!
+              No messages yet. Be the first to say hi!
             </div>
           </div>
         ) : (
           messages.map((msg) => {
             const urls = extractUrls(msg.message);
-            
+
             return (
               <div
                 key={msg.id}
@@ -91,4 +91,3 @@ export default function MessageList({ messages }: MessageListProps) {
     </div>
   );
 }
-
