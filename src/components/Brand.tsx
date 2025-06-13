@@ -1,26 +1,9 @@
 import Logo from "@/components/Logo";
-import clsx from "clsx";
-import { twMerge } from "tailwind-merge";
 
-interface BrandProps {
-  className?: string;
-  variation?: "desktop" | "mobile";
-}
-
-export default function Brand({
-  className = "",
-  variation = "desktop",
-}: BrandProps) {
-  const isMobile = variation === "mobile";
-
+export default function Brand() {
   return (
-    <div className={twMerge("flex items-center gap-0", className)}>
-      <span
-        className={clsx("font-bold font-mono", {
-          "text-3xl bg-yapli-teal bg-clip-text text-transparent": isMobile,
-          "text-5xl text-yapli-teal pb-2 mr-3": !isMobile,
-        })}
-      >
+    <div className="flex items-center gap-2">
+      <span className="font-bold font-mono text-3xl md:text-5xl text-yapli-teal md:pb-2">
         yapli
       </span>
       <Logo size={32} className="mt-2" />

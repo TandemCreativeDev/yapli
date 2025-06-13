@@ -4,7 +4,6 @@ import { useState, useEffect } from "react";
 import { useSession, signOut } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import Brand from "@/components/Brand";
-import Logo from "@/components/Logo";
 import ThemeToggle from "@/components/ThemeToggle";
 import ConfirmationModal from "@/components/ConfirmationModal";
 import RoomCreationForm from "@/components/RoomCreationForm";
@@ -130,15 +129,12 @@ export default function Home() {
           <div className="block sm:hidden space-y-4">
             {/* Brand Row */}
             <div className="flex items-center justify-between">
-              <Brand variation="mobile" className="gap-2" />
+              <Brand />
               <ThemeToggle />
             </div>
 
             {/* Actions Row */}
             <div className="flex items-center justify-between">
-              <p className="text-text opacity-70 text-sm">
-                Create and join chat rooms
-              </p>
               <div className="flex items-center gap-2">
                 {session?.user && (
                   <>
@@ -167,12 +163,7 @@ export default function Home() {
 
           {/* Desktop Layout - Original */}
           <div className="hidden sm:flex items-center justify-between">
-            <div>
-              <Brand />
-              <p className="text-text opacity-70 text-sm mt-2">
-                Create and join chat rooms
-              </p>
-            </div>
+            <Brand />
             <div className="flex items-center gap-3">
               {session?.user && (
                 <>
