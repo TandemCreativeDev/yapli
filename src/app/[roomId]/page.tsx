@@ -10,6 +10,7 @@ import MessageInput from "@/components/MessageInput";
 import ThemeToggle from "@/components/ThemeToggle";
 import Brand from "@/components/Brand";
 import { useSocket } from "@/lib/socket";
+import { getAlias, removeAlias } from "@/lib/aliasStorage";
 
 interface Message {
   id: string;
@@ -58,6 +59,8 @@ export default function ChatRoomPage() {
     onAliasRejected: (reason) => {
       setAliasError(reason);
       setAlias(null);
+      // Clear saved alias when rejected by server
+      removeAlias(roomId);
     },
   });
 
@@ -119,6 +122,14 @@ export default function ChatRoomPage() {
     },
     [alias, roomId, isConnected, emitMessage],
   );
+
+  // Load saved alias on component mount
+  useEffect(() => {
+    const savedAlias = getAlias(roomId);
+    if (savedAlias) {
+      setAlias(savedAlias);
+    }
+  }, [roomId]);
 
   // Load initial data when component mounts
   useEffect(() => {
@@ -271,6 +282,7 @@ export default function ChatRoomPage() {
           setAlias(newAlias);
         }}
         error={aliasError}
+        roomId={roomId}
       />
     </div>
   );
