@@ -1,24 +1,30 @@
 "use client";
 
 import { useState } from "react";
+import { saveAlias } from "@/lib/aliasStorage";
 
 interface AliasModalProps {
   onAliasSet: (alias: string) => void;
   error?: string | null;
   isOpen: boolean;
+  roomId: string;
 }
 
 export default function AliasModal({
   onAliasSet,
   error,
   isOpen,
+  roomId,
 }: AliasModalProps) {
   const [alias, setAlias] = useState("");
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (alias.trim()) {
-      onAliasSet(alias.trim());
+      const trimmedAlias = alias.trim();
+      // Save alias to localStorage for this room
+      saveAlias(roomId, trimmedAlias);
+      onAliasSet(trimmedAlias);
     }
   };
 
