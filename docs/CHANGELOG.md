@@ -77,5 +77,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `npm run lint` - Code linting
 - `npm run proddb` - Development server with production database
 
-[0.1.0]: https://github.com/your-username/zest/releases/tag/v0.1.0
-
+[0.1.0]: https://github.com/your-username/yapli/releases/tag/v0.1.0

@@ -1,4 +1,4 @@
-# ZEST Project Standards & Guidelines
+# Yapli Project Standards & Guidelines
 
 ## Code Style
 
@@ -29,7 +29,6 @@
 - **Hooks**: camelCase with `use` prefix (e.g., `useWebSocket.ts`)
 - **Utilities**: camelCase (e.g., `formatTimestamp.ts`)
 - **Types/Interfaces**: PascalCase (e.g., `Message.ts`)
-- **CSS modules**: camelCase (e.g., `styles.module.css`)
 
 ## Commit Guidelines
 
