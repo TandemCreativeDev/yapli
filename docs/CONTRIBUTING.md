@@ -25,7 +25,7 @@ For detailed development standards, see [CLAUDE.md](CLAUDE.md).
 
 ## Database Schema
 
-<img width="1300" height="608" alt="Image" src="https://github.com/user-attachments/assets/236b5cca-eb71-4033-9fc5-8240ece0fcad" />
+<img width="1300" alt="Screenshot 2025-07-08 at 13 00 14" src="https://github.com/user-attachments/assets/a4ff65a1-f326-4c2c-a668-aee61059b3dd" />
 
 ## API Routes
 
