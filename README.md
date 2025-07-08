@@ -36,7 +36,7 @@ Yapli is a modern, full-featured web-based chatroom application built with Next.
 ### 🎨 **Modern UI/UX**
 
 - Dark/Light theme toggle with next-themes
-- Responsive design optimized for all screen sizes
+- Responsive design optimised for all screen sizes
 - Gradient-based color scheme with teal and blue accents
 - Smooth animations and hover effects
 - Professional branding with integrated Yapli logo
