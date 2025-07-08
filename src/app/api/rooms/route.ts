@@ -1,19 +1,15 @@
-import { NextRequest, NextResponse } from 'next/server';
-import { prisma } from '@/lib/prisma';
-import { generateRoomUrl } from '@/lib/roomUrl';
-import { getServerSession } from 'next-auth/next';
-import { authOptions } from '@/lib/auth';
+import { NextRequest, NextResponse } from "next/server";
+import { prisma } from "@/lib/prisma";
+import { generateRoomUrl } from "@/lib/roomUrl";
+import { getServerSession } from "next-auth/next";
+import { authOptions } from "@/lib/auth";
 
 export async function GET() {
   try {
     const session = await getServerSession(authOptions);
-    console.log("Session in GET /api/rooms:", session);
-    
+
     if (!session?.user?.email) {
-      return NextResponse.json(
-        { error: 'Unauthorized' },
-        { status: 401 }
-      );
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
     // Get the user from the database
@@ -22,10 +18,7 @@ export async function GET() {
     });
 
     if (!user) {
-      return NextResponse.json(
-        { error: 'User not found' },
-        { status: 404 }
-      );
+      return NextResponse.json({ error: "User not found" }, { status: 404 });
     }
 
     // Only return chatrooms that belong to this user
@@ -34,7 +27,7 @@ export async function GET() {
         userId: user.id,
       },
       orderBy: {
-        createdAt: 'desc',
+        createdAt: "desc",
       },
       include: {
         _count: {
@@ -47,10 +40,10 @@ export async function GET() {
 
     return NextResponse.json(chatrooms);
   } catch (error) {
-    console.error('Error fetching chatrooms:', error);
+    console.error("Error fetching chatrooms:", error);
     return NextResponse.json(
-      { error: 'Failed to fetch chatrooms' },
-      { status: 500 }
+      { error: "Failed to fetch chatrooms" },
+      { status: 500 },
     );
   }
 }
@@ -58,20 +51,17 @@ export async function GET() {
 export async function POST(request: NextRequest) {
   try {
     const session = await getServerSession(authOptions);
-    
+
     if (!session?.user?.email) {
-      return NextResponse.json(
-        { error: 'Unauthorized' },
-        { status: 401 }
-      );
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
     const { title } = await request.json();
 
-    if (!title || typeof title !== 'string' || title.trim().length === 0) {
+    if (!title || typeof title !== "string" || title.trim().length === 0) {
       return NextResponse.json(
-        { error: 'Title is required and must be a non-empty string' },
-        { status: 400 }
+        { error: "Title is required and must be a non-empty string" },
+        { status: 400 },
       );
     }
 
@@ -81,10 +71,7 @@ export async function POST(request: NextRequest) {
     });
 
     if (!user) {
-      return NextResponse.json(
-        { error: 'User not found' },
-        { status: 404 }
-      );
+      return NextResponse.json({ error: "User not found" }, { status: 404 });
     }
 
     // Generate a unique room URL with collision handling
@@ -95,17 +82,17 @@ export async function POST(request: NextRequest) {
     do {
       roomUrl = generateRoomUrl();
       attempts++;
-      
+
       const existingRoom = await prisma.chatroom.findUnique({
-        where: { roomUrl }
+        where: { roomUrl },
       });
-      
+
       if (!existingRoom) break;
-      
+
       if (attempts >= maxAttempts) {
         return NextResponse.json(
-          { error: 'Failed to generate unique room URL' },
-          { status: 500 }
+          { error: "Failed to generate unique room URL" },
+          { status: 500 },
         );
       }
     } while (true);
@@ -118,15 +105,16 @@ export async function POST(request: NextRequest) {
       },
     });
 
-    return NextResponse.json({ 
-      roomUrl: chatroom.roomUrl, 
-      title: chatroom.title 
+    return NextResponse.json({
+      roomUrl: chatroom.roomUrl,
+      title: chatroom.title,
     });
   } catch (error) {
-    console.error('Error creating chatroom:', error);
+    console.error("Error creating chatroom:", error);
     return NextResponse.json(
-      { error: 'Failed to create chatroom' },
-      { status: 500 }
+      { error: "Failed to create chatroom" },
+      { status: 500 },
     );
   }
 }
+
