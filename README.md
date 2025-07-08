@@ -82,26 +82,6 @@ All core functionality is implemented and thoroughly tested. The application inc
 - **Link Processing:** Linkifyjs for URL detection and rich previews
 - **Theme Management:** next-themes for system preference detection
 
-### Key Dependencies
-
-```json
-{
-  "@auth/prisma-adapter": "^2.9.1",
-  "@heroicons/react": "^2.2.0",
-  "@prisma/client": "^6.8.2",
-  "bcryptjs": "^3.0.2",
-  "link-preview-js": "^3.1.0",
-  "linkifyjs": "^4.3.1",
-  "linkify-react": "^4.3.1",
-  "next": "15.3.2",
-  "next-auth": "^4.24.11",
-  "next-themes": "^0.4.6",
-  "react": "^19.0.0",
-  "socket.io": "^4.8.1",
-  "socket.io-client": "^4.8.1"
-}
-```
-
 ## Documentation
 
 - [Changelog](docs/CHANGELOG.md) - Project changelog and release notes
