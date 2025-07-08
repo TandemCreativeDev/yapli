@@ -10,8 +10,7 @@
 1. Clone the repository
 2. Install dependencies: `npm install`
 3. Set up environment variables into `.env.local` (see `.env.example`)
-4. Set up PostgreSQL database: `npx prisma db push --accept-data-loss`
-5. Start development server: `npm run dev`
+4. Start development server: `npm run dev`
 
 ## Code Standards
 
