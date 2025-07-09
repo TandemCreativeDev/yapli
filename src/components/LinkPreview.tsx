@@ -28,15 +28,15 @@ export default function LinkPreview({ url, className = "" }: LinkPreviewProps) {
       try {
         setLoading(true);
         setError(null);
-        
+
         const response = await fetch(
           `/api/link-preview?url=${encodeURIComponent(url)}`
         );
-        
+
         if (!response.ok) {
           throw new Error(`HTTP ${response.status}`);
         }
-        
+
         const data = await response.json();
         setPreview(data);
       } catch (err) {
@@ -52,7 +52,7 @@ export default function LinkPreview({ url, className = "" }: LinkPreviewProps) {
 
   if (loading) {
     return (
-      <div className={`border border-border rounded-lg p-4 animate-pulse ${className}`}>
+      <div data-testid="loading-skeleton" className={`border border-border rounded-lg p-4 animate-pulse ${className}`}>
         <div className="flex space-x-3">
           <div className="w-16 h-16 bg-gray-300 dark:bg-gray-600 rounded"></div>
           <div className="flex-1 space-y-2">
@@ -66,11 +66,11 @@ export default function LinkPreview({ url, className = "" }: LinkPreviewProps) {
   }
 
   if (error || !preview) {
-    return null; // Don't show anything if preview fails
+    return null; // Don't show anything if the preview fails
   }
 
   const image = preview.images?.[0];
-  const title = preview.title || preview.siteName || preview.domain;
+  const title = preview.title || preview.siteName;
   const description = preview.description;
 
   return (

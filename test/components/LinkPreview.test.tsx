@@ -1,11 +1,12 @@
 import React from 'react';
-import { render, screen, waitFor, act } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import LinkPreview from '@/components/LinkPreview';
 
 // Mock next/image
 jest.mock('next/image', () => ({
   __esModule: true,
+  // @ts-expect-error for testing
   default: ({ src, alt, width, height, className, onError }) => (
     <img
       src={src}
