@@ -38,7 +38,7 @@ export default function RoomCreationForm({
         setValidationError(result.available ? null : "You already have a room with this name");
         setIsAvailable(result.available);
       }
-    } catch (error) {
+    } catch {
       setValidationError("Failed to check room name availability");
       setIsAvailable(false);
     } finally {

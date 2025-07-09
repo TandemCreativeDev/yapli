@@ -27,7 +27,7 @@ export const checkRoomNameAvailability = async (
     }
 
     return data;
-  } catch (error) {
+  } catch {
     return {
       available: false,
       title,
