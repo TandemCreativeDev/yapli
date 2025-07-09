@@ -80,6 +80,7 @@ model Chatroom {
 
   user User? @relation(fields: [userId], references: [id])
 
+  @@unique([title, userId], name: "unique_title_per_user")
   @@map("chatrooms")
 }
 
