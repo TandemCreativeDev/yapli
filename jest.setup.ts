@@ -19,8 +19,10 @@ Object.defineProperty(window, 'matchMedia', {
   })),
 });
 
-// Mock IntersectionObserver which is not implemented in jsdom
+// Mock IntersectionObserver, which is not implemented in jsdom,
+// @ts-expect-error This is used for mocks in websockets only
 global.IntersectionObserver = class IntersectionObserver {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   constructor(callback: IntersectionObserverCallback) {}
   disconnect() {
     return null;

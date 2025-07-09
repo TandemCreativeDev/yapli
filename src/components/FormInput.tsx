@@ -9,7 +9,6 @@ interface FormInputProps {
   maxLength?: number;
   disabled?: boolean;
   className?: string;
-  onKeyPress?: (e: React.KeyboardEvent) => void;
   onKeyDown?: (e: React.KeyboardEvent) => void;
 }
 
@@ -24,7 +23,6 @@ export default function FormInput({
   maxLength,
   disabled = false,
   className = "",
-  onKeyPress,
   onKeyDown,
 }: FormInputProps) {
   return (
