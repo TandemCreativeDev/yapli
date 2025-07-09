@@ -29,32 +29,52 @@ cd yapli
 2. Set up environment variables into `.env.local` (see `.env.example`)
 3. Start development server: `npm run dev`
 
-### 4. Create a Branch
+### 4. Pre-commit Hooks with Husky
+
+Yapli uses [Husky](https://typicode.github.io/husky/) to run pre-commit hooks that ensure code quality before commits:
+
+1. **Automatic Setup**: Husky is automatically installed and configured when you run `npm install` (via the `prepare` script)
+2. **Pre-commit Hook**: The pre-commit hook runs:
+   - `lint-staged`: Runs ESLint on staged JavaScript/TypeScript files
+   - `npm test`: Runs all tests to ensure nothing breaks
+
+If you're not seeing the pre-commit hooks run when you commit:
+
+1. Ensure Git hooks are enabled: `git config core.hooksPath .husky`
+2. Make sure Husky is installed: `npm run prepare`
+3. Verify the pre-commit hook is executable: `chmod +x .husky/pre-commit`
+
+To temporarily bypass the pre-commit hook (not recommended):
+```bash
+git commit -m "Your message" --no-verify
+```
+
+### 5. Create a Branch
 
 ```bash
 git checkout -b your-branch-name
 ```
 
-### 5. Make Your Changes
+### 6. Make Your Changes
 
 - Follow the code standards outlined in [CLAUDE.md](CLAUDE.md)
 - Write tests for new functionality
 - Ensure your code passes linting: `npm run lint` and `npm run build`
 
-### 6. Commit Your Changes
+### 7. Commit Your Changes
 
 ```bash
 git add .
 git commit -m "feat: add your feature description"
 ```
 
-### 7. Push to Your Fork
+### 8. Push to Your Fork
 
 ```bash
 git push origin your-branch-name
 ```
 
-### 8. Create a Pull Request
+### 9. Create a Pull Request
 
 1. Navigate to your fork on GitHub
 2. Click "New Pull Request"
