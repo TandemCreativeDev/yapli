@@ -10,6 +10,7 @@ interface FormInputProps {
   disabled?: boolean;
   className?: string;
   onKeyPress?: (e: React.KeyboardEvent) => void;
+  onKeyDown?: (e: React.KeyboardEvent) => void;
 }
 
 export default function FormInput({
@@ -24,6 +25,7 @@ export default function FormInput({
   disabled = false,
   className = "",
   onKeyPress,
+  onKeyDown,
 }: FormInputProps) {
   return (
     <div>
@@ -42,7 +44,7 @@ export default function FormInput({
         placeholder={placeholder}
         maxLength={maxLength}
         disabled={disabled}
-        onKeyPress={onKeyPress}
+        onKeyDown={onKeyDown}
         className={`w-full px-3 py-2 border border-border rounded-md bg-card text-text focus:outline-none focus:ring-2 focus:ring-yapli-teal focus:border-transparent disabled:opacity-50 ${className}`}
       />
     </div>

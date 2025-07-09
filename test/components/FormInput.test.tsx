@@ -67,13 +67,13 @@ describe('FormInput', () => {
     expect(screen.getByLabelText('Test Label')).toHaveClass('custom-class');
   });
 
-  it('calls onKeyPress when a key is pressed', () => {
-    const handleKeyPress = jest.fn();
-    render(<FormInput {...defaultProps} onKeyPress={handleKeyPress} />);
+  it('calls onKeyDown when a key is pressed', () => {
+    const handleKeyDown = jest.fn();
+    render(<FormInput {...defaultProps} onKeyDown={handleKeyDown} />);
 
-    fireEvent.keyPress(screen.getByLabelText('Test Label'), { key: 'Enter', code: 'Enter' });
+    fireEvent.keyDown(screen.getByLabelText('Test Label'), { key: 'Enter', code: 'Enter' });
 
-    expect(handleKeyPress).toHaveBeenCalledTimes(1);
+    expect(handleKeyDown).toHaveBeenCalledTimes(1);
   });
 
   it('renders with different input types', () => {
