@@ -13,6 +13,10 @@ Please delete options that are not relevant.
 - [ ] Enhancement (expand on / improve an existing feature)
 - [ ] This change requires a documentation update
 
+## Screenshots
+
+If this PR affects the UI in any way, please include screenshots. If not, you can delete this section.
+
 # Checklist:
 
 - [ ] My code follows the style guidelines of this project
