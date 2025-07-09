@@ -86,10 +86,10 @@ describe('ChatroomsList', () => {
 
   it('renders a list of chatrooms when available', () => {
     render(<ChatroomsList {...defaultProps} />);
-    expect(screen.getByText('Test Room 1')).toBeInTheDocument();
-    expect(screen.getByText('Test Room 2')).toBeInTheDocument();
-    expect(screen.getByText('10 messages • Created 1/1/2023')).toBeInTheDocument();
-    expect(screen.getByText('5 messages • Created 1/2/2023')).toBeInTheDocument();
+    expect(screen.getAllByText('Test Room 1')[0]).toBeInTheDocument();
+    expect(screen.getAllByText('Test Room 2')[0]).toBeInTheDocument();
+    expect(screen.getAllByText('10 messages • Created 1/1/2023')[0]).toBeInTheDocument();
+    expect(screen.getAllByText('5 messages • Created 1/2/2023')[0]).toBeInTheDocument();
   });
 
   it('calls handleCopyRoomUrl when copy URL button is clicked', () => {
@@ -117,10 +117,14 @@ describe('ChatroomsList', () => {
     render(<ChatroomsList {...defaultProps} />);
     const links = screen.getAllByTestId('next-link');
 
+    // There are 4 links total (2 for each room - mobile and desktop)
+    // links[0] and links[1] are for the first room
+    // links[2] and links[3] are for the second room
+
     // First room has roomUrl
     expect(links[0]).toHaveAttribute('href', '/test-room-1');
 
     // The second room doesn't have roomUrl, should use id
-    expect(links[1]).toHaveAttribute('href', '/room2');
+    expect(links[2]).toHaveAttribute('href', '/room2');
   });
 });
