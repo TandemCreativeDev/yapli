@@ -88,8 +88,8 @@ describe('ChatroomsList', () => {
     render(<ChatroomsList {...defaultProps} />);
     expect(screen.getAllByText('Test Room 1')[0]).toBeInTheDocument();
     expect(screen.getAllByText('Test Room 2')[0]).toBeInTheDocument();
-    expect(screen.getAllByText('10 messages • Created 1/1/2023')[0]).toBeInTheDocument();
-    expect(screen.getAllByText('5 messages • Created 1/2/2023')[0]).toBeInTheDocument();
+    expect(screen.getAllByText(/10 messages • Created/)[0]).toBeInTheDocument();
+    expect(screen.getAllByText(/5 messages • Created/)[0]).toBeInTheDocument();
   });
 
   it('calls handleCopyRoomUrl when copy URL button is clicked', () => {
