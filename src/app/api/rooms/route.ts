@@ -74,6 +74,21 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: "User not found" }, { status: 404 });
     }
 
+    // Check if user already has a room with this title
+    const existingRoomWithTitle = await prisma.chatroom.findFirst({
+      where: {
+        title: title.trim(),
+        userId: user.id,
+      },
+    });
+
+    if (existingRoomWithTitle) {
+      return NextResponse.json(
+        { error: "You already have a room with this name" },
+        { status: 409 },
+      );
+    }
+
     // Generate a unique room URL with collision handling
     let roomUrl: string;
     let attempts = 0;
