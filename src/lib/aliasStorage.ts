@@ -5,7 +5,7 @@
 const ALIAS_KEY_PREFIX = 'yapli_alias_';
 
 /**
- * Generate localStorage key for a specific room
+ * Generate a localStorage key for a specific room
  */
 function getAliasKey(roomId: string): string {
   return `${ALIAS_KEY_PREFIX}${roomId}`;
@@ -50,7 +50,21 @@ export function removeAlias(roomId: string): void {
  */
 export function isLocalStorageAvailable(): boolean {
   try {
-    return typeof window !== 'undefined' && 'localStorage' in window;
+    // Check if a window exists (for SSR)
+    if (typeof window === 'undefined') {
+      return false;
+    }
+
+    // Check if localStorage exists as a property
+    // This will catch both when localStorage is undefined and when accessing it throws an error
+    const storage = window.localStorage;
+
+    // Additional check to ensure localStorage is actually usable
+    const testKey = '__test__';
+    storage.setItem(testKey, testKey);
+    storage.removeItem(testKey);
+
+    return true;
   } catch {
     return false;
   }
