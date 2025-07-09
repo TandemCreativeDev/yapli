@@ -134,14 +134,25 @@ describe('aliasStorage utility', () => {
     });
 
     it('should return false when accessing localStorage throws an error', () => {
-      // Make accessing localStorage throw an error (as in some privacy modes)
-      Object.defineProperty(window, 'localStorage', {
-        get: () => {
-          throw new Error('SecurityError');
-        }
-      });
+      // Save original localStorage
+      const originalLocalStorage = Object.getOwnPropertyDescriptor(window, 'localStorage');
 
-      expect(isLocalStorageAvailable()).toBe(false);
+      try {
+        // Make accessing localStorage throw an error (as in some privacy modes)
+        Object.defineProperty(window, 'localStorage', {
+          get: () => {
+            throw new Error('SecurityError');
+          },
+          configurable: true
+        });
+
+        expect(isLocalStorageAvailable()).toBe(false);
+      } finally {
+        // Restore original localStorage after test
+        if (originalLocalStorage) {
+          Object.defineProperty(window, 'localStorage', originalLocalStorage);
+        }
+      }
     });
   });
 });
