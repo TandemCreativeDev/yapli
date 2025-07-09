@@ -12,7 +12,7 @@ export default function RoomCodeButton({ code, onClick, fullWidth = false }: Roo
       <button
         onClick={onClick}
         role="button"
-        aria-label="Copy room code {code} to clipboard"
+        aria-label={`Copy room code ${code} to clipboard`}
         className={clsx('px-2 py-1 bg-gray-300 text-gray-700 rounded text-base font-mono hover:bg-gray-200 cursor-pointer transition-colors',
           fullWidth ? 'w-full text-center' : '')
         }
