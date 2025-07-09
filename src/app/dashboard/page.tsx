@@ -90,8 +90,6 @@ export default function Home() {
       setShowRoomForm(false);
     } catch (error) {
       console.error("Error creating room:", error);
-      const errorMessage = error instanceof Error ? error.message : "Failed to create room. Please try again.";
-      alert(errorMessage);
     } finally {
       setCreatingRoom(false);
     }
