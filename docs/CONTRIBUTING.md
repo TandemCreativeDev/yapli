@@ -1,16 +1,66 @@
 # Contributing to Yapli
 
+Thank you for your interest in contributing to Yapli! This guide will help you get started with the contribution process.
+
 ## Prerequisites
 
 - Node.js 18+
 - npm package manager
+- Git
 
-## Development Setup
+## Getting Started
 
-1. Clone the repository
-2. Install dependencies: `npm install`
-3. Set up environment variables into `.env.local` (see `.env.example`)
-4. Start development server: `npm run dev`
+### 1. Fork the Repository
+
+1. Navigate to the [Yapli repository](https://github.com/tandemhub/yapli)
+2. Click the "Fork" button in the top right corner
+3. Select your GitHub account as the destination for the fork
+
+### 2. Clone Your Fork
+
+```bash
+git clone https://github.com/YOUR_USERNAME/yapli.git
+cd yapli
+```
+
+### 3. Set Up the Development Environment
+
+1. Install dependencies: `npm install`
+2. Set up environment variables into `.env.local` (see `.env.example`)
+3. Start development server: `npm run dev`
+
+### 4. Create a Branch
+
+```bash
+git checkout -b your-branch-name
+```
+
+### 5. Make Your Changes
+
+- Follow the code standards outlined in [CLAUDE.md](CLAUDE.md)
+- Write tests for new functionality
+- Ensure your code passes linting: `npm run lint` and `npm run build`
+
+### 6. Commit Your Changes
+
+```bash
+git add .
+git commit -m "feat: add your feature description"
+```
+
+### 7. Push to Your Fork
+
+```bash
+git push origin your-branch-name
+```
+
+### 8. Create a Pull Request
+
+1. Navigate to your fork on GitHub
+2. Click "New Pull Request"
+3. Select the base repository (tandemhub/yapli) and base branch (main)
+4. Select your fork and feature branch
+5. Fill out the pull request template
 
 ## Code Standards
 
