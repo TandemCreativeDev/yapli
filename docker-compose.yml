@@ -1,30 +1,20 @@
-services:
-  app:
-    build: .
-    container_name: zest_app
-    ports:
-      - "3000:3000"
-    restart: unless-stopped
-    env_file:
-      - .env.production
-    depends_on:
-      postgres:
-        condition: service_healthy
-    environment:
-      - NODE_ENV=production
+networks:
+  yapli-tunnel:
+    external: true
 
-  postgres:
-    image: postgres:17
-    container_name: zest_postgres
+services:
+  db:
+    image: postgres:18-alpine
+    container_name: yapli_db
     environment:
       POSTGRES_DB: ${POSTGRES_DB}
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
       POSTGRES_HOST_AUTH_METHOD: md5
-    ports:
-      - "5433:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
+    networks:
+      - yapli-tunnel
     restart: unless-stopped
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
@@ -32,31 +22,51 @@ services:
       timeout: 5s
       retries: 5
 
-  postgres_dev:
-    image: postgres:17
-    container_name: zest_postgres_dev
+  db-migrate:
+    image: ${IMAGE_TAG:-yapli:latest}
+    command: ["npx", "prisma", "migrate", "deploy"]
+    env_file:
+      - .env.production
     environment:
-      POSTGRES_DB: ${POSTGRES_DEV_DB}
-      POSTGRES_USER: ${POSTGRES_DEV_USER}
-      POSTGRES_PASSWORD: ${POSTGRES_DEV_PASSWORD}
-      POSTGRES_HOST_AUTH_METHOD: md5
-    ports:
-      - "5434:5432"
-    volumes:
-      - postgres_dev_data:/var/lib/postgresql/data
+      DATABASE_URL: postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DB}
+      NODE_ENV: production
+    networks:
+      - yapli-tunnel
+    depends_on:
+      db:
+        condition: service_healthy
+    restart: "no"
+
+  app:
+    container_name: yapli_app
+    image: ${IMAGE_TAG:-yapli:latest}
+    # Port mappings removed - use Cloudflare tunnel instead
+    # ports:
+    #   - "3000:3000"
+    networks:
+      - yapli-tunnel
+    env_file:
+      - .env.production
+    environment:
+      # Database connection
+      DATABASE_URL: postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DB}
+      # Auth
+      NEXTAUTH_URL: ${NEXTAUTH_URL:-https://yapli.chat}
+      NEXTAUTH_SECRET: ${NEXTAUTH_SECRET}
+      # Application config
+      NODE_ENV: production
+      NEXT_TELEMETRY_DISABLED: ${NEXT_TELEMETRY_DISABLED:-1}
+    depends_on:
+      db-migrate:
+        condition: service_completed_successfully
     restart: unless-stopped
-    healthcheck:
-      test:
-        [
-          "CMD-SHELL",
-          "pg_isready -U ${POSTGRES_DEV_USER} -d ${POSTGRES_DEV_DB}",
-        ]
-      interval: 10s
-      timeout: 5s
-      retries: 5
+    deploy:
+      resources:
+        limits:
+          memory: 1G
+        reservations:
+          memory: 512M
 
 volumes:
   postgres_data:
-    driver: local
-  postgres_dev_data:
     driver: local
