@@ -1,5 +1,5 @@
 networks:
-  zestdev:
+  yapli-tunnel:
     external: true
 
 services:
@@ -14,7 +14,7 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
     networks:
-      - zestdev
+      - yapli-tunnel
     restart: unless-stopped
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
@@ -31,7 +31,7 @@ services:
       DATABASE_URL: ${DATABASE_URL}
       NODE_ENV: production
     networks:
-      - zestdev
+      - yapli-tunnel
     depends_on:
       db:
         condition: service_healthy
@@ -44,7 +44,7 @@ services:
     # ports:
     #   - "3000:3000"
     networks:
-      - zestdev
+      - yapli-tunnel
     env_file:
       - .env.production
     environment:
