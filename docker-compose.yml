@@ -24,7 +24,7 @@ services:
 
   db-migrate:
     build: .
-    command: ["npx", "prisma", "migrate", "deploy"]
+    command: ["npx", "prisma@6.8.2", "migrate", "deploy"]
     env_file:
       - .env.production
     environment:
