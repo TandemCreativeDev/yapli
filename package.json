@@ -4,12 +4,18 @@
   "private": true,
   "scripts": {
     "dev": "node server.js",
-    "proddb": "node -r dotenv/config server.js dotenv_config_path=.env.production",
     "build": "next build",
     "start": "node -r dotenv/config server.js dotenv_config_path=.env.production",
     "lint": "next lint",
     "test": "jest",
-    "test:watch": "jest --watch"
+    "test:watch": "jest --watch",
+    "db:generate": "prisma generate",
+    "db:migrate": "prisma migrate dev",
+    "db:migrate:deploy": "prisma migrate deploy",
+    "db:push": "prisma db push",
+    "db:studio": "prisma studio",
+    "db:setup": "createdb yapli_db && npm run db:migrate",
+    "db:reset": "dropdb yapli_db && createdb yapli_db && npm run db:migrate"
   },
   "dependencies": {
     "@auth/prisma-adapter": "^2.9.1",
