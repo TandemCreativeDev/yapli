@@ -1,26 +1,44 @@
-# Use the official Node.js runtime as the base image
-FROM node:18-alpine
+FROM node:22-alpine AS builder
 
-# Set the working directory in the container
+RUN apk add --no-cache curl postgresql-client
+
 WORKDIR /app
 
-# Copy package.json and package-lock.json (if available)
-COPY package*.json ./
+# Accept build arguments for public environment variables
+ARG NEXT_PUBLIC_API_URL
 
-# Install  dependencies
+# Make them available as environment variables during build
+ENV NEXT_PUBLIC_API_URL=$NEXT_PUBLIC_API_URL
+
+COPY package*.json ./
 RUN npm ci
 
-# Copy the rest of the application code
 COPY . .
-
-# Generate Prisma client
 RUN npx prisma generate
-
-# Build the Next.js application
 RUN npm run build
 
-# Expose the port the app runs on
+FROM node:22-alpine AS production
+
+RUN apk add --no-cache curl postgresql-client && \
+    addgroup --system --gid 1001 nodejs && \
+    adduser --system --uid 1001 nextjs
+
+WORKDIR /app
+
+COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
+COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
+COPY --from=builder --chown=nextjs:nodejs /app/public ./public
+COPY --from=builder --chown=nextjs:nodejs /app/prisma ./prisma
+COPY --from=builder --chown=nextjs:nodejs /app/package.json ./package.json
+
+USER nextjs
+
+ENV PORT=3000 \
+    HOSTNAME="0.0.0.0"
+
 EXPOSE 3000
 
-# Define the command to run the application
-CMD ["npm", "start"]
+HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
+  CMD curl -f http://localhost:3000/api/health || exit 1
+
+CMD ["node", "server.js"]
