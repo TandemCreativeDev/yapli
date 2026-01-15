@@ -1,0 +1,38 @@
+# Environment files - should be injected at runtime, not baked into image
+.env
+.env.*
+!.env.example
+
+# Git
+.git
+.gitignore
+
+# Dependencies
+node_modules
+
+# Build outputs
+.next
+out
+dist
+
+# Logs
+*.log
+npm-debug.log*
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode
+.idea
+*.swp
+*.swo
+
+# Testing
+coverage
+.nyc_output
+
+# Misc
+README.md
+docker-compose.yml
