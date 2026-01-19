@@ -4,7 +4,7 @@ Thank you for your interest in contributing to Yapli! This guide will help you g
 
 ## Prerequisites
 
-- Node.js 18+
+- Node.js 22+
 - npm package manager
 - Git
 
@@ -12,7 +12,7 @@ Thank you for your interest in contributing to Yapli! This guide will help you g
 
 ### 1. Fork the Repository
 
-1. Navigate to the [Yapli repository](https://github.com/tandemhub/yapli)
+1. Navigate to the [Yapli repository](https://github.com/tandemcreativedev/yapli)
 2. Click the "Fork" button in the top right corner
 3. Select your GitHub account as the destination for the fork
 
