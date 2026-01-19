@@ -27,6 +27,9 @@ app.prepare().then(() => {
       origin: dev ? ["http://localhost:3000"] : false,
       methods: ["GET", "POST"],
     },
+    // Allow connections through reverse proxies like Cloudflare tunnel
+    allowEIO3: true,
+    transports: ["websocket", "polling"],
   });
 
   io.on("connection", (socket) => {

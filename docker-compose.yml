@@ -24,6 +24,7 @@ services:
 
   db-migrate:
     build: .
+    image: yapli-app:latest
     command: ["npx", "prisma@6.8.2", "migrate", "deploy"]
     env_file:
       - .env.production
@@ -40,6 +41,7 @@ services:
   app:
     container_name: yapli_app
     build: .
+    image: yapli-app:latest
     # Port mappings removed - use Cloudflare tunnel instead
     # ports:
     #   - "3000:3000"
