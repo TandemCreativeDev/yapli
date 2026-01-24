@@ -30,6 +30,12 @@ COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
 COPY --from=builder --chown=nextjs:nodejs /app/public ./public
 COPY --from=builder --chown=nextjs:nodejs /app/prisma ./prisma
 COPY --from=builder --chown=nextjs:nodejs /app/package.json ./package.json
+COPY --from=builder --chown=nextjs:nodejs /app/package-lock.json ./package-lock.json
+COPY --from=builder --chown=nextjs:nodejs /app/server.js ./server.js
+
+# Install socket.io for custom server (not included in standalone build)
+RUN npm install --omit=dev socket.io && \
+    chown -R nextjs:nodejs /app/node_modules
 
 USER nextjs
 
